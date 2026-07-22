@@ -13,8 +13,8 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Nelson & Cidália — 27 de Novembro de 2026" },
       { name: "description", content: "Com imensa alegria, convidamos você a celebrar connosco o nosso casamento no dia 27 de Novembro de 2026. #NelsonCidalia2026" },
-      { property: "og:title", content: "Nelson & Cidália — Casamento" },
-      { property: "og:description", content: "Celebre connosco no dia 27 de Novembro de 2026." },
+      { property: "og:title", content: "Nelson & Cidália — 27 de Novembro de 2026" },
+      { property: "og:description", content: "Com imensa alegria, convidamos você a celebrar connosco o nosso casamento no dia 27 de Novembro de 2026. #NelsonCidalia2026" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
