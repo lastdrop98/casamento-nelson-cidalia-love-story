@@ -49,6 +49,91 @@ export type Database = {
           },
         ]
       }
+      gifts: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          name: string
+          price_label: string | null
+          reserved_by_name: string | null
+          reserved_by_phone: string | null
+          sort_order: number
+          status: string
+          updated_at: string
+          wedding_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          price_label?: string | null
+          reserved_by_name?: string | null
+          reserved_by_phone?: string | null
+          sort_order?: number
+          status?: string
+          updated_at?: string
+          wedding_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          price_label?: string | null
+          reserved_by_name?: string | null
+          reserved_by_phone?: string | null
+          sort_order?: number
+          status?: string
+          updated_at?: string
+          wedding_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gifts_wedding_id_fkey"
+            columns: ["wedding_id"]
+            isOneToOne: false
+            referencedRelation: "weddings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          created_at: string
+          guest_name: string | null
+          id: string
+          message: string
+          wedding_id: string
+        }
+        Insert: {
+          created_at?: string
+          guest_name?: string | null
+          id?: string
+          message: string
+          wedding_id: string
+        }
+        Update: {
+          created_at?: string
+          guest_name?: string | null
+          id?: string
+          message?: string
+          wedding_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_wedding_id_fkey"
+            columns: ["wedding_id"]
+            isOneToOne: false
+            referencedRelation: "weddings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       rsvps: {
         Row: {
           attending: boolean
@@ -80,6 +165,47 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "rsvps_wedding_id_fkey"
+            columns: ["wedding_id"]
+            isOneToOne: false
+            referencedRelation: "weddings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      schedule: {
+        Row: {
+          created_at: string
+          description: string | null
+          icon: string | null
+          id: string
+          sort_order: number
+          time_label: string
+          title: string
+          wedding_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          sort_order?: number
+          time_label: string
+          title: string
+          wedding_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          sort_order?: number
+          time_label?: string
+          title?: string
+          wedding_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "schedule_wedding_id_fkey"
             columns: ["wedding_id"]
             isOneToOne: false
             referencedRelation: "weddings"

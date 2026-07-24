@@ -8,7 +8,12 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
+import { BottomNav } from "@/components/wedding/BottomNav";
+import { Signature } from "@/components/wedding/Signature";
+import { music } from "@/lib/music";
+import { fetchWedding, signUrl } from "@/lib/wedding";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -67,13 +72,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Com imensa alegria, convidamos você a celebrar connosco o nosso casamento no dia 27 de Novembro de 2026. #NelsonCidalia2026" },
       { property: "og:description", content: "Com imensa alegria, convidamos você a celebrar connosco o nosso casamento no dia 27 de Novembro de 2026. #NelsonCidalia2026" },
       { name: "twitter:description", content: "Com imensa alegria, convidamos você a celebrar connosco o nosso casamento no dia 27 de Novembro de 2026. #NelsonCidalia2026" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0d8ff2bf-6ae8-4f1c-be03-e60d9f480952" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0d8ff2bf-6ae8-4f1c-be03-e60d9f480952" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Great+Vibes&display=swap" },
     ],
   }),
   shellComponent: RootShell,
@@ -96,11 +102,28 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function MusicLoader() {
+  const q = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
+  const musicPath = q.data?.music_path ?? null;
+  const urlQ = useQuery({
+    queryKey: ["music", musicPath],
+    queryFn: () => signUrl("wedding-audio", musicPath),
+    enabled: !!musicPath,
+  });
+  useEffect(() => {
+    if (urlQ.data) music.setSrc(urlQ.data);
+  }, [urlQ.data]);
+  return null;
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
+      <MusicLoader />
       <Outlet />
+      <BottomNav />
+      <Signature />
       <Toaster position="top-center" />
     </QueryClientProvider>
   );

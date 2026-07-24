@@ -9,10 +9,70 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RsvpRouteImport } from './routes/rsvp'
+import { Route as ProgramaRouteImport } from './routes/programa'
+import { Route as PresentesRouteImport } from './routes/presentes'
+import { Route as MensagemRouteImport } from './routes/mensagem'
+import { Route as LocalizacaoRouteImport } from './routes/localizacao'
+import { Route as HomeRouteImport } from './routes/home'
+import { Route as HistoriaRouteImport } from './routes/historia'
+import { Route as GaleriaRouteImport } from './routes/galeria'
+import { Route as DresscodeRouteImport } from './routes/dresscode'
+import { Route as ContactosRouteImport } from './routes/contactos'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 
+const RsvpRoute = RsvpRouteImport.update({
+  id: '/rsvp',
+  path: '/rsvp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgramaRoute = ProgramaRouteImport.update({
+  id: '/programa',
+  path: '/programa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PresentesRoute = PresentesRouteImport.update({
+  id: '/presentes',
+  path: '/presentes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MensagemRoute = MensagemRouteImport.update({
+  id: '/mensagem',
+  path: '/mensagem',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocalizacaoRoute = LocalizacaoRouteImport.update({
+  id: '/localizacao',
+  path: '/localizacao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoriaRoute = HistoriaRouteImport.update({
+  id: '/historia',
+  path: '/historia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GaleriaRoute = GaleriaRouteImport.update({
+  id: '/galeria',
+  path: '/galeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DresscodeRoute = DresscodeRouteImport.update({
+  id: '/dresscode',
+  path: '/dresscode',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactosRoute = ContactosRouteImport.update({
+  id: '/contactos',
+  path: '/contactos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -33,34 +93,184 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
+  '/contactos': typeof ContactosRoute
+  '/dresscode': typeof DresscodeRoute
+  '/galeria': typeof GaleriaRoute
+  '/historia': typeof HistoriaRoute
+  '/home': typeof HomeRoute
+  '/localizacao': typeof LocalizacaoRoute
+  '/mensagem': typeof MensagemRoute
+  '/presentes': typeof PresentesRoute
+  '/programa': typeof ProgramaRoute
+  '/rsvp': typeof RsvpRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
+  '/contactos': typeof ContactosRoute
+  '/dresscode': typeof DresscodeRoute
+  '/galeria': typeof GaleriaRoute
+  '/historia': typeof HistoriaRoute
+  '/home': typeof HomeRoute
+  '/localizacao': typeof LocalizacaoRoute
+  '/mensagem': typeof MensagemRoute
+  '/presentes': typeof PresentesRoute
+  '/programa': typeof ProgramaRoute
+  '/rsvp': typeof RsvpRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
+  '/contactos': typeof ContactosRoute
+  '/dresscode': typeof DresscodeRoute
+  '/galeria': typeof GaleriaRoute
+  '/historia': typeof HistoriaRoute
+  '/home': typeof HomeRoute
+  '/localizacao': typeof LocalizacaoRoute
+  '/mensagem': typeof MensagemRoute
+  '/presentes': typeof PresentesRoute
+  '/programa': typeof ProgramaRoute
+  '/rsvp': typeof RsvpRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/auth'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/contactos'
+    | '/dresscode'
+    | '/galeria'
+    | '/historia'
+    | '/home'
+    | '/localizacao'
+    | '/mensagem'
+    | '/presentes'
+    | '/programa'
+    | '/rsvp'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/auth'
-  id: '__root__' | '/' | '/admin' | '/auth'
+  to:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/contactos'
+    | '/dresscode'
+    | '/galeria'
+    | '/historia'
+    | '/home'
+    | '/localizacao'
+    | '/mensagem'
+    | '/presentes'
+    | '/programa'
+    | '/rsvp'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/contactos'
+    | '/dresscode'
+    | '/galeria'
+    | '/historia'
+    | '/home'
+    | '/localizacao'
+    | '/mensagem'
+    | '/presentes'
+    | '/programa'
+    | '/rsvp'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
   AuthRoute: typeof AuthRoute
+  ContactosRoute: typeof ContactosRoute
+  DresscodeRoute: typeof DresscodeRoute
+  GaleriaRoute: typeof GaleriaRoute
+  HistoriaRoute: typeof HistoriaRoute
+  HomeRoute: typeof HomeRoute
+  LocalizacaoRoute: typeof LocalizacaoRoute
+  MensagemRoute: typeof MensagemRoute
+  PresentesRoute: typeof PresentesRoute
+  ProgramaRoute: typeof ProgramaRoute
+  RsvpRoute: typeof RsvpRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/rsvp': {
+      id: '/rsvp'
+      path: '/rsvp'
+      fullPath: '/rsvp'
+      preLoaderRoute: typeof RsvpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/programa': {
+      id: '/programa'
+      path: '/programa'
+      fullPath: '/programa'
+      preLoaderRoute: typeof ProgramaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/presentes': {
+      id: '/presentes'
+      path: '/presentes'
+      fullPath: '/presentes'
+      preLoaderRoute: typeof PresentesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mensagem': {
+      id: '/mensagem'
+      path: '/mensagem'
+      fullPath: '/mensagem'
+      preLoaderRoute: typeof MensagemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/localizacao': {
+      id: '/localizacao'
+      path: '/localizacao'
+      fullPath: '/localizacao'
+      preLoaderRoute: typeof LocalizacaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/historia': {
+      id: '/historia'
+      path: '/historia'
+      fullPath: '/historia'
+      preLoaderRoute: typeof HistoriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/galeria': {
+      id: '/galeria'
+      path: '/galeria'
+      fullPath: '/galeria'
+      preLoaderRoute: typeof GaleriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dresscode': {
+      id: '/dresscode'
+      path: '/dresscode'
+      fullPath: '/dresscode'
+      preLoaderRoute: typeof DresscodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contactos': {
+      id: '/contactos'
+      path: '/contactos'
+      fullPath: '/contactos'
+      preLoaderRoute: typeof ContactosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -89,6 +299,16 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   AuthRoute: AuthRoute,
+  ContactosRoute: ContactosRoute,
+  DresscodeRoute: DresscodeRoute,
+  GaleriaRoute: GaleriaRoute,
+  HistoriaRoute: HistoriaRoute,
+  HomeRoute: HomeRoute,
+  LocalizacaoRoute: LocalizacaoRoute,
+  MensagemRoute: MensagemRoute,
+  PresentesRoute: PresentesRoute,
+  ProgramaRoute: ProgramaRoute,
+  RsvpRoute: RsvpRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
