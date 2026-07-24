@@ -3,12 +3,13 @@ import { createPortal } from "react-dom";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { Home, Calendar, CheckCircle, Camera, Grid2x2, ChevronRight, X } from "lucide-react";
 
-const TABS = [
+type Tab = { to: "/home" | "/programa" | "/rsvp" | "/galeria"; label: string; Icon: typeof Home; center?: boolean };
+const TABS: Tab[] = [
   { to: "/home", label: "INÍCIO", Icon: Home },
   { to: "/programa", label: "PROGRAMA", Icon: Calendar },
   { to: "/rsvp", label: "CONFIRMAR", Icon: CheckCircle, center: true },
   { to: "/galeria", label: "GALERIA", Icon: Camera },
-] as const;
+];
 
 const MORE_ITEMS = [
   { to: "/historia", label: "Nossa História" },
