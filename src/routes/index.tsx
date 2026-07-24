@@ -1,247 +1,136 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { fetchWedding, fetchGallery, signUrl } from "@/lib/wedding";
-import { Countdown } from "@/components/wedding/Countdown";
-import { GoldDivider } from "@/components/wedding/GoldDivider";
-import { MusicToggle } from "@/components/wedding/MusicToggle";
-import { RsvpForm } from "@/components/wedding/RsvpForm";
-import coverFallback from "@/assets/cover-fallback.jpg";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { fetchWedding, signUrl } from "@/lib/wedding";
+import { music } from "@/lib/music";
+import coverFallback from "@/assets/cover-fallback.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Nelson & Cidália — 27 de Novembro de 2026" },
-      { name: "description", content: "Com imensa alegria, convidamos você a celebrar connosco o nosso casamento no dia 27 de Novembro de 2026. #NelsonCidalia2026" },
-      { property: "og:title", content: "Nelson & Cidália — 27 de Novembro de 2026" },
-      { property: "og:description", content: "Com imensa alegria, convidamos você a celebrar connosco o nosso casamento no dia 27 de Novembro de 2026. #NelsonCidalia2026" },
+      { title: "Nelson & Cidália — Convite Digital" },
+      { name: "description", content: "Save the date — 27 de Novembro de 2026. #NelsonCidália2026" },
+      { property: "og:title", content: "Nelson & Cidália — 27.11.2026" },
+      { property: "og:description", content: "Save the date — 27 de Novembro de 2026." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Great+Vibes&display=swap" },
-    ],
   }),
-  component: InvitationPage,
+  component: Splash,
 });
 
-const MONTHS_PT = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-function formatPt(d: Date) {
-  return `${d.getDate()} de ${MONTHS_PT[d.getMonth()]} de ${d.getFullYear()}`;
-}
-
-function InvitationPage() {
-  const [opened, setOpened] = useState(false);
-
-  const weddingQ = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
-  const wedding = weddingQ.data;
-
-  const galleryQ = useQuery({
-    queryKey: ["gallery", wedding?.id],
-    queryFn: () => fetchGallery(wedding!.id),
-    enabled: !!wedding?.id,
-  });
-
+function Splash() {
+  const navigate = useNavigate();
+  const [opening, setOpening] = useState(false);
+  const wQ = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
   const coverQ = useQuery({
-    queryKey: ["cover", wedding?.cover_image_path],
-    queryFn: () => signUrl("wedding-cover", wedding?.cover_image_path),
-    enabled: !!wedding,
+    queryKey: ["cover", wQ.data?.cover_image_path],
+    queryFn: () => signUrl("wedding-cover", wQ.data?.cover_image_path),
+    enabled: !!wQ.data,
   });
 
-  const musicQ = useQuery({
-    queryKey: ["music", wedding?.music_path],
-    queryFn: () => signUrl("wedding-audio", wedding?.music_path),
-    enabled: !!wedding,
-  });
-
-  const [galleryUrls, setGalleryUrls] = useState<Array<{ id: string; url: string; caption: string | null }>>([]);
-  useEffect(() => {
-    let cancelled = false;
-    async function run() {
-      if (!galleryQ.data) return;
-      const items = await Promise.all(
-        galleryQ.data.map(async (g) => ({
-          id: g.id,
-          caption: g.caption,
-          url: (await signUrl("wedding-gallery", g.image_path)) ?? "",
-        }))
-      );
-      if (!cancelled) setGalleryUrls(items.filter((i) => i.url));
-    }
-    run();
-    return () => { cancelled = true; };
-  }, [galleryQ.data]);
-
-  if (weddingQ.isLoading || !wedding) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[var(--ivory)]">
-        <p className="font-script text-4xl text-[var(--gold)]">Nelson & Cidália</p>
-      </div>
-    );
-  }
-
-  const date = new Date(wedding.wedding_date);
   const coverUrl = coverQ.data ?? coverFallback;
 
-  return (
-    <div className="bg-[var(--ivory)] text-foreground min-h-screen">
-      <MusicToggle src={musicQ.data ?? null} />
+  useEffect(() => {
+    if (coverQ.data) {
+      const img = new Image();
+      img.src = coverQ.data;
+    }
+  }, [coverQ.data]);
 
-      {/* COVER */}
-      <section
-        className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 py-20"
-        style={{
-          backgroundImage: `linear-gradient(rgba(250,245,230,0.5), rgba(250,245,230,0.7)), url(${coverUrl})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+  const openInvite = async () => {
+    setOpening(true);
+    await music.play();
+    setTimeout(() => navigate({ to: "/home" }), 450);
+  };
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        position: "relative",
+        backgroundImage: `linear-gradient(180deg, rgba(14,32,20,0.35) 0%, rgba(14,32,20,0.55) 45%, rgba(14,32,20,0.92) 100%), url(${coverUrl})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center 20%",
+        backgroundColor: "#0E2014",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        textAlign: "center",
+        padding: "60px 24px 80px",
+        color: "#F5EDD8",
+      }}
+    >
+      {/* Ornate double frame */}
+      <div style={{
+        position: "absolute", inset: 14,
+        border: "1px solid rgba(201,168,76,0.55)", pointerEvents: "none",
+      }} />
+      <div style={{
+        position: "absolute", inset: 22,
+        border: "1px solid rgba(201,168,76,0.25)", pointerEvents: "none",
+      }} />
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: opening ? 0 : 1, y: opening ? -20 : 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        style={{ position: "relative", zIndex: 2 }}
       >
-        <p className="uppercase tracking-[0.5em] text-xs text-[var(--gold)]">Save the Date</p>
-        <div className="mt-8">
-          <p className="font-script text-6xl sm:text-8xl text-[var(--gold)] leading-none">
-            {wedding.display_names.split(" & ")[0]}
-          </p>
-          <p className="text-[var(--gold)] my-2 uppercase tracking-[0.4em] text-sm">&</p>
-          <p className="font-script text-6xl sm:text-8xl text-[var(--gold)] leading-none">
-            {wedding.display_names.split(" & ")[1]}
-          </p>
+        <p style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: 10, letterSpacing: 6, textTransform: "uppercase",
+          color: "#C9A84C", marginBottom: 24,
+        }}>Save the Date</p>
+
+        <p style={{
+          fontFamily: "'Great Vibes', cursive",
+          fontSize: 76, lineHeight: 1, color: "#F5EDD8",
+          textShadow: "0 2px 20px rgba(0,0,0,0.5)",
+        }}>Nelson</p>
+        <p style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: 22, color: "#C9A84C", margin: "6px 0",
+          fontStyle: "italic",
+        }}>&</p>
+        <p style={{
+          fontFamily: "'Great Vibes', cursive",
+          fontSize: 76, lineHeight: 1, color: "#F5EDD8",
+          textShadow: "0 2px 20px rgba(0,0,0,0.5)",
+        }}>Cidália</p>
+
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, margin: "28px 0" }}>
+          <div style={{ width: 40, height: 1, background: "#C9A84C" }} />
+          <span style={{ color: "#C9A84C", fontSize: 8 }}>✦</span>
+          <div style={{ width: 40, height: 1, background: "#C9A84C" }} />
         </div>
-        <GoldDivider />
-        <p className="text-lg sm:text-xl tracking-[0.25em] uppercase font-light">
-          {formatPt(date)}
-        </p>
 
-        {!opened && (
-          <button
-            onClick={() => {
-              setOpened(true);
-              setTimeout(() => {
-                document.getElementById("welcome")?.scrollIntoView({ behavior: "smooth" });
-              }, 100);
-            }}
-            className="mt-12 border border-[var(--gold)] px-8 py-3 text-xs uppercase tracking-[0.35em] text-[var(--gold)] hover:bg-[var(--gold)] hover:text-[var(--primary-foreground)] transition"
-          >
-            Abrir Convite
-          </button>
-        )}
-      </section>
+        <p style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: 12, letterSpacing: 5, textTransform: "uppercase",
+          color: "#E7D9A8",
+        }}>27 · 11 · 2026 &nbsp;·&nbsp; Maputo</p>
 
-      {opened && (
-        <>
-          {/* WELCOME */}
-          <section id="welcome" className="px-6 py-24 max-w-2xl mx-auto text-center">
-            <p className="uppercase tracking-[0.4em] text-xs text-[var(--gold)]">Bem-vindos</p>
-            <GoldDivider />
-            <p className="text-xl sm:text-2xl font-light italic leading-relaxed text-foreground/80">
-              "{wedding.welcome_message}"
-            </p>
-            <p className="mt-8 font-script text-3xl text-[var(--gold)]">
-              {wedding.display_names}
-            </p>
-          </section>
-
-          {/* COUNTDOWN */}
-          <section className="px-6 py-20 bg-card/40">
-            <div className="max-w-3xl mx-auto text-center">
-              <p className="uppercase tracking-[0.4em] text-xs text-[var(--gold)]">Contagem Decrescente</p>
-              <GoldDivider />
-              <Countdown date={wedding.wedding_date} />
-            </div>
-          </section>
-
-          {/* DETAILS */}
-          <section className="px-6 py-24 max-w-3xl mx-auto">
-            <div className="text-center">
-              <p className="uppercase tracking-[0.4em] text-xs text-[var(--gold)]">Detalhes</p>
-              <GoldDivider />
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-10 mt-6">
-              <DetailCard
-                title="Cerimónia"
-                time={wedding.ceremony_time ?? undefined}
-                venue={wedding.ceremony_venue ?? undefined}
-                address={wedding.ceremony_address ?? undefined}
-              />
-              <DetailCard
-                title="Recepção"
-                time={wedding.reception_time ?? undefined}
-                venue={wedding.reception_venue ?? undefined}
-                address={wedding.reception_address ?? undefined}
-              />
-            </div>
-
-            {wedding.dress_code && (
-              <div className="mt-12 text-center">
-                <p className="uppercase tracking-[0.3em] text-xs text-[var(--gold)]">Traje</p>
-                <p className="mt-2 text-lg">{wedding.dress_code}</p>
-              </div>
-            )}
-          </section>
-
-          {/* GALLERY */}
-          {galleryUrls.length > 0 && (
-            <section className="px-6 py-24 bg-card/40">
-              <div className="text-center">
-                <p className="uppercase tracking-[0.4em] text-xs text-[var(--gold)]">Momentos</p>
-                <GoldDivider />
-              </div>
-              <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-                {galleryUrls.map((g) => (
-                  <figure key={g.id} className="aspect-[3/4] overflow-hidden bg-muted">
-                    <img
-                      src={g.url}
-                      alt={g.caption ?? "Foto"}
-                      className="w-full h-full object-cover hover:scale-105 transition duration-700"
-                      loading="lazy"
-                    />
-                  </figure>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* RSVP */}
-          <section id="rsvp" className="px-6 py-24">
-            <div className="text-center">
-              <p className="uppercase tracking-[0.4em] text-xs text-[var(--gold)]">Confirmação</p>
-              <GoldDivider label="RSVP" />
-              <p className="max-w-md mx-auto text-muted-foreground mb-10">
-                Por favor confirme a sua presença para que possamos preparar tudo com carinho.
-              </p>
-            </div>
-            <RsvpForm weddingId={wedding.id} />
-          </section>
-
-          {/* FOOTER */}
-          <footer className="px-6 py-16 text-center bg-card/40">
-            <p className="font-script text-4xl text-[var(--gold)]">{wedding.display_names}</p>
-            <p className="mt-3 uppercase tracking-[0.35em] text-xs text-[var(--gold)]">
-              {formatPt(date)}
-            </p>
-            {wedding.hashtag && (
-              <p className="mt-6 text-sm text-muted-foreground">{wedding.hashtag}</p>
-            )}
-            <p className="mt-10 text-[10px] uppercase tracking-widest text-muted-foreground">
-              <Link to="/admin" className="hover:text-[var(--gold)]">Admin</Link>
-            </p>
-          </footer>
-        </>
-      )}
-    </div>
-  );
-}
-
-function DetailCard({ title, time, venue, address }: { title: string; time?: string; venue?: string; address?: string }) {
-  return (
-    <div className="text-center border border-[var(--gold)]/30 p-8 bg-card/50">
-      <p className="font-script text-3xl text-[var(--gold)]">{title}</p>
-      <div className="w-10 h-px bg-[var(--gold)]/60 mx-auto my-4" />
-      {time && <p className="text-lg tracking-widest">{time}</p>}
-      {venue && <p className="mt-2 text-base">{venue}</p>}
-      {address && <p className="mt-1 text-sm text-muted-foreground">{address}</p>}
+        <button
+          onClick={openInvite}
+          disabled={opening}
+          style={{
+            marginTop: 44,
+            border: "1px solid #C9A84C",
+            background: "rgba(27,53,38,0.4)",
+            color: "#C9A84C",
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: 11, letterSpacing: 5, textTransform: "uppercase",
+            padding: "14px 34px",
+            cursor: "pointer",
+            transition: "all 0.3s",
+          }}
+        >
+          {opening ? "A abrir..." : "Abrir Convite"}
+        </button>
+      </motion.div>
     </div>
   );
 }
