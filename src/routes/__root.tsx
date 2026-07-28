@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
 import { BottomNav } from "@/components/wedding/BottomNav";
+import { MusicButton } from "@/components/wedding/MusicButton";
 import { Signature } from "@/components/wedding/Signature";
 import { music } from "@/lib/music";
 import { fetchWedding, signUrl } from "@/lib/wedding";
@@ -123,6 +124,7 @@ function RootComponent() {
       <MusicLoader />
       <Outlet />
       <BottomNav />
+      <MusicButton />
       <Signature />
       <Toaster position="top-center" />
     </QueryClientProvider>

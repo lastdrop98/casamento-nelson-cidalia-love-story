@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+import { Church, Landmark, MapPin, Navigation, ClipboardCopy } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { PageShell } from "@/components/wedding/PageShell";
@@ -15,9 +17,9 @@ export const Route = createFileRoute("/localizacao")({
 });
 
 function LocationCard({
-  icon, eyebrow, name, address, time, mapsUrl, wazeUrl, copyText,
+  Icon, eyebrow, name, address, time, mapsUrl, wazeUrl, copyText,
 }: {
-  icon: string; eyebrow: string; name: string; address: string; time?: string;
+  Icon: LucideIcon; eyebrow: string; name: string; address: string; time?: string;
   mapsUrl: string; wazeUrl: string; copyText?: string;
 }) {
   const gold = "#C9A84C";
@@ -27,7 +29,7 @@ function LocationCard({
       background: "rgba(255,252,245,0.9)",
       borderRadius: 14, padding: 20,
     }}>
-      <p style={{ fontSize: 30, color: gold }}>{icon}</p>
+      <Icon size={30} color={gold} strokeWidth={1.4} />
       <p style={{
         fontFamily: "'Cormorant Garamond', serif",
         fontSize: 9, letterSpacing: 3, color: gold, textTransform: "uppercase", marginTop: 6,
@@ -46,26 +48,29 @@ function LocationCard({
       }}>{time}</p>}
       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 14 }}>
         <a href={mapsUrl} target="_blank" rel="noreferrer" style={{
+          display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
           textAlign: "center", padding: "10px 16px", borderRadius: 999,
           background: "#1B3526", color: gold, textDecoration: "none",
           fontFamily: "'Cormorant Garamond', serif",
           fontSize: 11, letterSpacing: 3, textTransform: "uppercase",
-        }}>📍 Abrir no Google Maps</a>
+        }}><MapPin size={14} /> Abrir no Google Maps</a>
         <a href={wazeUrl} target="_blank" rel="noreferrer" style={{
+          display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
           textAlign: "center", padding: "10px 16px", borderRadius: 999,
           border: `1px solid ${gold}`, color: gold, textDecoration: "none",
           fontFamily: "'Cormorant Garamond', serif",
           fontSize: 11, letterSpacing: 3, textTransform: "uppercase",
-        }}>🧭 Abrir no Waze</a>
+        }}><Navigation size={14} /> Abrir no Waze</a>
         {copyText && (
           <button
-            onClick={() => { navigator.clipboard.writeText(copyText); toast.success("✓ Endereço copiado!"); }}
+            onClick={() => { navigator.clipboard.writeText(copyText); toast.success("Endereço copiado!"); }}
             style={{
+              display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
               padding: "10px 16px", borderRadius: 999,
               border: `1px solid ${gold}`, color: gold, background: "transparent", cursor: "pointer",
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: 11, letterSpacing: 3, textTransform: "uppercase",
-            }}>📋 Copiar Endereço</button>
+            }}><ClipboardCopy size={14} /> Copiar Endereço</button>
         )}
       </div>
     </div>
@@ -82,7 +87,7 @@ function Localizacao() {
         }}>Como Chegar até Nós</p>
 
         <LocationCard
-          icon="⛪"
+          Icon={Church}
           eyebrow="Cerimónia Religiosa"
           name="Igreja Nossa Senhora de Fátima"
           address="Bairro Ferroviário, Maputo"
@@ -98,7 +103,7 @@ function Localizacao() {
         </div>
 
         <LocationCard
-          icon="🏛️"
+          Icon={Landmark}
           eyebrow="Recepção"
           name="Cajada Eventos e Serviços 2"
           address="Av. Dom Alexandre, Maputo - Cidade"

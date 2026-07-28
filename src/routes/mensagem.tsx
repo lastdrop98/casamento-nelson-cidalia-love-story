@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import { Mail } from "lucide-react";
 import { fetchWedding, fetchMessages, submitMessage } from "@/lib/wedding";
 import { PageShell } from "@/components/wedding/PageShell";
 
@@ -47,7 +48,7 @@ function Mensagem() {
     <PageShell title="Mensagem aos Noivos">
       <div style={{ padding: "24px 20px" }}>
         <div style={{ textAlign: "center" }}>
-          <p style={{ fontSize: 42 }}>💌</p>
+          <Mail size={38} color={gold} strokeWidth={1.4} style={{ margin: "0 auto" }} />
           <p style={{
             fontFamily: "'Great Vibes', cursive", fontSize: 36, color: "#1E1A10",
           }}>Deixe as suas palavras</p>
@@ -91,7 +92,7 @@ function Mensagem() {
               background: "#1B3526", color: gold, border: `1px solid ${gold}`,
               fontFamily: "'Cormorant Garamond', serif", fontSize: 12, letterSpacing: 4, textTransform: "uppercase", cursor: "pointer",
             }}
-          >{saving ? "A enviar..." : "✦ Enviar Mensagem ✦"}</button>
+          >{saving ? "A enviar..." : "Enviar Mensagem"}</button>
         </form>
 
         {sent && (
@@ -101,7 +102,7 @@ function Mensagem() {
               textAlign: "center", marginTop: 14,
               fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", color: gold,
             }}
-          >Mensagem enviada com carinho! 💌</motion.p>
+          >Mensagem enviada com carinho.</motion.p>
         )}
 
         <div style={{ marginTop: 28 }}>

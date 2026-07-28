@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
-import { Heart, Minus, Plus, Share2 } from "lucide-react";
+import { Heart, Minus, Plus, Share2, Check, X as XIcon, CircleDot, Wine } from "lucide-react";
 import { fetchWedding, submitRsvp } from "@/lib/wedding";
 import { PageShell } from "@/components/wedding/PageShell";
 
@@ -120,10 +120,11 @@ function RsvpPage() {
             <p style={{
               fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic",
               fontSize: 16, color: "#1E1A10", marginTop: 10,
+              display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8,
             }}>
-              {done === "yes" && "A sua presença está confirmada! Até breve! 🥂"}
-              {done === "no" && "Sentiremos a sua falta. Obrigado por avisar! 💛"}
-              {done === "maybe" && "Aguardamos a sua resposta final! 💛"}
+              {done === "yes" && (<>A sua presença está confirmada. Até breve! <Wine size={16} color={gold} /></>)}
+              {done === "no" && (<>Sentiremos a sua falta. Obrigado por avisar! <Heart size={14} color={gold} fill={gold} /></>)}
+              {done === "maybe" && (<>Aguardamos a sua resposta final. <Heart size={14} color={gold} fill={gold} /></>)}
             </p>
             <button
               onClick={() => navigator.share?.({ title: "Nelson & Cidália", url: window.location.origin }).catch(() => {})}
@@ -149,11 +150,16 @@ function RsvpPage() {
 
             <Field label="Vai estar presente? *">
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-                {(["yes","no","maybe"] as Attend[]).map((v) => (
-                  <Pill key={v} active={attend === v} onClick={() => setAttend(v)}>
-                    {v === "yes" ? "✓ SIM" : v === "no" ? "✗ NÃO" : "◎ TALVEZ"}
-                  </Pill>
-                ))}
+                {(["yes","no","maybe"] as Attend[]).map((v) => {
+                  const AI = v === "yes" ? Check : v === "no" ? XIcon : CircleDot;
+                  return (
+                    <Pill key={v} active={attend === v} onClick={() => setAttend(v)}>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                        <AI size={13} /> {v === "yes" ? "SIM" : v === "no" ? "NÃO" : "TALVEZ"}
+                      </span>
+                    </Pill>
+                  );
+                })}
               </div>
             </Field>
 
@@ -211,7 +217,7 @@ function RsvpPage() {
                 marginTop: 6,
               }}
             >
-              {loading ? "A confirmar..." : "✦ Confirmar Presença ✦"}
+              {loading ? "A confirmar..." : "Confirmar Presença"}
             </button>
           </form>
         )}

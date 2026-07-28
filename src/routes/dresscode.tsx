@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+import { Shirt, VenetianMask } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/wedding/PageShell";
 import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
@@ -14,14 +16,14 @@ export const Route = createFileRoute("/dresscode")({
   component: Dresscode,
 });
 
-function Card({ icon, title, text }: { icon: string; title: string; text: string }) {
+function Card({ Icon, title, text }: { Icon: LucideIcon; title: string; text: string }) {
   const gold = "#C9A84C";
   return (
     <div style={{
       border: `1px solid ${gold}`, background: "rgba(255,252,245,0.9)",
       borderRadius: 14, padding: 20, marginBottom: 14,
     }}>
-      <p style={{ fontSize: 34, color: gold }}>{icon}</p>
+      <Icon size={32} color={gold} strokeWidth={1.4} />
       <p style={{
         fontFamily: "'Cormorant Garamond', serif",
         fontSize: 12, letterSpacing: 4, color: "#1E1A10", textTransform: "uppercase", marginTop: 4,
@@ -48,8 +50,8 @@ function Dresscode() {
         }}>Vista-se para a Nossa Celebração</p>
 
         <div style={{ marginTop: 22, position: "relative", zIndex: 1 }}>
-          <Card icon="🤵" title="Homens" text="Fato completo ou traje formal. Gravata ou laço recomendado. Cores sugeridas: marfim, dourado, navy, preto, cinza." />
-          <Card icon="👗" title="Mulheres" text="Vestido longo ou cocktail elegante. Evitar roupa casual ou informal. Saltos altos ou sapatos elegantes." />
+          <Card Icon={VenetianMask} title="Homens" text="Fato completo ou traje formal. Gravata ou laço recomendado. Cores sugeridas: marfim, dourado, navy, preto, cinza." />
+          <Card Icon={Shirt} title="Mulheres" text="Vestido longo ou cocktail elegante. Evitar roupa casual ou informal. Saltos altos ou sapatos elegantes." />
         </div>
 
         <div style={{ marginTop: 6, textAlign: "center", position: "relative", zIndex: 1 }}>
