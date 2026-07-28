@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { toast } from "sonner";
-import { Instagram, Facebook } from "lucide-react";
+import { Instagram, Facebook, Music2 } from "lucide-react";
 import { PageShell } from "@/components/wedding/PageShell";
 
 export const Route = createFileRoute("/contactos")({
@@ -80,7 +80,7 @@ function Contactos() {
             fontSize: 9, letterSpacing: 4, color: gold, textTransform: "uppercase",
           }}>Sigam a nossa história</p>
           <button
-            onClick={() => { navigator.clipboard.writeText(hashtag); toast.success("✓ Hashtag copiada!"); }}
+            onClick={() => { navigator.clipboard.writeText(hashtag); toast.success("Hashtag copiada!"); }}
             style={{
               background: "transparent", border: "none", cursor: "pointer",
               fontFamily: "'Great Vibes', cursive", fontSize: 32, color: gold,
@@ -91,7 +91,7 @@ function Contactos() {
             {[
               { Icon: Instagram, label: "Instagram" },
               { Icon: Facebook, label: "Facebook" },
-              { Icon: (props: any) => <span {...props} style={{ fontSize: 22 }}>♪</span>, label: "TikTok" },
+              { Icon: Music2, label: "TikTok" },
             ].map(({ Icon, label }) => (
               <div key={label} style={{ textAlign: "center" }}>
                 <div style={{

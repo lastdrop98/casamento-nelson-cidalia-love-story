@@ -33,7 +33,7 @@ export function Signature() {
       <span>Feito com</span>
       <Heart size={8} fill="#C9A84C" strokeWidth={0} />
       <span>por Shelton Barreto</span>
-      <span style={{ fontSize: 10 }}>🇲🇿</span>
+      <span style={{ fontSize: 8, letterSpacing: 1 }}>MZ</span>
     </div>
   );
   return createPortal(el, document.body);

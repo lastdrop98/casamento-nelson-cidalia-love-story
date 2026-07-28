@@ -18,7 +18,7 @@ const EVENTS = [
   { year: "2019", title: "O Primeiro Encontro", text: "Foi numa tarde que os nossos caminhos se cruzaram pela primeira vez. Um sorriso, um olhar — e o mundo mudou para sempre." },
   { year: "2021", title: "A Primeira Viagem", text: "Juntos descobrimos que o mundo é mais bonito quando partilhado com a pessoa certa." },
   { year: "2023", title: "O Pedido", text: "Numa noite especial, Nelson ajoelhou-se e fez a pergunta mais importante da sua vida. Cidália disse sim." },
-  { year: "2026", title: "Para Sempre ♥", text: "E agora convidamos as pessoas que amamos para testemunhar o início da nossa história eterna." },
+  { year: "2026", title: "Para Sempre", text: "E agora convidamos as pessoas que amamos para testemunhar o início da nossa história eterna." },
 ];
 
 function Historia() {

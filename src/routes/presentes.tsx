@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import { X } from "lucide-react";
+import { X, Gift, Lock, Check } from "lucide-react";
 import { fetchWedding, fetchGifts, reserveGift } from "@/lib/wedding";
 import { PageShell } from "@/components/wedding/PageShell";
 
@@ -49,7 +49,7 @@ function Presentes() {
     setSaving(true);
     try {
       await reserveGift(reserving.id, resName.trim(), resPhone.trim());
-      toast.success("✓ Presente reservado com sucesso!");
+      toast.success("Presente reservado com sucesso!");
       setReserving(null); setResName(""); setResPhone("");
       qc.invalidateQueries({ queryKey: ["gifts", w?.id] });
     } catch {
@@ -63,7 +63,7 @@ function Presentes() {
     <PageShell title="Lista de Presentes">
       <div style={{ padding: "24px 20px" }}>
         <div style={{ textAlign: "center" }}>
-          <p style={{ fontSize: 36, color: gold }}>🎁</p>
+          <Gift size={36} color={gold} strokeWidth={1.4} style={{ margin: "0 auto" }} />
           <p style={{
             fontFamily: "'Great Vibes', cursive",
             fontSize: 34, color: "#1E1A10", lineHeight: 1.15, marginTop: 4,
@@ -113,8 +113,8 @@ function Presentes() {
                   ? `url(${g.image_url}) center/cover`
                   : "linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.05))",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 40, color: gold,
-              }}>{g.image_url ? "" : "🎁"}</div>
+                color: gold,
+              }}>{g.image_url ? null : <Gift size={40} strokeWidth={1.4} />}</div>
               <span style={{
                 position: "absolute", top: 8, right: 8,
                 fontFamily: "'Cormorant Garamond', serif",
@@ -122,7 +122,12 @@ function Presentes() {
                 padding: "3px 10px", borderRadius: 999,
                 background: g.status === "available" ? gold : g.status === "reserved" ? "#F0B84C" : "#4A7A50",
                 color: g.status === "available" ? "#1E1A10" : "#fff",
-              }}>{g.status === "available" ? "Disponível" : g.status === "reserved" ? "Reservado 🔒" : "Comprado ✓"}</span>
+                display: "inline-flex", alignItems: "center", gap: 4,
+              }}>
+                {g.status === "available" && "Disponível"}
+                {g.status === "reserved" && (<>Reservado <Lock size={9} /></>)}
+                {g.status === "purchased" && (<>Comprado <Check size={10} /></>)}
+              </span>
               <div style={{ padding: 10, flex: 1, display: "flex", flexDirection: "column" }}>
                 <p style={{
                   fontFamily: "'Cormorant Garamond', serif",
@@ -159,7 +164,7 @@ function Presentes() {
                     </p>
                   )}
                   {g.status === "purchased" && (
-                    <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 9, color: "#4A7A50", letterSpacing: 1 }}>✓ Comprado</p>
+                    <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 9, color: "#4A7A50", letterSpacing: 1, display: "inline-flex", alignItems: "center", gap: 4 }}><Check size={11} /> Comprado</p>
                   )}
                 </div>
               </div>
@@ -209,7 +214,7 @@ function Presentes() {
                     padding: "14px", borderRadius: 999, background: "#1B3526", color: gold, border: `1px solid ${gold}`,
                     fontFamily: "'Cormorant Garamond', serif", fontSize: 12, letterSpacing: 4, textTransform: "uppercase", cursor: "pointer",
                   }}
-                >{saving ? "A reservar..." : "✦ Confirmar Reserva ✦"}</button>
+                >{saving ? "A reservar..." : "Confirmar Reserva"}</button>
               </div>
             </motion.div>
           </>

@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { Church, MapPin, Calendar as CalendarIcon, Heart } from "lucide-react";
 import { fetchWedding } from "@/lib/wedding";
 import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
+import coupleHero from "@/assets/couple-hero.jpg.asset.json";
 
 export const Route = createFileRoute("/home")({
   head: () => ({
@@ -31,8 +33,24 @@ function Home() {
       position: "relative",
       paddingBottom: 130,
     }}>
-      <div style={{ position: "absolute", inset: 14, border: "1px solid rgba(201,168,76,0.4)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", inset: 22, border: "1px solid rgba(201,168,76,0.2)", pointerEvents: "none" }} />
+      {/* Hero photo — subtle background at the top only */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: 0, left: 0, right: 0,
+          height: 420,
+          backgroundImage: `linear-gradient(180deg, rgba(253,250,242,0.15) 0%, rgba(253,250,242,0.55) 55%, rgba(253,250,242,1) 100%), url(${coupleHero.url})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center 25%",
+          opacity: 0.55,
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+
+      <div style={{ position: "absolute", inset: 14, border: "1px solid rgba(201,168,76,0.4)", pointerEvents: "none", zIndex: 2 }} />
+      <div style={{ position: "absolute", inset: 22, border: "1px solid rgba(201,168,76,0.2)", pointerEvents: "none", zIndex: 2 }} />
       <BotanicalCorner pos="tl" />
       <BotanicalCorner pos="tr" />
       <BotanicalCorner pos="bl" />
@@ -90,7 +108,9 @@ function Home() {
             <div style={{ width: 30, height: 1, background: "#C9A84C" }} />
           </div>
           <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 68, color: "#1E1A10", lineHeight: 1 }}>Cidália</p>
-          <p style={{ color: "#C9A84C", marginTop: 6, fontSize: 14 }}>♥</p>
+          <div style={{ marginTop: 8, display: "flex", justifyContent: "center" }}>
+            <Heart size={16} color="#C9A84C" fill="#C9A84C" />
+          </div>
         </motion.div>
 
         {/* Info grid */}
@@ -98,19 +118,22 @@ function Home() {
           marginTop: 30,
           display: "grid", gridTemplateColumns: "1fr 1fr 1fr",
           border: "1px solid rgba(201,168,76,0.4)",
-          background: "rgba(255,252,245,0.6)",
+          background: "rgba(255,252,245,0.75)",
+          backdropFilter: "blur(2px)",
         }}>
           {[
-            { top: "⛪ 11H00", mid: "CERIMÓNIA", sub: "Igreja N.Sra Fátima" },
-            { top: "📍 CAJADA 2", mid: "RECEPÇÃO", sub: "Av. Dom Alexandre" },
-            { top: "📅 27 NOV", mid: "2026", sub: "Maputo" },
+            { Icon: Church, top: "11H00", mid: "CERIMÓNIA", sub: "Igreja N.Sra Fátima" },
+            { Icon: MapPin, top: "CAJADA 2", mid: "RECEPÇÃO", sub: "Av. Dom Alexandre" },
+            { Icon: CalendarIcon, top: "27 NOV", mid: "2026", sub: "Maputo" },
           ].map((c, idx) => (
             <div key={idx} style={{
               padding: "14px 8px",
               borderRight: idx < 2 ? "1px solid rgba(201,168,76,0.25)" : undefined,
               fontFamily: "'Cormorant Garamond', serif",
+              display: "flex", flexDirection: "column", alignItems: "center",
             }}>
-              <p style={{ fontSize: 10, letterSpacing: 1, color: "#C9A84C" }}>{c.top}</p>
+              <c.Icon size={16} color="#C9A84C" />
+              <p style={{ fontSize: 10, letterSpacing: 1, color: "#C9A84C", marginTop: 6 }}>{c.top}</p>
               <p style={{ fontSize: 10, letterSpacing: 2, color: "#1E1A10", marginTop: 4 }}>{c.mid}</p>
               <p style={{ fontSize: 10, color: "#7A6848", marginTop: 2, fontStyle: "italic" }}>{c.sub}</p>
             </div>
