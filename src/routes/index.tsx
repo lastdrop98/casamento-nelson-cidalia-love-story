@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fetchWedding, signUrl } from "@/lib/wedding";
 import { music } from "@/lib/music";
+import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
 import coverFallback from "@/assets/cover-fallback.jpg";
 
 export const Route = createFileRoute("/")({
@@ -72,6 +73,36 @@ function Splash() {
         position: "absolute", inset: 22,
         border: "1px solid rgba(201,168,76,0.25)", pointerEvents: "none",
       }} />
+
+      <BotanicalCorner position="top-left" size={180} opacity={0.6} />
+      <BotanicalCorner position="top-right" size={180} opacity={0.6} />
+      <BotanicalCorner position="bottom-left" size={160} opacity={0.5} />
+      <BotanicalCorner position="bottom-right" size={160} opacity={0.5} />
+
+      {[...Array(8)].map((_, i) => (
+        <motion.div
+          key={i}
+          style={{
+            position: "absolute",
+            left: `${8 + i * 11}%`,
+            bottom: `${10 + (i % 4) * 12}%`,
+            width: i % 2 === 0 ? 3 : 4,
+            height: i % 2 === 0 ? 3 : 4,
+            borderRadius: "50%",
+            background: "rgba(201,168,76,0.4)",
+            pointerEvents: "none",
+            zIndex: 1,
+          }}
+          animate={{ y: [0, -80, -160], opacity: [0, 0.6, 0], scale: [1, 0.8, 0.3] }}
+          transition={{
+            duration: 7 + i,
+            repeat: Infinity,
+            ease: "easeOut",
+            delay: i * 0.9,
+            repeatDelay: 1,
+          }}
+        />
+      ))}
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
