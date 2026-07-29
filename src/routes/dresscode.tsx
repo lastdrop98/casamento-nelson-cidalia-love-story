@@ -42,8 +42,6 @@ function Dresscode() {
   return (
     <PageShell title="Dress Code">
       <div style={{ position: "relative", padding: "24px 20px" }}>
-        <BotanicalCorner position="top-left" size={140} opacity={0.7} />
-        <BotanicalCorner position="bottom-right" size={140} opacity={0.7} />
         <p style={{
           textAlign: "center", fontFamily: "'Great Vibes', cursive",
           fontSize: 36, color: "#1E1A10", position: "relative", zIndex: 1,

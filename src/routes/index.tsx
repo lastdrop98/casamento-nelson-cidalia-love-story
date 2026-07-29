@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { fetchWedding, signUrl } from "@/lib/wedding";
 import { music } from "@/lib/music";
+import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
 import coverFallback from "@/assets/cover-fallback.jpg";
 
 export const Route = createFileRoute("/")({
