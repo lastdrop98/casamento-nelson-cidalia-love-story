@@ -51,10 +51,10 @@ function Home() {
 
       <div style={{ position: "absolute", inset: 14, border: "1px solid rgba(201,168,76,0.4)", pointerEvents: "none", zIndex: 2 }} />
       <div style={{ position: "absolute", inset: 22, border: "1px solid rgba(201,168,76,0.2)", pointerEvents: "none", zIndex: 2 }} />
-      <BotanicalCorner pos="tl" />
-      <BotanicalCorner pos="tr" />
-      <BotanicalCorner pos="bl" />
-      <BotanicalCorner pos="br" />
+      <BotanicalCorner position="top-left" size={200} />
+      <BotanicalCorner position="top-right" size={200} />
+      <BotanicalCorner position="bottom-left" size={180} opacity={0.9} />
+      <BotanicalCorner position="bottom-right" size={180} opacity={0.9} />
 
       <motion.div
         variants={stagger}
