@@ -40,10 +40,10 @@ function Home() {
           position: "absolute",
           top: 0, left: 0, right: 0,
           height: 420,
-          backgroundImage: `linear-gradient(180deg, rgba(253,250,242,0.15) 0%, rgba(253,250,242,0.55) 55%, rgba(253,250,242,1) 100%), url(${coupleHero.url})`,
+          backgroundImage: `linear-gradient(180deg, rgba(253,250,242,0.55) 0%, rgba(253,250,242,0.78) 45%, rgba(253,250,242,0.94) 78%, rgba(253,250,242,1) 100%), url(${coupleHero.url})`,
           backgroundSize: "cover",
           backgroundPosition: "center 25%",
-          opacity: 0.55,
+          opacity: 0.75,
           pointerEvents: "none",
           zIndex: 0,
         }}
