@@ -74,10 +74,10 @@ function Splash() {
         border: "1px solid rgba(201,168,76,0.25)", pointerEvents: "none",
       }} />
 
-      <BotanicalCorner position="top-left" size={180} opacity={0.6} />
-      <BotanicalCorner position="top-right" size={180} opacity={0.6} />
-      <BotanicalCorner position="bottom-left" size={160} opacity={0.5} />
-      <BotanicalCorner position="bottom-right" size={160} opacity={0.5} />
+      <BotanicalCorner position="top-left" size={92} opacity={0.75} inset={30} />
+      <BotanicalCorner position="top-right" size={92} opacity={0.75} inset={30} />
+      <BotanicalCorner position="bottom-left" size={86} opacity={0.65} inset={30} />
+      <BotanicalCorner position="bottom-right" size={86} opacity={0.65} inset={30} />
 
       {[...Array(8)].map((_, i) => (
         <motion.div

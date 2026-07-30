@@ -40,10 +40,10 @@ function Home() {
           position: "absolute",
           top: 0, left: 0, right: 0,
           height: 420,
-          backgroundImage: `linear-gradient(180deg, rgba(253,250,242,0.15) 0%, rgba(253,250,242,0.55) 55%, rgba(253,250,242,1) 100%), url(${coupleHero.url})`,
+          backgroundImage: `linear-gradient(180deg, rgba(253,250,242,0.7) 0%, rgba(253,250,242,0.85) 45%, rgba(253,250,242,0.94) 78%, rgba(253,250,242,1) 100%), url(${coupleHero.url})`,
           backgroundSize: "cover",
           backgroundPosition: "center 25%",
-          opacity: 0.55,
+          opacity: 0.8,
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -51,10 +51,10 @@ function Home() {
 
       <div style={{ position: "absolute", inset: 14, border: "1px solid rgba(201,168,76,0.4)", pointerEvents: "none", zIndex: 2 }} />
       <div style={{ position: "absolute", inset: 22, border: "1px solid rgba(201,168,76,0.2)", pointerEvents: "none", zIndex: 2 }} />
-      <BotanicalCorner position="top-left" size={200} />
-      <BotanicalCorner position="top-right" size={200} />
-      <BotanicalCorner position="bottom-left" size={180} opacity={0.9} />
-      <BotanicalCorner position="bottom-right" size={180} opacity={0.9} />
+      <BotanicalCorner position="top-left" size={90} opacity={0.9} inset={30} />
+      <BotanicalCorner position="top-right" size={90} opacity={0.9} inset={30} />
+      <BotanicalCorner position="bottom-left" size={84} opacity={0.8} inset={30} />
+      <BotanicalCorner position="bottom-right" size={84} opacity={0.8} inset={30} />
 
       <motion.div
         variants={stagger}
@@ -66,6 +66,7 @@ function Home() {
           position: "relative",
           zIndex: 1,
           color: "#1E1A10",
+          textShadow: "0 1px 3px rgba(253,250,242,0.95), 0 0 12px rgba(253,250,242,0.7)",
         }}
       >
         {/* Laurel */}
