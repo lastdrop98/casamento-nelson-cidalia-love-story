@@ -144,7 +144,9 @@ export function BotanicalCorner({ pos, position, size = 180, opacity = 1, inset 
             style={{ willChange: "transform" }}
           />
         ))}
+        </g>
       </svg>
+
     </div>
   );
 }
