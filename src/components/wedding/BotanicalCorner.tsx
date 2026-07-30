@@ -10,6 +10,8 @@ interface Props {
   opacity?: number;
   /** distance from the page edge, so the art sits inside the margin */
   inset?: number;
+  /** vertical distance from the page edge (defaults to inset) */
+  insetY?: number;
 }
 
 const toLong = (p: Short): Long =>
@@ -58,7 +60,7 @@ function Leaf({ cx, cy, rx, ry, rot }: { cx: number; cy: number; rx: number; ry:
   );
 }
 
-export function BotanicalCorner({ pos, position, size = 96, opacity = 1, inset = 26 }: Props) {
+export function BotanicalCorner({ pos, position, size = 96, opacity = 1, inset = 26, insetY }: Props) {
   const which: Long = position ?? (pos ? toLong(pos) : "top-left");
 
   const svgTransforms: Record<Long, string> = {
@@ -68,10 +70,10 @@ export function BotanicalCorner({ pos, position, size = 96, opacity = 1, inset =
     "bottom-right": "translate(100,100) scale(-1,-1)",
   };
   const positions: Record<Long, React.CSSProperties> = {
-    "top-left": { top: inset, left: inset },
-    "top-right": { top: inset, right: inset },
-    "bottom-left": { bottom: inset, left: inset },
-    "bottom-right": { bottom: inset, right: inset },
+    "top-left": { top: insetY ?? inset, left: inset },
+    "top-right": { top: insetY ?? inset, right: inset },
+    "bottom-left": { bottom: insetY ?? inset, left: inset },
+    "bottom-right": { bottom: insetY ?? inset, right: inset },
   };
 
   return (
