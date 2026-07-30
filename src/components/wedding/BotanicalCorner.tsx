@@ -61,11 +61,11 @@ function Leaf({ cx, cy, rx, ry, rot }: { cx: number; cy: number; rx: number; ry:
 export function BotanicalCorner({ pos, position, size = 96, opacity = 1, inset = 26 }: Props) {
   const which: Long = position ?? (pos ? toLong(pos) : "top-left");
 
-  const transforms: Record<Long, string> = {
-    "top-left": "scale(1, 1)",
-    "top-right": "scale(-1, 1)",
-    "bottom-left": "scale(1, -1)",
-    "bottom-right": "scale(-1, -1)",
+  const svgTransforms: Record<Long, string> = {
+    "top-left": "",
+    "top-right": "translate(100,0) scale(-1,1)",
+    "bottom-left": "translate(0,100) scale(1,-1)",
+    "bottom-right": "translate(100,100) scale(-1,-1)",
   };
   const positions: Record<Long, React.CSSProperties> = {
     "top-left": { top: inset, left: inset },
@@ -73,13 +73,6 @@ export function BotanicalCorner({ pos, position, size = 96, opacity = 1, inset =
     "bottom-left": { bottom: inset, left: inset },
     "bottom-right": { bottom: inset, right: inset },
   };
-  const origin = which.includes("right")
-    ? which.includes("bottom")
-      ? "bottom right"
-      : "top right"
-    : which.includes("bottom")
-      ? "bottom left"
-      : "top left";
 
   return (
     <div
@@ -91,11 +84,10 @@ export function BotanicalCorner({ pos, position, size = 96, opacity = 1, inset =
         pointerEvents: "none",
         zIndex: 3,
         opacity,
-        transform: transforms[which],
-        transformOrigin: origin,
       }}
     >
       <svg width={size} height={size} viewBox="0 0 100 100" fill="none" style={{ display: "block", overflow: "visible" }}>
+       <g transform={svgTransforms[which]}>
         <motion.g
           animate={{ y: [0, -2.5, 0], rotate: [0, 0.6, 0] }}
           transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
