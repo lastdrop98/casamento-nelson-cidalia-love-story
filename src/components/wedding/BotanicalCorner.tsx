@@ -122,6 +122,7 @@ export function BotanicalCorner({ pos, position, size = 96, opacity = 1, inset =
           <Blossom cx={60} cy={17} r={3.8} delay={0.6} />
           <Blossom cx={17} cy={60} r={3.8} delay={1.8} />
         </motion.g>
+       </g>
       </svg>
     </div>
   );
