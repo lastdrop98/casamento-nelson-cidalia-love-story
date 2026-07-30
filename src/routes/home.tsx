@@ -66,6 +66,7 @@ function Home() {
           position: "relative",
           zIndex: 1,
           color: "#1E1A10",
+          textShadow: "0 1px 3px rgba(253,250,242,0.95), 0 0 12px rgba(253,250,242,0.7)",
         }}
       >
         {/* Laurel */}
