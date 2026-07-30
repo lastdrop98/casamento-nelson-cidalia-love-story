@@ -20,7 +20,9 @@ export function PageShell({
     <div style={{ minHeight: "100vh", background: bg, position: "relative", overflow: "hidden" }}>
       <PageHeader title={title} />
       <BotanicalCorner position="top-left" size={140} opacity={0.7} />
-      <BotanicalCorner position="bottom-right" size={140} opacity={0.7} />
+      <BotanicalCorner position="top-right" size={140} opacity={0.7} />
+      <BotanicalCorner position="bottom-left" size={130} opacity={0.6} />
+      <BotanicalCorner position="bottom-right" size={130} opacity={0.6} />
       <motion.main
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}

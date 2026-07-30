@@ -8,12 +8,14 @@ interface Props {
   position?: Long;
   size?: number;
   opacity?: number;
+  /** distance from the page edge, so the art sits inside the margin */
+  inset?: number;
 }
 
 const toLong = (p: Short): Long =>
   p === "tl" ? "top-left" : p === "tr" ? "top-right" : p === "bl" ? "bottom-left" : "bottom-right";
 
-export function BotanicalCorner({ pos, position, size = 180, opacity = 1 }: Props) {
+export function BotanicalCorner({ pos, position, size = 180, opacity = 1, inset = 26 }: Props) {
   const which: Long = position ?? (pos ? toLong(pos) : "top-left");
 
   const transforms: Record<Long, string> = {
@@ -23,10 +25,10 @@ export function BotanicalCorner({ pos, position, size = 180, opacity = 1 }: Prop
     "bottom-right": "scale(-1, -1)",
   };
   const positions: Record<Long, React.CSSProperties> = {
-    "top-left": { top: 0, left: 0 },
-    "top-right": { top: 0, right: 0 },
-    "bottom-left": { bottom: 0, left: 0 },
-    "bottom-right": { bottom: 0, right: 0 },
+    "top-left": { top: inset, left: inset },
+    "top-right": { top: inset, right: inset },
+    "bottom-left": { bottom: inset, left: inset },
+    "bottom-right": { bottom: inset, right: inset },
   };
   const origin =
     which.includes("right")
@@ -47,12 +49,14 @@ export function BotanicalCorner({ pos, position, size = 180, opacity = 1 }: Prop
         transformOrigin: origin,
       }}
     >
-      <svg width={size} height={size} viewBox="0 0 200 200" fill="none" style={{ overflow: "visible" }}>
+      <svg width={size} height={size} viewBox="0 0 200 200" fill="none" style={{ overflow: "hidden", display: "block" }}>
+        <g transform="translate(26, -14) scale(0.9)">
         <motion.g
           animate={{ y: [0, -6, -3, 0], rotate: [0, 0.5, -0.3, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
           style={{ willChange: "transform", transformOrigin: "bottom left" }}
         >
+
           <path d="M 0 185 C 28 148 62 105 108 62" stroke="rgba(165,135,55,0.55)" strokeWidth="1.8" fill="none" strokeLinecap="round" />
           <path d="M 0 155 C 22 118 52 82 90 48" stroke="rgba(155,125,48,0.42)" strokeWidth="1.2" fill="none" strokeLinecap="round" />
           <path d="M 0 122 C 18 95 40 70 74 40" stroke="rgba(145,118,45,0.32)" strokeWidth="0.9" fill="none" strokeLinecap="round" />
@@ -140,7 +144,9 @@ export function BotanicalCorner({ pos, position, size = 180, opacity = 1 }: Prop
             style={{ willChange: "transform" }}
           />
         ))}
+        </g>
       </svg>
+
     </div>
   );
 }
