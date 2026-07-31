@@ -22,8 +22,8 @@ function Blossom({ cx, cy, r, delay = 0 }: { cx: number; cy: number; r: number; 
   const petals = [0, 72, 144, 216, 288];
   return (
     <motion.g
-      animate={{ scale: [1, 1.05, 1], opacity: [0.85, 1, 0.85] }}
-      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay }}
+      animate={{ scale: [1, 1.14, 1], rotate: [0, 6, -4, 0], opacity: [0.8, 1, 0.8] }}
+      transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay }}
       style={{ willChange: "transform", transformOrigin: `${cx}px ${cy}px` }}
     >
       {petals.map((a) => (
@@ -91,8 +91,8 @@ export function BotanicalCorner({ pos, position, size = 96, opacity = 1, inset =
       <svg width={size} height={size} viewBox="0 0 100 100" fill="none" style={{ display: "block", overflow: "visible" }}>
        <g transform={svgTransforms[which]}>
         <motion.g
-          animate={{ y: [0, -2.5, 0], rotate: [0, 0.6, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ x: [0, 3.5, -2, 0], y: [0, -6, 2, 0], rotate: [0, 2.2, -1.4, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           style={{ willChange: "transform", transformOrigin: "6px 6px" }}
         >
           {/* main stem sweeping right */}

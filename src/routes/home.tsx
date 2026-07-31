@@ -61,7 +61,7 @@ function Home() {
         initial="initial"
         animate="animate"
         style={{
-          padding: "70px 34px 40px",
+          padding: "330px 34px 40px",
           textAlign: "center",
           position: "relative",
           zIndex: 1,
