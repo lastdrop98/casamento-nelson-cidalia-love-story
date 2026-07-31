@@ -28,7 +28,7 @@ export function PageShell({
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -30 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        style={{ paddingBottom: 110, position: "relative", zIndex: 1 }}
+        style={{ paddingBottom: 150, position: "relative", zIndex: 1 }}
       >
         {children}
       </motion.main>
