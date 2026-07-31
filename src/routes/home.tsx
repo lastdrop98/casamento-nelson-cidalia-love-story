@@ -31,7 +31,7 @@ function Home() {
       minHeight: "100vh",
       background: "radial-gradient(ellipse 80% 40% at 50% 0%, rgba(201,168,76,0.09) 0%, transparent 60%), linear-gradient(180deg,#FDFAF2 0%,#F5EDD8 100%)",
       position: "relative",
-      paddingBottom: 130,
+      paddingBottom: 170,
     }}>
       {/* Hero photo — subtle background at the top only */}
       <div
@@ -47,7 +47,17 @@ function Home() {
           pointerEvents: "none",
           zIndex: 0,
         }}
-      />
+      >
+        {/* Blurred overlay behind the text area for legibility */}
+        <div style={{
+          position: "absolute",
+          top: 140, left: 0, right: 0, bottom: 0,
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          background: "linear-gradient(180deg, rgba(253,250,242,0) 0%, rgba(253,250,242,0.45) 25%, rgba(253,250,242,0.85) 70%, rgba(253,250,242,1) 100%)",
+          pointerEvents: "none",
+        }} />
+      </div>
 
       <div style={{ position: "absolute", inset: 14, border: "1px solid rgba(201,168,76,0.4)", pointerEvents: "none", zIndex: 2 }} />
       <div style={{ position: "absolute", inset: 22, border: "1px solid rgba(201,168,76,0.2)", pointerEvents: "none", zIndex: 2 }} />
@@ -61,7 +71,7 @@ function Home() {
         initial="initial"
         animate="animate"
         style={{
-          padding: "280px 34px 120px",
+          padding: "280px 34px 150px",
           textAlign: "center",
           position: "relative",
           zIndex: 1,
