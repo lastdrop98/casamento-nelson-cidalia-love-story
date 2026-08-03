@@ -54,7 +54,7 @@ function Splash() {
         backgroundImage: `linear-gradient(180deg, rgba(14,32,20,0.35) 0%, rgba(14,32,20,0.55) 45%, rgba(14,32,20,0.92) 100%), url(${coverUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center 20%",
-        backgroundColor: "#0E2014",
+        backgroundColor: "#1B3526",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
