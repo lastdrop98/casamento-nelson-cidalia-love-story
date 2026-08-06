@@ -124,14 +124,13 @@ function Galeria() {
               aria-label="Fechar fotografia"
               onClick={() => setLightbox(null)}
               style={{ position: "absolute", top: 18, right: 18, color: "#fff", background: "transparent", border: "none", cursor: "pointer" }}
-              aria-label="Fechar"
             ><X size={28} /></button>
             <button
               aria-label="Fotografia anterior"
               onClick={() => setLightbox((n) => n === null ? n : (n - 1 + urls.length) % urls.length)}
               style={{ position: "absolute", left: 8, color: "#fff", background: "transparent", border: "none", cursor: "pointer" }}
             ><ChevronLeft size={36} /></button>
-            <img src={urls[lightbox].url} style={{ maxWidth: "92vw", maxHeight: "80vh", objectFit: "contain" }} />
+            <img src={urls[lightbox].url} alt={urls[lightbox].caption ?? `Fotografia ${lightbox + 1} de Nelson & Cidália`} style={{ maxWidth: "92vw", maxHeight: "80vh", objectFit: "contain" }} />
             <button
               aria-label="Fotografia seguinte"
               onClick={() => setLightbox((n) => n === null ? n : (n + 1) % urls.length)}
