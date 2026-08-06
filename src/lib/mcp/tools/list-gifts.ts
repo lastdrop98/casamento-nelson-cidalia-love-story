@@ -13,7 +13,7 @@ export default defineTool({
     const supabase = supabaseAnon();
     const { data, error } = await supabase
       .from("gifts")
-      .select("id, title, description, status, sort_order")
+      .select("id, name, description, price_label, image_url, status, sort_order")
       .eq("wedding_id", weddingId)
       .order("sort_order", { ascending: true });
     if (error) return errorResult(error.message);
