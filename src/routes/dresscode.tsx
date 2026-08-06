@@ -30,10 +30,12 @@ function Card({ Icon, title, text }: { Icon: LucideIcon; title: string; text: st
       borderRadius: 14, padding: 20, marginBottom: 14,
     }}>
       <Icon size={32} color={gold} strokeWidth={1.4} />
-      <p style={{
+      <h2 style={{
+        margin: 0,
         fontFamily: "'Cormorant Garamond', serif",
+        fontWeight: 400,
         fontSize: 12, letterSpacing: 4, color: "#1E1A10", textTransform: "uppercase", marginTop: 4,
-      }}>{title}</p>
+      }}>{title}</h2>
       <div style={{ width: 40, height: 1, background: gold, margin: "10px 0" }} />
       <p style={{
         fontFamily: "'Cormorant Garamond', serif",

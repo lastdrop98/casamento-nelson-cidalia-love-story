@@ -70,10 +70,12 @@ function Historia() {
                 borderRadius: "0 12px 12px 0",
                 boxShadow: "0 3px 12px rgba(122,104,72,0.08)",
               }}>
-                <p style={{
+                <h2 style={{
+                  margin: 0,
+                  fontWeight: 400,
                   fontFamily: "'Cormorant Garamond', serif",
                   fontSize: 12, letterSpacing: 2, color: "#1E1A10", textTransform: "uppercase",
-                }}>{e.title}</p>
+                }}>{e.title}</h2>
                 <p style={{
                   marginTop: 6,
                   fontFamily: "'Cormorant Garamond', serif",

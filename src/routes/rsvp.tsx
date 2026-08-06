@@ -276,12 +276,12 @@ function Counter({ value, onChange }: { value: number; onChange: (v: number) => 
   };
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 18 }}>
-      <button type="button" style={btn} onClick={() => onChange(Math.max(0, value - 1))}><Minus size={16} /></button>
+      <button type="button" aria-label="Diminuir número de acompanhantes" style={btn} onClick={() => onChange(Math.max(0, value - 1))}><Minus size={16} /></button>
       <span style={{
         fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: "#1E1A10",
         minWidth: 30, textAlign: "center",
       }}>{value}</span>
-      <button type="button" style={btn} onClick={() => onChange(Math.min(10, value + 1))}><Plus size={16} /></button>
+      <button type="button" aria-label="Aumentar número de acompanhantes" style={btn} onClick={() => onChange(Math.min(10, value + 1))}><Plus size={16} /></button>
     </div>
   );
 }

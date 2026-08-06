@@ -40,10 +40,12 @@ function LocationCard({
         fontFamily: "'Cormorant Garamond', serif",
         fontSize: 9, letterSpacing: 3, color: gold, textTransform: "uppercase", marginTop: 6,
       }}>{eyebrow}</p>
-      <p style={{
+      <h2 style={{
+        margin: 0,
+        fontWeight: 400,
         fontFamily: "'Cormorant Garamond', serif",
         fontSize: 16, letterSpacing: 1, color: "#1E1A10", marginTop: 4,
-      }}>{name}</p>
+      }}>{name}</h2>
       <p style={{
         fontFamily: "'Cormorant Garamond', serif",
         fontSize: 14, color: "#7A6848", marginTop: 4,

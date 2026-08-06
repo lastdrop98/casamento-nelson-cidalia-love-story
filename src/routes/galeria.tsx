@@ -101,7 +101,7 @@ function Galeria() {
                       cursor: "zoom-in",
                     }}
                   >
-                    <img src={g.url} alt={g.caption ?? "Foto"} style={{ width: "100%", display: "block" }} loading="lazy" />
+                    <img src={g.url} alt={g.caption ?? `Fotografia ${i + 1} de Nelson & Cidália`} style={{ width: "100%", display: "block" }} loading="lazy" />
                   </motion.figure>
                 ))}
               </div>
@@ -121,16 +121,19 @@ function Galeria() {
             }}
           >
             <button
+              aria-label="Fechar fotografia"
               onClick={() => setLightbox(null)}
               style={{ position: "absolute", top: 18, right: 18, color: "#fff", background: "transparent", border: "none", cursor: "pointer" }}
               aria-label="Fechar"
             ><X size={28} /></button>
             <button
+              aria-label="Fotografia anterior"
               onClick={() => setLightbox((n) => n === null ? n : (n - 1 + urls.length) % urls.length)}
               style={{ position: "absolute", left: 8, color: "#fff", background: "transparent", border: "none", cursor: "pointer" }}
             ><ChevronLeft size={36} /></button>
             <img src={urls[lightbox].url} style={{ maxWidth: "92vw", maxHeight: "80vh", objectFit: "contain" }} />
             <button
+              aria-label="Fotografia seguinte"
               onClick={() => setLightbox((n) => n === null ? n : (n + 1) % urls.length)}
               style={{ position: "absolute", right: 8, color: "#fff", background: "transparent", border: "none", cursor: "pointer" }}
             ><ChevronRight size={36} /></button>
