@@ -8,10 +8,16 @@ export const Route = createFileRoute("/dresscode")({
   head: () => ({
     meta: [
       { title: "Dress Code — Nelson & Cidália" },
-      { name: "description", content: "Traje sugerido para o nosso casamento." },
-      { property: "og:title", content: "Dress Code" },
-      { property: "og:description", content: "Vista-se para a nossa celebração." },
+      { name: "description", content: "O traje sugerido para o casamento de Nelson & Cidália: paleta de cores, sugestões para senhoras e cavalheiros e o que evitar no grande dia." },
+      { property: "og:title", content: "Dress Code — Nelson & Cidália" },
+      { property: "og:description", content: "Traje formal, paleta de cores e sugestões de vestuário para acompanhar a elegância da nossa celebração." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/dresscode" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Dress Code — Nelson & Cidália" },
+      { name: "twitter:description", content: "Traje formal, paleta de cores e sugestões de vestuário para acompanhar a elegância da nossa celebração." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/dresscode" }],
   }),
   component: Dresscode,
 });
@@ -24,10 +30,12 @@ function Card({ Icon, title, text }: { Icon: LucideIcon; title: string; text: st
       borderRadius: 14, padding: 20, marginBottom: 14,
     }}>
       <Icon size={32} color={gold} strokeWidth={1.4} />
-      <p style={{
+      <h2 style={{
+        margin: 0,
         fontFamily: "'Cormorant Garamond', serif",
+        fontWeight: 400,
         fontSize: 12, letterSpacing: 4, color: "#1E1A10", textTransform: "uppercase", marginTop: 4,
-      }}>{title}</p>
+      }}>{title}</h2>
       <div style={{ width: 40, height: 1, background: gold, margin: "10px 0" }} />
       <p style={{
         fontFamily: "'Cormorant Garamond', serif",

@@ -10,10 +10,16 @@ export const Route = createFileRoute("/galeria")({
   head: () => ({
     meta: [
       { title: "Galeria — Nelson & Cidália" },
-      { name: "description", content: "As fotos e vídeos que contam a nossa história." },
-      { property: "og:title", content: "Galeria — Nelson & Cidália" },
-      { property: "og:description", content: "Os nossos momentos." },
+      { name: "description", content: "A colecção de fotografias de Nelson & Cidália: momentos do noivado, sessões fotográficas e as memórias que nos trouxeram até aqui." },
+      { property: "og:title", content: "Galeria de Fotos — Nelson & Cidália" },
+      { property: "og:description", content: "Percorra as fotografias que contam a história de Nelson & Cidália até ao dia do casamento." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/galeria" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Galeria de Fotos — Nelson & Cidália" },
+      { name: "twitter:description", content: "Percorra as fotografias que contam a história de Nelson & Cidália até ao dia do casamento." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/galeria" }],
   }),
   component: Galeria,
 });
@@ -95,7 +101,7 @@ function Galeria() {
                       cursor: "zoom-in",
                     }}
                   >
-                    <img src={g.url} alt={g.caption ?? "Foto"} style={{ width: "100%", display: "block" }} loading="lazy" />
+                    <img src={g.url} alt={g.caption ?? `Fotografia ${i + 1} de Nelson & Cidália`} style={{ width: "100%", display: "block" }} loading="lazy" />
                   </motion.figure>
                 ))}
               </div>
@@ -115,16 +121,18 @@ function Galeria() {
             }}
           >
             <button
+              aria-label="Fechar fotografia"
               onClick={() => setLightbox(null)}
               style={{ position: "absolute", top: 18, right: 18, color: "#fff", background: "transparent", border: "none", cursor: "pointer" }}
-              aria-label="Fechar"
             ><X size={28} /></button>
             <button
+              aria-label="Fotografia anterior"
               onClick={() => setLightbox((n) => n === null ? n : (n - 1 + urls.length) % urls.length)}
               style={{ position: "absolute", left: 8, color: "#fff", background: "transparent", border: "none", cursor: "pointer" }}
             ><ChevronLeft size={36} /></button>
-            <img src={urls[lightbox].url} style={{ maxWidth: "92vw", maxHeight: "80vh", objectFit: "contain" }} />
+            <img src={urls[lightbox].url} alt={urls[lightbox].caption ?? `Fotografia ${lightbox + 1} de Nelson & Cidália`} style={{ maxWidth: "92vw", maxHeight: "80vh", objectFit: "contain" }} />
             <button
+              aria-label="Fotografia seguinte"
               onClick={() => setLightbox((n) => n === null ? n : (n + 1) % urls.length)}
               style={{ position: "absolute", right: 8, color: "#fff", background: "transparent", border: "none", cursor: "pointer" }}
             ><ChevronRight size={36} /></button>

@@ -11,10 +11,16 @@ export const Route = createFileRoute("/mensagem")({
   head: () => ({
     meta: [
       { title: "Mensagem aos Noivos — Nelson & Cidália" },
-      { name: "description", content: "Deixe uma mensagem para os noivos." },
-      { property: "og:title", content: "Mensagem aos Noivos" },
-      { property: "og:description", content: "As suas palavras ficarão guardadas para sempre." },
+      { name: "description", content: "Deixe uma mensagem de carinho para Nelson & Cidália no livro de honras digital e leia os votos que outros convidados já escreveram." },
+      { property: "og:title", content: "Deixe uma Mensagem — Nelson & Cidália" },
+      { property: "og:description", content: "Escreva os seus votos no livro de honras digital dos noivos e leia as mensagens dos outros convidados." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/mensagem" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Deixe uma Mensagem — Nelson & Cidália" },
+      { name: "twitter:description", content: "Escreva os seus votos no livro de honras digital dos noivos e leia as mensagens dos outros convidados." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/mensagem" }],
   }),
   component: Mensagem,
 });

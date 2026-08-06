@@ -11,10 +11,16 @@ export const Route = createFileRoute("/rsvp")({
   head: () => ({
     meta: [
       { title: "Confirmar Presença — Nelson & Cidália" },
-      { name: "description", content: "Confirme a sua presença no nosso casamento até 30 de Outubro de 2026." },
-      { property: "og:title", content: "Confirmar Presença" },
-      { property: "og:description", content: "A vossa presença é o nosso maior presente." },
+      { name: "description", content: "Confirme a sua presença no casamento de Nelson & Cidália até 30 de Outubro de 2026 e indique quantos acompanhantes o vão acompanhar." },
+      { property: "og:title", content: "Confirmar Presença — Nelson & Cidália" },
+      { property: "og:description", content: "Confirme a sua presença até 30 de Outubro de 2026 — a vossa presença é o nosso maior presente." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/rsvp" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Confirmar Presença — Nelson & Cidália" },
+      { name: "twitter:description", content: "Confirme a sua presença até 30 de Outubro de 2026 — a vossa presença é o nosso maior presente." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/rsvp" }],
   }),
   component: RsvpPage,
 });
@@ -270,12 +276,12 @@ function Counter({ value, onChange }: { value: number; onChange: (v: number) => 
   };
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 18 }}>
-      <button type="button" style={btn} onClick={() => onChange(Math.max(0, value - 1))}><Minus size={16} /></button>
+      <button type="button" aria-label="Diminuir número de acompanhantes" style={btn} onClick={() => onChange(Math.max(0, value - 1))}><Minus size={16} /></button>
       <span style={{
         fontFamily: "'Cormorant Garamond', serif", fontSize: 20, color: "#1E1A10",
         minWidth: 30, textAlign: "center",
       }}>{value}</span>
-      <button type="button" style={btn} onClick={() => onChange(Math.min(10, value + 1))}><Plus size={16} /></button>
+      <button type="button" aria-label="Aumentar número de acompanhantes" style={btn} onClick={() => onChange(Math.min(10, value + 1))}><Plus size={16} /></button>
     </div>
   );
 }

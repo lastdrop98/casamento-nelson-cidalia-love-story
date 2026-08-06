@@ -11,10 +11,16 @@ export const Route = createFileRoute("/presentes")({
   head: () => ({
     meta: [
       { title: "Lista de Presentes — Nelson & Cidália" },
-      { name: "description", content: "A nossa lista de presentes de casamento." },
-      { property: "og:title", content: "Lista de Presentes" },
-      { property: "og:description", content: "O vosso carinho é o nosso maior presente." },
+      { name: "description", content: "Consulte a lista de presentes de casamento de Nelson & Cidália, reserve o presente que preferir e veja o que ainda está disponível." },
+      { property: "og:title", content: "Lista de Presentes — Nelson & Cidália" },
+      { property: "og:description", content: "Escolha e reserve um presente da lista de casamento dos noivos, ou contribua da forma que preferir." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/presentes" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Lista de Presentes — Nelson & Cidália" },
+      { name: "twitter:description", content: "Escolha e reserve um presente da lista de casamento dos noivos, ou contribua da forma que preferir." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/presentes" }],
   }),
   component: Presentes,
 });

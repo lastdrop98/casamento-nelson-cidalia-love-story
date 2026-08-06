@@ -16,7 +16,9 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Save the date — 27 de Novembro de 2026." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/" },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/" }],
   }),
   component: Splash,
 });
@@ -64,6 +66,8 @@ function Splash() {
         color: "#F5EDD8",
       }}
     >
+      <h1 style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>Nelson & Cidália — Convite de Casamento, 27 de Novembro de 2026</h1>
+
       {/* Ornate double frame */}
       <div style={{
         position: "absolute", inset: 14,

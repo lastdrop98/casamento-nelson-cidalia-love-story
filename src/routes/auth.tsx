@@ -9,8 +9,8 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Admin — Nelson & Cidália" },
-      { name: "description", content: "Área de administração." },
+      { title: "Autenticação — Nelson & Cidália" },
+      { name: "description", content: "Área reservada de autenticação para os administradores do convite digital de Nelson & Cidália. Página sem conteúdo público." },
       { name: "robots", content: "noindex" },
     ],
   }),
