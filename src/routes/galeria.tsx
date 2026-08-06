@@ -10,10 +10,16 @@ export const Route = createFileRoute("/galeria")({
   head: () => ({
     meta: [
       { title: "Galeria — Nelson & Cidália" },
-      { name: "description", content: "As fotos e vídeos que contam a nossa história." },
-      { property: "og:title", content: "Galeria — Nelson & Cidália" },
-      { property: "og:description", content: "Os nossos momentos." },
+      { name: "description", content: "A colecção de fotografias de Nelson & Cidália: momentos do noivado, sessões fotográficas e as memórias que nos trouxeram até aqui." },
+      { property: "og:title", content: "Galeria de Fotos — Nelson & Cidália" },
+      { property: "og:description", content: "Percorra as fotografias que contam a história de Nelson & Cidália até ao dia do casamento." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/galeria" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Galeria de Fotos — Nelson & Cidália" },
+      { name: "twitter:description", content: "Percorra as fotografias que contam a história de Nelson & Cidália até ao dia do casamento." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/galeria" }],
   }),
   component: Galeria,
 });

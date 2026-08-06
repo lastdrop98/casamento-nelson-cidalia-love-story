@@ -9,10 +9,16 @@ export const Route = createFileRoute("/programa")({
   head: () => ({
     meta: [
       { title: "Programa do Dia — Nelson & Cidália" },
-      { name: "description", content: "O programa completo do nosso casamento no dia 27 de Novembro de 2026." },
+      { name: "description", content: "O programa completo do casamento de 27 de Novembro de 2026: cerimónia religiosa, sessão de fotos, cocktail, jantar e festa." },
       { property: "og:title", content: "Programa do Dia — Nelson & Cidália" },
-      { property: "og:description", content: "Cerimónia, recepção, cocktail, jantar e festa." },
+      { property: "og:description", content: "Cerimónia, sessão de fotos, cocktail, jantar e festa — hora a hora, a 27 de Novembro de 2026." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/programa" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Programa do Dia — Nelson & Cidália" },
+      { name: "twitter:description", content: "Cerimónia, sessão de fotos, cocktail, jantar e festa — hora a hora, a 27 de Novembro de 2026." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/programa" }],
   }),
   component: Programa,
 });

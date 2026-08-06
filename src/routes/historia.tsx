@@ -6,10 +6,16 @@ export const Route = createFileRoute("/historia")({
   head: () => ({
     meta: [
       { title: "Nossa História — Nelson & Cidália" },
-      { name: "description", content: "Como tudo começou entre Nelson e Cidália." },
-      { property: "og:title", content: "Nossa História" },
-      { property: "og:description", content: "Uma história de amor que acabou de começar." },
+      { name: "description", content: "Do primeiro encontro em 2019 ao pedido de casamento: a história de amor de Nelson & Cidália contada ano a ano até ao dia do sim." },
+      { property: "og:title", content: "Nossa História — Nelson & Cidália" },
+      { property: "og:description", content: "Do primeiro encontro ao pedido de casamento — a jornada de Nelson & Cidália contada ano a ano." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/historia" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Nossa História — Nelson & Cidália" },
+      { name: "twitter:description", content: "Do primeiro encontro ao pedido de casamento — a jornada de Nelson & Cidália contada ano a ano." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/historia" }],
   }),
   component: Historia,
 });

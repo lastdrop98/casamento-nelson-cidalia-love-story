@@ -16,7 +16,9 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Save the date — 27 de Novembro de 2026." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/" },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/" }],
   }),
   component: Splash,
 });

@@ -11,10 +11,16 @@ export const Route = createFileRoute("/rsvp")({
   head: () => ({
     meta: [
       { title: "Confirmar Presença — Nelson & Cidália" },
-      { name: "description", content: "Confirme a sua presença no nosso casamento até 30 de Outubro de 2026." },
-      { property: "og:title", content: "Confirmar Presença" },
-      { property: "og:description", content: "A vossa presença é o nosso maior presente." },
+      { name: "description", content: "Confirme a sua presença no casamento de Nelson & Cidália até 30 de Outubro de 2026 e indique quantos acompanhantes o vão acompanhar." },
+      { property: "og:title", content: "Confirmar Presença — Nelson & Cidália" },
+      { property: "og:description", content: "Confirme a sua presença até 30 de Outubro de 2026 — a vossa presença é o nosso maior presente." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/rsvp" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Confirmar Presença — Nelson & Cidália" },
+      { name: "twitter:description", content: "Confirme a sua presença até 30 de Outubro de 2026 — a vossa presença é o nosso maior presente." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/rsvp" }],
   }),
   component: RsvpPage,
 });

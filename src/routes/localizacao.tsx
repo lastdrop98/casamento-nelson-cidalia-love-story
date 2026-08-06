@@ -8,10 +8,16 @@ export const Route = createFileRoute("/localizacao")({
   head: () => ({
     meta: [
       { title: "Localização — Nelson & Cidália" },
-      { name: "description", content: "Como chegar à igreja e à recepção do nosso casamento em Maputo." },
-      { property: "og:title", content: "Localização" },
-      { property: "og:description", content: "Igreja Nossa Senhora de Fátima e Cajada Eventos 2, Maputo." },
+      { name: "description", content: "Como chegar à Igreja Nossa Senhora de Fátima e ao salão Cajada Eventos 2 em Maputo, com indicações para Google Maps e Waze." },
+      { property: "og:title", content: "Localização — Igreja e Salão, Maputo" },
+      { property: "og:description", content: "Igreja Nossa Senhora de Fátima e Cajada Eventos 2, em Maputo — com indicações para Google Maps e Waze." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/localizacao" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Localização — Igreja e Salão, Maputo" },
+      { name: "twitter:description", content: "Igreja Nossa Senhora de Fátima e Cajada Eventos 2, em Maputo — com indicações para Google Maps e Waze." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/localizacao" }],
   }),
   component: Localizacao,
 });

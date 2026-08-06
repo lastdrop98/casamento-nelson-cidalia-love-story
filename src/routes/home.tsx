@@ -9,11 +9,17 @@ import coupleHero from "@/assets/couple-hero.jpg.asset.json";
 export const Route = createFileRoute("/home")({
   head: () => ({
     meta: [
-      { title: "Convite — Nelson & Cidália" },
-      { name: "description", content: "Convite oficial do casamento de Nelson & Cidália." },
-      { property: "og:title", content: "Convite — Nelson & Cidália" },
-      { property: "og:description", content: "27 de Novembro de 2026, Maputo." },
+      { title: "Convite — Nelson & Cidália | 27 de Novembro de 2026" },
+      { name: "description", content: "Convite oficial do casamento de Nelson & Cidália, a 27 de Novembro de 2026 em Maputo. Veja o programa, local, dress code e confirme a sua presença." },
+      { property: "og:title", content: "Convite de Casamento — Nelson & Cidália" },
+      { property: "og:description", content: "Celebre connosco a 27 de Novembro de 2026 em Maputo. Programa, localização e confirmação de presença num só lugar." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/home" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Convite de Casamento — Nelson & Cidália" },
+      { name: "twitter:description", content: "Celebre connosco a 27 de Novembro de 2026 em Maputo. Programa, localização e confirmação de presença num só lugar." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/home" }],
   }),
   component: Home,
 });

@@ -8,10 +8,16 @@ export const Route = createFileRoute("/dresscode")({
   head: () => ({
     meta: [
       { title: "Dress Code — Nelson & Cidália" },
-      { name: "description", content: "Traje sugerido para o nosso casamento." },
-      { property: "og:title", content: "Dress Code" },
-      { property: "og:description", content: "Vista-se para a nossa celebração." },
+      { name: "description", content: "O traje sugerido para o casamento de Nelson & Cidália: paleta de cores, sugestões para senhoras e cavalheiros e o que evitar no grande dia." },
+      { property: "og:title", content: "Dress Code — Nelson & Cidália" },
+      { property: "og:description", content: "Traje formal, paleta de cores e sugestões de vestuário para acompanhar a elegância da nossa celebração." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/dresscode" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Dress Code — Nelson & Cidália" },
+      { name: "twitter:description", content: "Traje formal, paleta de cores e sugestões de vestuário para acompanhar a elegância da nossa celebração." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/dresscode" }],
   }),
   component: Dresscode,
 });

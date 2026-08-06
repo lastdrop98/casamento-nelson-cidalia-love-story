@@ -7,10 +7,16 @@ export const Route = createFileRoute("/contactos")({
   head: () => ({
     meta: [
       { title: "Contactos — Nelson & Cidália" },
-      { name: "description", content: "Fale connosco directamente." },
-      { property: "og:title", content: "Contactos" },
-      { property: "og:description", content: "Estamos à disposição." },
+      { name: "description", content: "Fale directamente com os noivos e com a equipa de apoio do casamento por telefone ou WhatsApp para qualquer dúvida sobre o grande dia." },
+      { property: "og:title", content: "Contactos — Nelson & Cidália" },
+      { property: "og:description", content: "Telefone e WhatsApp dos noivos e da equipa de apoio para qualquer dúvida sobre o casamento de 27 de Novembro de 2026." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/contactos" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Contactos — Nelson & Cidália" },
+      { name: "twitter:description", content: "Telefone e WhatsApp dos noivos e da equipa de apoio para qualquer dúvida sobre o casamento de 27 de Novembro de 2026." },
     ],
+    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/contactos" }],
   }),
   component: Contactos,
 });
