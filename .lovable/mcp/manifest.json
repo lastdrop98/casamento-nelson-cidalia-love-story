@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.1",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "nelson-cidalia-s-love-story",
+      "version": "0.1.0",
+      "title": "Nelson & Cidália's Love Story"
+    },
+    "tools": [
+      {
+        "name": "get_wedding_details",
+        "title": "Get wedding details",
+        "description": "Get the public wedding details for Nelson & Cidália: date, ceremony and reception venues, times, addresses, dress code, welcome message, story and hashtag.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_schedule",
+        "title": "List wedding schedule",
+        "description": "List the wedding day programme (events with times and descriptions) in order.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_gallery",
+        "title": "List gallery photos",
+        "description": "List the wedding gallery photos with temporary viewable image URLs.",
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_gifts",
+        "title": "List gift registry",
+        "description": "List the wedding gift registry items and whether each one is still available or already reserved.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_messages",
+        "title": "List guest messages",
+        "description": "List the most recent public guestbook messages left for the couple.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "limit": {
+              "default": 20,
+              "description": "How many messages to return.",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "leave_message",
+        "title": "Leave a guestbook message",
+        "description": "Post a public guestbook message to the couple.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "guest_name": {
+              "type": "string",
+              "maxLength": 120,
+              "description": "Name of the guest signing the message."
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000,
+              "description": "The message text."
+            }
+          },
+          "required": [
+            "guest_name",
+            "message"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
