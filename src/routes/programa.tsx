@@ -19,6 +19,29 @@ export const Route = createFileRoute("/programa")({
       { name: "twitter:description", content: "Cerimónia, sessão de fotos, cocktail, jantar e festa — hora a hora, a 27 de Novembro de 2026." },
     ],
     links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/programa" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Event",
+          name: "Casamento de Nelson & Cidália",
+          startDate: "2026-11-27T11:00:00+02:00",
+          endDate: "2026-11-28T00:00:00+02:00",
+          eventStatus: "https://schema.org/EventScheduled",
+          eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+          description:
+            "Cerimónia religiosa e recepção do casamento de Nelson & Cidália, a 27 de Novembro de 2026 em Maputo.",
+          url: "https://nelson-cidalia-convite-digital.lovable.app/programa",
+          location: {
+            "@type": "Place",
+            name: "Igreja Nossa Senhora de Fátima",
+            address: { "@type": "PostalAddress", addressLocality: "Maputo", addressCountry: "MZ" },
+          },
+          organizer: { "@type": "Person", name: "Nelson & Cidália" },
+        }),
+      },
+    ],
   }),
   component: Programa,
 });

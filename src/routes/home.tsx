@@ -39,6 +39,8 @@ function Home() {
       position: "relative",
       paddingBottom: 130,
     }}>
+      <h1 style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>Convite de Casamento de Nelson & Cidália — 27 de Novembro de 2026, Maputo</h1>
+
       {/* Hero photo — subtle background at the top only */}
       <div
         aria-hidden
