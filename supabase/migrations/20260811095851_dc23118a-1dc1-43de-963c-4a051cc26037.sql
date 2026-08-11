@@ -1,0 +1,1 @@
+UPDATE public.schedule SET title = 'COPO DE ÁGUA', icon = '🥂', description = 'Celebração e brinde à nossa nova vida juntos' WHERE title ILIKE '%jantar%';

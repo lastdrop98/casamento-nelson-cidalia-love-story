@@ -5,6 +5,11 @@ import { Church, MapPin, Calendar as CalendarIcon, Heart } from "lucide-react";
 import { fetchWedding } from "@/lib/wedding";
 import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
 import coupleHero from "@/assets/couple-hero.jpg.asset.json";
+import {
+  GoldOrnament, CountdownSection, ProgramaSection, LocalizacaoSection, RsvpSection,
+  PresentesSection, GaleriaSection, MensagemSection, ContactosSection, FooterSection,
+} from "@/components/wedding/sections/HomeSections";
+
 
 export const Route = createFileRoute("/home")({
   head: () => ({
@@ -103,11 +108,26 @@ function Home() {
           fontFamily: "'Cormorant Garamond', serif",
           fontSize: 9, letterSpacing: 3, color: "#7A6848", textTransform: "uppercase",
         }}>Com a bênção de Deus e de seus pais</motion.p>
+        <motion.div variants={item} style={{ width: "100%", maxWidth: 340, margin: "10px auto 18px" }}>
+          <div style={{ height: 1, background: "rgba(201,168,76,0.3)", marginBottom: 10 }} />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px 16px", textAlign: "center" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>Ana Vilanculos</span>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>João Gulube</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>Otília Massigue</span>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>Issufo Hassane Mussá</span>
+            </div>
+          </div>
+          <div style={{ height: 1, background: "rgba(201,168,76,0.3)", marginTop: 10 }} />
+        </motion.div>
+
         <motion.p variants={item} style={{
           fontFamily: "'Cormorant Garamond', serif",
           fontSize: 9, letterSpacing: 2, color: "#C9A84C", textTransform: "uppercase",
-          marginTop: 4,
         }}>Convidamos para o nosso casamento</motion.p>
+
 
         <motion.div variants={item} style={{ marginTop: 22 }}>
           <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 68, color: "#1E1A10", lineHeight: 1 }}>Nelson</p>
@@ -174,6 +194,27 @@ function Home() {
           Mal podemos esperar para celebrar<br />este dia com você!
         </motion.p>
       </motion.div>
+
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <GoldOrnament />
+        <CountdownSection />
+        <GoldOrnament />
+        <ProgramaSection />
+        <GoldOrnament />
+        <LocalizacaoSection />
+        <GoldOrnament />
+        <RsvpSection />
+        <GoldOrnament />
+        <PresentesSection />
+        <GoldOrnament />
+        <GaleriaSection />
+        <GoldOrnament />
+        <MensagemSection />
+        <GoldOrnament />
+        <ContactosSection />
+        <FooterSection />
+      </div>
     </div>
+
   );
 }
