@@ -67,6 +67,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "vumUZku6uiHbD_jAH8KrqViQBOeS4AYofyracfNBm6s" },
+
       { title: "Nelson & Cidália — 27 de Novembro de 2026" },
       { property: "og:title", content: "Nelson & Cidália — 27 de Novembro de 2026" },
       { name: "twitter:title", content: "Nelson & Cidália — 27 de Novembro de 2026" },
