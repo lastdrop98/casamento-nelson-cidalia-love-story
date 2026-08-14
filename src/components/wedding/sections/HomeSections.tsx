@@ -32,25 +32,43 @@ export function GoldOrnament({ dark = false }: { dark?: boolean }) {
 function Section({
   children, dark = false, background,
 }: { children: React.ReactNode; dark?: boolean; background?: string }) {
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        background: background ?? (dark ? GREEN_BG : CREAM_BG),
-        padding: "40px 20px",
-      }}
-    >
+  const inner = (
+    <>
       <BotanicalCorner position="top-left" size={64} opacity={0.5} inset={8} />
       <BotanicalCorner position="bottom-right" size={64} opacity={0.5} inset={8} />
       <div style={{ position: "relative", zIndex: 1 }}>{children}</div>
+    </>
+  );
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 42, scale: 0.985, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        background: background ?? "transparent",
+        padding: dark ? "24px 16px" : "40px 20px",
+      }}
+    >
+      {dark ? (
+        <div style={{
+          position: "relative",
+          overflow: "hidden",
+          background: GREEN_BG,
+          border: "1px solid rgba(201,168,76,0.35)",
+          borderRadius: 24,
+          padding: "34px 18px",
+          boxShadow: "0 10px 34px rgba(30,26,16,0.14)",
+        }}>
+          {inner}
+        </div>
+      ) : inner}
     </motion.section>
   );
 }
+
 
 /* ── SECTION 2 — CONTAGEM REGRESSIVA ───────────────────────── */
 
