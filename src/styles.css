@@ -132,3 +132,5 @@ div[id*="lovable-badge"] {
   position: absolute !important;
   overflow: hidden !important;
 }
+
+html { scroll-behavior: smooth; }
