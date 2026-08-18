@@ -13,6 +13,10 @@ import {
   fetchWedding, fetchGallery, fetchGifts, reserveGift, fetchMessages,
   submitMessage, signUrl, submitRsvp,
 } from "@/lib/wedding";
+import {
+  slideFromLeft, slideFromRight, fadeUp, zoomFade, blurFade, blurFadeDown,
+  staggerContainer, flipIn, springPop, inView, inViewNear, willChange,
+} from "@/lib/motion-variants";
 
 const gold = "#C9A84C";
 const ink = "#1E1A10";
@@ -50,6 +54,7 @@ function Section({
         overflow: "hidden",
         background: background ?? "transparent",
         padding: dark ? "24px 16px" : "40px 20px",
+        ...willChange,
       }}
     >
       {dark ? (
@@ -60,7 +65,6 @@ function Section({
           border: "1px solid rgba(201,168,76,0.35)",
           borderRadius: 24,
           padding: "34px 18px",
-          boxShadow: "0 10px 34px rgba(30,26,16,0.14)",
         }}>
           {inner}
         </div>
@@ -98,15 +102,18 @@ export function CountdownSection() {
   return (
     <Section dark>
       <div style={{ textAlign: "center" }}>
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 9, letterSpacing: 6, color: gold, textTransform: "uppercase" }}>
-          Faltam apenas
-        </p>
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 15, color: "rgba(201,168,76,0.6)", marginTop: 4 }}>
-          para o nosso grande dia
-        </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginTop: 18 }}>
-          {boxes.map((b) => (
-            <div key={b.label} style={{
+        <motion.div variants={blurFade} initial="hidden" whileInView="visible" viewport={inView} style={willChange}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 9, letterSpacing: 6, color: gold, textTransform: "uppercase" }}>
+            Faltam apenas
+          </p>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 15, color: "rgba(201,168,76,0.6)", marginTop: 4 }}>
+            para o nosso grande dia
+          </p>
+        </motion.div>
+        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={inViewNear} style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8, marginTop: 18 }}>
+          {boxes.map((b, bi) => (
+            <motion.div key={b.label} variants={bi === 0 ? slideFromLeft : bi === 3 ? slideFromRight : fadeUp} style={{
+              ...willChange,
               background: "#FAF6EE",
               border: "1px solid rgba(201,168,76,0.5)",
               borderRadius: 12,
@@ -118,9 +125,9 @@ export function CountdownSection() {
               <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 8, letterSpacing: 3, color: gold, textTransform: "uppercase", marginTop: 6 }}>
                 {b.label}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </Section>
   );
@@ -139,21 +146,23 @@ const SCHEDULE: Array<{ time: string; Icon: LucideIcon; title: string; desc: str
 export function ProgramaSection() {
   return (
     <Section>
-      <p style={{ textAlign: "center", fontFamily: "'Great Vibes', cursive", fontSize: 40, color: ink }}>O Nosso Dia</p>
+      <motion.p variants={blurFadeDown} initial="hidden" whileInView="visible" viewport={inView}
+        style={{ textAlign: "center", fontFamily: "'Great Vibes', cursive", fontSize: 40, color: ink, ...willChange }}>O Nosso Dia</motion.p>
       <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 12 }}>
         {SCHEDULE.map((it, idx) => (
           <motion.div
             key={it.time + it.title}
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.4, delay: idx * 0.06 }}
+            variants={idx % 2 === 0 ? slideFromLeft : slideFromRight}
+            initial="hidden"
+            whileInView="visible"
+            viewport={inViewNear}
+            whileHover={{ x: 8 }}
             style={{
+              ...willChange,
               background: "rgba(255,252,245,0.9)",
               borderLeft: `3px solid ${gold}`,
               borderRadius: "0 12px 12px 0",
               padding: "14px 16px",
-              boxShadow: "0 3px 12px rgba(122,104,72,0.08)",
             }}
           >
             <p style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, fontSize: 16, color: gold }}>{it.time}</p>
@@ -219,9 +228,11 @@ function LocationCard({
 export function LocalizacaoSection() {
   return (
     <Section>
-      <p style={{ textAlign: "center", fontFamily: "'Great Vibes', cursive", fontSize: 36, color: ink, marginBottom: 20 }}>
+      <motion.p variants={blurFade} initial="hidden" whileInView="visible" viewport={inView}
+        style={{ textAlign: "center", fontFamily: "'Great Vibes', cursive", fontSize: 36, color: ink, marginBottom: 20, ...willChange }}>
         Como Chegar até Nós
-      </p>
+      </motion.p>
+      <motion.div variants={slideFromLeft} initial="hidden" whileInView="visible" viewport={inViewNear} style={willChange}>
       <LocationCard
         Icon={Church}
         eyebrow="Cerimónia Religiosa"
@@ -231,7 +242,9 @@ export function LocalizacaoSection() {
         mapsUrl="https://maps.google.com/?q=Igreja+Nossa+Senhora+Fatima+Bairro+Ferroviario+Maputo"
         wazeUrl="https://waze.com/ul?q=Igreja+Nossa+Senhora+Fatima+Maputo"
       />
-      <GoldOrnament />
+      </motion.div>
+      <motion.div variants={zoomFade} initial="hidden" whileInView="visible" viewport={inViewNear}><GoldOrnament /></motion.div>
+      <motion.div variants={slideFromRight} initial="hidden" whileInView="visible" viewport={inViewNear} style={willChange}>
       <LocationCard
         Icon={Landmark}
         eyebrow="Recepção"
@@ -241,6 +254,7 @@ export function LocalizacaoSection() {
         wazeUrl="https://waze.com/ul?q=Cajada+Eventos+Servicos+Maputo"
         copyText="Cajada Eventos e Serviços 2, Av. Dom Alexandre, Maputo"
       />
+      </motion.div>
     </Section>
   );
 }
