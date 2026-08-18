@@ -277,13 +277,13 @@ const inputStyle: React.CSSProperties = {
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <label style={{ display: "block" }}>
+    <motion.label variants={fadeUp} style={{ display: "block", ...willChange }}>
       <span style={{
         display: "block", fontFamily: "'Cormorant Garamond', serif", fontSize: 10,
         letterSpacing: 3, color: gold, textTransform: "uppercase", marginBottom: 6,
       }}>{label}</span>
       {children}
-    </label>
+    </motion.label>
   );
 }
 
@@ -368,9 +368,9 @@ export function RsvpSection() {
 
   return (
     <Section background="radial-gradient(ellipse 80% 40% at 50% 0%, rgba(201,168,76,0.14) 0%, transparent 60%), linear-gradient(180deg,#FDFAF2 0%,#F7F0DE 100%)">
-      <div style={{
+      <motion.div variants={zoomFade} initial="hidden" whileInView="visible" viewport={inView} style={{
         border: `1px solid ${gold}`, background: "rgba(255,252,245,0.85)",
-        borderRadius: 14, padding: 22, textAlign: "center",
+        borderRadius: 14, padding: 22, textAlign: "center", ...willChange,
       }}>
         <Heart size={36} color={gold} fill={gold} />
         <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 32, color: ink, lineHeight: 1.15, marginTop: 8 }}>
@@ -379,7 +379,7 @@ export function RsvpSection() {
         <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", color: gold, marginTop: 8, fontSize: 13 }}>
           Por favor confirme até 30 de Outubro de 2026
         </p>
-      </div>
+      </motion.div>
 
       {done ? (
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} style={{ marginTop: 30, textAlign: "center", padding: 20 }}>
@@ -406,7 +406,8 @@ export function RsvpSection() {
           ><Share2 size={14} /> Partilhar</button>
         </motion.div>
       ) : (
-        <form onSubmit={submit} style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 16 }}>
+        <motion.form onSubmit={submit} variants={staggerContainer} initial="hidden" whileInView="visible" viewport={inViewNear}
+          style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 16 }}>
           <Field label="Nome Completo *">
             <input value={name} onChange={(e) => setName(e.target.value)} style={inputStyle} required />
           </Field>
@@ -462,16 +463,20 @@ export function RsvpSection() {
             </div>
           </Field>
 
-          <button
+          <motion.button
+            variants={flipIn}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
             type="submit"
             disabled={loading}
             style={{
+              ...willChange,
               width: "100%", background: "#1B3526", color: gold, border: `1px solid ${gold}`,
               borderRadius: 999, padding: "16px 20px", fontFamily: "'Cormorant Garamond', serif",
               fontSize: 12, letterSpacing: 5, textTransform: "uppercase", cursor: "pointer", marginTop: 6,
             }}
-          >{loading ? "A confirmar..." : "✦ Confirmar Presença ✦"}</button>
-        </form>
+          >{loading ? "A confirmar..." : "✦ Confirmar Presença ✦"}</motion.button>
+        </motion.form>
       )}
     </Section>
   );
@@ -507,16 +512,21 @@ export function PresentesSection() {
 
   return (
     <Section>
-      <div style={{ textAlign: "center" }}>
+      <motion.div variants={blurFade} initial="hidden" whileInView="visible" viewport={inView} style={{ textAlign: "center", ...willChange }}>
         <Gift size={36} color={gold} strokeWidth={1.4} style={{ margin: "0 auto" }} />
         <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 34, color: ink, lineHeight: 1.15, marginTop: 4 }}>
           O Vosso Carinho é o Nosso Maior Presente
         </p>
-      </div>
+      </motion.div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 18 }}>
+      <motion.div variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} initial="hidden" whileInView="visible" viewport={inViewNear}
+        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 18 }}>
         {gifts.map((g) => (
-          <div key={g.id} style={{
+          <motion.div key={g.id} variants={zoomFade}
+            whileHover={{ scale: 1.03, y: -4, boxShadow: "0 12px 40px rgba(201,168,76,0.2)" }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            style={{
+            ...willChange,
             background: "rgba(255,252,245,0.9)", border: `1px solid rgba(201,168,76,0.4)`,
             borderRadius: 14, overflow: "hidden", display: "flex", flexDirection: "column", position: "relative",
           }}>
@@ -553,9 +563,9 @@ export function PresentesSection() {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       <AnimatePresence>
         {reserving && (
@@ -630,9 +640,10 @@ export function GaleriaSection() {
 
   return (
     <Section dark>
-      <p style={{ textAlign: "center", fontFamily: "'Great Vibes', cursive", fontSize: 38, color: gold }}>Os Nossos Momentos</p>
+      <motion.p variants={blurFade} initial="hidden" whileInView="visible" viewport={inView}
+        style={{ textAlign: "center", fontFamily: "'Great Vibes', cursive", fontSize: 38, color: gold, ...willChange }}>Os Nossos Momentos</motion.p>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: 30, marginTop: 16 }}>
+      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={inViewNear} style={{ display: "flex", justifyContent: "center", gap: 30, marginTop: 16 }}>
         {(["photos", "videos"] as const).map((t) => (
           <button
             key={t}
@@ -646,7 +657,7 @@ export function GaleriaSection() {
             }}
           >{t === "photos" ? "Fotos" : "Vídeos"}</button>
         ))}
-      </div>
+      </motion.div>
 
       <div style={{ marginTop: 20 }}>
         {tab === "photos" ? (
@@ -662,12 +673,15 @@ export function GaleriaSection() {
               {urls.map((g, i) => (
                 <motion.figure
                   key={g.id}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.03 }}
+                  variants={zoomFade}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={inViewNear}
+                  transition={{ delay: Math.floor(i / 2) * 0.1 }}
+                  whileHover={{ scale: 1.05, boxShadow: "0 8px 30px rgba(201,168,76,0.3)" }}
                   onClick={() => setLightbox(i)}
                   style={{
+                    ...willChange,
                     breakInside: "avoid", marginBottom: 8, borderRadius: 14, overflow: "hidden",
                     border: "1px solid rgba(201,168,76,0.3)", cursor: "zoom-in",
                   }}
@@ -738,11 +752,15 @@ export function MensagemSection() {
   return (
     <Section>
       <div style={{ textAlign: "center" }}>
-        <Mail size={44} color={gold} strokeWidth={1.4} style={{ margin: "0 auto" }} />
-        <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 36, color: ink }}>Deixe as suas palavras</p>
+        <motion.div variants={springPop} initial="hidden" whileInView="visible" viewport={inView} style={{ display: "inline-block", ...willChange }}>
+          <Mail size={44} color={gold} strokeWidth={1.4} style={{ margin: "0 auto" }} />
+        </motion.div>
+        <motion.p variants={blurFade} initial="hidden" whileInView="visible" viewport={inView}
+          style={{ fontFamily: "'Great Vibes', cursive", fontSize: 36, color: ink, ...willChange }}>Deixe as suas palavras</motion.p>
       </div>
 
-      <form onSubmit={submit} style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 12 }}>
+      <motion.form onSubmit={submit} variants={fadeUp} initial="hidden" whileInView="visible" viewport={inViewNear}
+        style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 12, ...willChange }}>
         <input placeholder="O seu nome" value={name} onChange={(e) => setName(e.target.value)} style={inputStyle} />
         <textarea
           placeholder="A sua mensagem *"
@@ -757,7 +775,7 @@ export function MensagemSection() {
           padding: "14px", borderRadius: 999, background: "#1B3526", color: gold, border: `1px solid ${gold}`,
           fontFamily: "'Cormorant Garamond', serif", fontSize: 12, letterSpacing: 4, textTransform: "uppercase", cursor: "pointer",
         }}>{saving ? "A enviar..." : "Enviar Mensagem"}</button>
-      </form>
+      </motion.form>
 
       {sent && (
         <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
@@ -770,22 +788,24 @@ export function MensagemSection() {
         <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 10, letterSpacing: 3, color: gold, textTransform: "uppercase", textAlign: "center" }}>
           Mural de Mensagens
         </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 12 }}>
+        <motion.div variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }} initial="hidden" whileInView="visible" viewport={inViewNear}
+          style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 12 }}>
           {(mQ.data ?? []).map((m) => (
-            <div key={m.id} style={{
+            <motion.div key={m.id} variants={slideFromLeft} style={{
+              ...willChange,
               background: "rgba(255,252,245,0.9)", borderLeft: `3px solid ${gold}`,
               borderRadius: "0 10px 10px 0", padding: 12,
             }}>
               <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 10, letterSpacing: 1, color: gold }}>{m.guest_name ?? "Anónimo"}</p>
               <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 15, color: ink, marginTop: 3 }}>"{m.message}"</p>
-            </div>
+            </motion.div>
           ))}
           {(!mQ.data || mQ.data.length === 0) && (
             <p style={{ textAlign: "center", fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", color: "#7A6848" }}>
               Seja o primeiro a deixar uma mensagem.
             </p>
           )}
-        </div>
+        </motion.div>
       </div>
     </Section>
   );
@@ -793,9 +813,16 @@ export function MensagemSection() {
 
 /* ── SECTION 9 — CONTACTOS ─────────────────────────────────── */
 
-function ContactCard({ initial, role, name, phone, wa }: { initial: string; role: string; name: string; phone: string; wa?: string }) {
+function ContactCard({ initial, role, name, phone, wa, variant }: { initial: string; role: string; name: string; phone: string; wa?: string; variant?: typeof fadeUp }) {
   return (
-    <div style={{
+    <motion.div
+      variants={variant ?? fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={inViewNear}
+      whileHover={{ scale: 1.02, y: -3 }}
+      style={{
+      ...willChange,
       border: `1px solid ${gold}`, background: "rgba(255,252,245,0.9)",
       borderRadius: 14, padding: 18, display: "flex", alignItems: "center", gap: 14,
     }}>
@@ -810,11 +837,11 @@ function ContactCard({ initial, role, name, phone, wa }: { initial: string; role
         <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 15, color: "#7A6848", marginTop: 2 }}>{phone}</p>
       </div>
       {wa ? (
-        <a href={`https://wa.me/${wa}`} target="_blank" rel="noreferrer" style={{
+        <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href={`https://wa.me/${wa}`} target="_blank" rel="noreferrer" style={{
           background: "#25D366", color: "#fff", padding: "8px 14px", borderRadius: 999,
           textDecoration: "none", fontFamily: "'Cormorant Garamond', serif", fontSize: 11,
           letterSpacing: 2, textTransform: "uppercase",
-        }}>WhatsApp</a>
+        }}>WhatsApp</motion.a>
       ) : (
         <span style={{
           background: "#25D366", color: "#fff", padding: "8px 14px", borderRadius: 999,
@@ -822,7 +849,7 @@ function ContactCard({ initial, role, name, phone, wa }: { initial: string; role
           textTransform: "uppercase", opacity: 0.4,
         }}>WhatsApp</span>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -830,27 +857,31 @@ export function ContactosSection() {
   const hashtag = "#NelsonECidália2026";
   return (
     <Section>
-      <p style={{ textAlign: "center", fontFamily: "'Great Vibes', cursive", fontSize: 36, color: ink }}>Estamos à Disposição</p>
+      <motion.p variants={blurFade} initial="hidden" whileInView="visible" viewport={inView}
+        style={{ textAlign: "center", fontFamily: "'Great Vibes', cursive", fontSize: 36, color: ink, ...willChange }}>Estamos à Disposição</motion.p>
       <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 20 }}>
-        <ContactCard initial="N" role="Noivo" name="Nelson Issufo Mussa" phone="+258 84 015 3624" wa="258840153624" />
-        <ContactCard initial="C" role="Noiva" name="Cidália João Gulube" phone="+258 84 209 8679" wa="258842098679" />
-        <ContactCard initial="?" role="Cerimonial" name="A confirmar" phone="—" />
+        <ContactCard variant={slideFromLeft} initial="N" role="Noivo" name="Nelson Issufo Mussa" phone="+258 84 015 3624" wa="258840153624" />
+        <ContactCard variant={slideFromRight} initial="C" role="Noiva" name="Cidália João Gulube" phone="+258 84 209 8679" wa="258842098679" />
+        <ContactCard variant={fadeUp} initial="?" role="Cerimonial" name="A confirmar" phone="—" />
       </div>
 
       <GoldOrnament />
 
       <div style={{ textAlign: "center" }}>
-        <button
+        <motion.button
+          variants={zoomFade} initial="hidden" whileInView="visible" viewport={inViewNear}
+          whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
           onClick={() => { navigator.clipboard.writeText(hashtag); toast.success("Hashtag copiada!"); }}
           style={{ background: "transparent", border: "none", cursor: "pointer", fontFamily: "'Great Vibes', cursive", fontSize: 32, color: gold }}
-        >{hashtag}</button>
-        <div style={{ display: "flex", justifyContent: "center", gap: 18, marginTop: 16 }}>
+        >{hashtag}</motion.button>
+        <motion.div variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }} initial="hidden" whileInView="visible" viewport={inViewNear}
+          style={{ display: "flex", justifyContent: "center", gap: 18, marginTop: 16 }}>
           {[
             { Icon: Instagram, label: "Instagram" },
             { Icon: Facebook, label: "Facebook" },
             { Icon: Music2, label: "TikTok" },
           ].map(({ Icon, label }) => (
-            <div key={label} style={{ textAlign: "center" }}>
+            <motion.div key={label} variants={fadeUp} whileHover={{ scale: 1.05 }} style={{ textAlign: "center", ...willChange }}>
               <div style={{
                 width: 56, height: 56, borderRadius: "50%", border: `1px solid ${gold}`,
                 display: "flex", alignItems: "center", justifyContent: "center", color: gold,
@@ -869,22 +900,22 @@ export function ContactosSection() {
 export function FooterSection() {
   return (
     <Section dark>
-      <div style={{ textAlign: "center" }}>
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, letterSpacing: 10, color: gold }}>N | C</p>
-        <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 48, color: gold, lineHeight: 1.1, marginTop: 6 }}>Nelson &amp; Cidália</p>
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 16, color: gold, marginTop: 4 }}>27 · 11 · 2026</p>
-        <GoldOrnament dark />
-        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 18, color: "rgba(201,168,76,0.8)" }}>
+      <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={inViewNear} style={{ textAlign: "center" }}>
+        <motion.p variants={blurFade} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, letterSpacing: 10, color: gold, ...willChange }}>N | C</motion.p>
+        <motion.p variants={blurFade} style={{ fontFamily: "'Great Vibes', cursive", fontSize: 48, color: gold, lineHeight: 1.1, marginTop: 6, ...willChange }}>Nelson &amp; Cidália</motion.p>
+        <motion.p variants={blurFade} style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 16, color: gold, marginTop: 4, ...willChange }}>27 · 11 · 2026</motion.p>
+        <motion.div variants={blurFade}><GoldOrnament dark /></motion.div>
+        <motion.p variants={blurFade} style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 18, color: "rgba(201,168,76,0.8)", ...willChange }}>
           Obrigado por fazer parte da nossa história.
-        </p>
-        <p style={{
+        </motion.p>
+        <motion.p variants={blurFade} style={{
           marginTop: 22, fontFamily: "'Cormorant Garamond', serif", fontSize: 7,
           letterSpacing: 3, color: "rgba(201,168,76,0.35)", textTransform: "uppercase",
           display: "inline-flex", alignItems: "center", gap: 5, justifyContent: "center",
         }}>
           Feito com <Heart size={8} color="rgba(201,168,76,0.35)" fill="rgba(201,168,76,0.35)" /> por Shelton Barreto 🇲🇿
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
     </Section>
   );
 }
