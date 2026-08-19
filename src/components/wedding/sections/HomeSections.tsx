@@ -887,9 +887,10 @@ export function ContactosSection() {
                 display: "flex", alignItems: "center", justifyContent: "center", color: gold,
               }}><Icon size={22} /></div>
               <p style={{ marginTop: 6, fontFamily: "'Cormorant Garamond', serif", fontSize: 8, letterSpacing: 2, color: gold, textTransform: "uppercase" }}>{label}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
+
       </div>
     </Section>
   );
