@@ -9,6 +9,11 @@ import {
   GoldOrnament, CountdownSection, ProgramaSection, LocalizacaoSection, RsvpSection,
   PresentesSection, GaleriaSection, MensagemSection, ContactosSection, FooterSection,
 } from "@/components/wedding/sections/HomeSections";
+import {
+  LeiDivinaSection, OsNoivosSection, BencaoSection, AmigosFamiliaSection,
+  PresenteIntroSection, EncerramentoSection,
+} from "@/components/wedding/sections/StorySections";
+
 
 
 export const Route = createFileRoute("/home")({
@@ -197,23 +202,34 @@ function Home() {
 
       <div style={{ position: "relative", zIndex: 1 }}>
         <GoldOrnament />
-        <CountdownSection />
+        <LeiDivinaSection />
+        <GoldOrnament />
+        <OsNoivosSection />
+        <GoldOrnament />
+        <BencaoSection />
         <GoldOrnament />
         <ProgramaSection />
         <GoldOrnament />
         <LocalizacaoSection />
         <GoldOrnament />
+        <AmigosFamiliaSection />
+        <GoldOrnament />
+        <CountdownSection />
+        <GoldOrnament />
         <RsvpSection />
         <GoldOrnament />
+        <MensagemSection />
+        <GoldOrnament />
+        <PresenteIntroSection />
         <PresentesSection />
         <GoldOrnament />
         <GaleriaSection />
         <GoldOrnament />
-        <MensagemSection />
-        <GoldOrnament />
         <ContactosSection />
+        <EncerramentoSection />
         <FooterSection />
       </div>
+
     </div>
 
   );
