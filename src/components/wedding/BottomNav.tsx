@@ -14,7 +14,6 @@ const TABS: Tab[] = [
 const MORE_ITEMS = [
   { to: "/historia", label: "Nossa História" },
   { to: "/localizacao", label: "Localização" },
-  { to: "/presentes", label: "Lista de Presentes" },
   { to: "/dresscode", label: "Dress Code" },
   { to: "/mensagem", label: "Mensagem aos Noivos" },
   { to: "/contactos", label: "Contactos" },
@@ -36,7 +35,7 @@ export function BottomNav() {
   const isActive = (to: string) =>
     pathname === to || (to !== "/" && pathname.startsWith(to));
 
-  const inactive = "rgba(201,168,76,0.45)";
+  const inactive = "rgba(30,26,16,0.45)";
   const gold = "#C9A84C";
 
   const nav = (
@@ -48,7 +47,7 @@ export function BottomNav() {
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(8,14,6,0.6)",
+            background: "rgba(30,26,16,0.45)",
             zIndex: 9998,
             animation: "fadeIn 0.2s ease-out",
           }}
@@ -65,12 +64,12 @@ export function BottomNav() {
             width: "100%",
             maxWidth: 430,
             zIndex: 9999,
-            background: "linear-gradient(180deg,#1E3828,#0E2014)",
+            background: "linear-gradient(180deg,#FDFAF2,#F5EDD8)",
             borderRadius: "24px 24px 0 0",
-            borderTop: "1.5px solid rgba(201,168,76,0.4)",
+            borderTop: "1.5px solid rgba(201,168,76,0.55)",
             padding: "12px 0 28px",
             animation: "sheetUp 0.32s cubic-bezier(0.22,1,0.36,1)",
-            boxShadow: "0 -20px 40px rgba(0,0,0,0.4)",
+            boxShadow: "0 -18px 40px rgba(30,26,16,0.18)",
           }}
         >
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -108,9 +107,9 @@ export function BottomNav() {
                   justifyContent: "space-between",
                   padding: "16px 22px",
                   borderLeft: `2px solid ${gold}`,
-                  borderBottom: "1px solid rgba(201,168,76,0.08)",
+                  borderBottom: "1px solid rgba(201,168,76,0.18)",
                   background: "transparent",
-                  color: "#F5EDD8",
+                  color: "#1E1A10",
                   fontFamily: "'Cormorant Garamond', serif",
                   fontSize: 13,
                   letterSpacing: 2,
@@ -136,15 +135,15 @@ export function BottomNav() {
           width: "100%",
           maxWidth: 430,
           height: 62,
-          background: "#1B3526",
-          borderTop: "1px solid rgba(201,168,76,0.25)",
+          background: "linear-gradient(180deg,#FFFDF7 0%,#F7F0DE 100%)",
+          borderTop: "1px solid rgba(201,168,76,0.45)",
           zIndex: 9999,
           willChange: "transform",
           display: "flex",
           justifyContent: "space-around",
           alignItems: "center",
           flexWrap: "nowrap",
-          boxShadow: "0 -6px 24px rgba(0,0,0,0.3)",
+          boxShadow: "0 -6px 22px rgba(30,26,16,0.12)",
         }}
       >
         {TABS.map((t) => {
@@ -164,13 +163,13 @@ export function BottomNav() {
                   style={{
                     width: 48, height: 48, borderRadius: "50%",
                     border: `1.5px solid ${gold}`,
-                    background: "rgba(201,168,76,0.14)",
+                    background: "linear-gradient(180deg,#FFFDF7,#F3E9CE)",
                     display: "flex", alignItems: "center", justifyContent: "center",
                     boxShadow: active ? `0 0 18px rgba(201,168,76,0.55)` : `0 0 10px rgba(201,168,76,0.25)`,
                     transition: "box-shadow 0.3s",
                   }}
                 >
-                  <t.Icon size={24} color={active ? gold : "#E7D9A8"} />
+                  <t.Icon size={24} color={active ? gold : "rgba(30,26,16,0.55)"} />
                 </div>
                 <span style={{
                   marginTop: 4,

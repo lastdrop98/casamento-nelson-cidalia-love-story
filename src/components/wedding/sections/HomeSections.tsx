@@ -4,13 +4,13 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
   Church, Landmark, MapPin, Navigation, ClipboardCopy, Heart, Check, X as XIcon,
-  CircleDot, Minus, Plus, Gift, Lock, Camera, ChevronLeft, ChevronRight, Mail,
+  CircleDot, Minus, Plus, Camera, ChevronLeft, ChevronRight, Mail,
   Instagram, Facebook, Music2, Flower2, Wine, Music, Share2,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
 import {
-  fetchWedding, fetchGallery, fetchGifts, reserveGift, fetchMessages,
+  fetchWedding, fetchGallery, fetchMessages,
   submitMessage, signUrl, submitRsvp,
 } from "@/lib/wedding";
 import {
@@ -478,138 +478,6 @@ export function RsvpSection() {
           >{loading ? "A confirmar..." : "✦ Confirmar Presença ✦"}</motion.button>
         </motion.form>
       )}
-    </Section>
-  );
-}
-
-/* ── SECTION 6 — PRESENTES ─────────────────────────────────── */
-
-export function PresentesSection() {
-  const qc = useQueryClient();
-  const wQ = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
-  const w = wQ.data;
-  const gQ = useQuery({ queryKey: ["gifts", w?.id], queryFn: () => fetchGifts(w!.id), enabled: !!w });
-  const [reserving, setReserving] = useState<null | { id: string; name: string }>(null);
-  const [resName, setResName] = useState("");
-  const [resPhone, setResPhone] = useState("");
-  const [saving, setSaving] = useState(false);
-
-  const confirmReserve = async () => {
-    if (!reserving) return;
-    if (!resName.trim() || !resPhone.trim()) { toast.error("Preencha o seu nome e telefone."); return; }
-    setSaving(true);
-    try {
-      await reserveGift(reserving.id, resName.trim(), resPhone.trim());
-      toast.success("Presente reservado com sucesso!");
-      setReserving(null); setResName(""); setResPhone("");
-      qc.invalidateQueries({ queryKey: ["gifts", w?.id] });
-    } catch {
-      toast.error("Erro ao reservar. Tente novamente.");
-    } finally { setSaving(false); }
-  };
-
-  const gifts = gQ.data ?? [];
-
-  return (
-    <Section>
-      <motion.div variants={blurFade} initial="hidden" whileInView="visible" viewport={inView} style={{ textAlign: "center", ...willChange }}>
-        <Gift size={36} color={gold} strokeWidth={1.4} style={{ margin: "0 auto" }} />
-        <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 34, color: ink, lineHeight: 1.15, marginTop: 4 }}>
-          O Vosso Carinho é o Nosso Maior Presente
-        </p>
-      </motion.div>
-
-      <motion.div variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }} initial="hidden" whileInView="visible" viewport={inViewNear}
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 18 }}>
-        {gifts.map((g) => (
-          <motion.div key={g.id} variants={zoomFade}
-            whileHover={{ scale: 1.03, y: -4, boxShadow: "0 12px 40px rgba(201,168,76,0.2)" }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            style={{
-            ...willChange,
-            background: "rgba(255,252,245,0.9)", border: `1px solid rgba(201,168,76,0.4)`,
-            borderRadius: 14, overflow: "hidden", display: "flex", flexDirection: "column", position: "relative",
-          }}>
-            <div style={{
-              aspectRatio: "1 / 1",
-              background: g.image_url ? `url(${g.image_url}) center/cover` : "linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.05))",
-              display: "flex", alignItems: "center", justifyContent: "center", color: gold,
-            }}>{g.image_url ? null : <Gift size={40} strokeWidth={1.4} />}</div>
-            <span style={{
-              position: "absolute", top: 8, right: 8, fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 9, letterSpacing: 1, textTransform: "uppercase", padding: "3px 10px", borderRadius: 999,
-              background: g.status === "available" ? gold : g.status === "reserved" ? "#F0B84C" : "#4A7A50",
-              color: g.status === "available" ? ink : "#fff",
-              display: "inline-flex", alignItems: "center", gap: 4,
-            }}>
-              {g.status === "available" && "Disponível"}
-              {g.status === "reserved" && (<>Reservado <Lock size={9} /></>)}
-              {g.status === "purchased" && (<>Comprado <Check size={10} /></>)}
-            </span>
-            <div style={{ padding: 10, flex: 1, display: "flex", flexDirection: "column" }}>
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 11, letterSpacing: 1, color: ink, textTransform: "uppercase" }}>{g.name}</p>
-              {g.price_label && (
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 15, color: gold, marginTop: 6 }}>{g.price_label}</p>
-              )}
-              <div style={{ marginTop: "auto", paddingTop: 10 }}>
-                {g.status === "available" && (
-                  <button
-                    onClick={() => setReserving({ id: g.id, name: g.name })}
-                    style={{
-                      width: "100%", padding: "8px", borderRadius: 999, background: "#1B3526",
-                      color: gold, border: `1px solid ${gold}`, fontFamily: "'Cormorant Garamond', serif",
-                      fontSize: 11, letterSpacing: 2, textTransform: "uppercase", cursor: "pointer",
-                    }}>Reservar</button>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      <AnimatePresence>
-        {reserving && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={() => setReserving(null)}
-              style={{ position: "fixed", inset: 0, background: "rgba(8,14,6,0.6)", zIndex: 10000 }}
-            />
-            <motion.div
-              initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 26, stiffness: 260 }}
-              style={{
-                position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)",
-                width: "100%", maxWidth: 430, zIndex: 10001,
-                background: CREAM_BG, borderRadius: "24px 24px 0 0",
-                borderTop: `2px solid ${gold}`, padding: "18px 20px 30px",
-              }}
-            >
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 13, letterSpacing: 3, color: ink, textTransform: "uppercase" }}>
-                  Reservar {reserving.name}
-                </p>
-                <button onClick={() => setReserving(null)} aria-label="Fechar" style={{ background: "transparent", border: "none", color: gold, cursor: "pointer" }}>
-                  <XIcon size={20} />
-                </button>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 14 }}>
-                <input placeholder="O seu nome *" value={resName} onChange={(e) => setResName(e.target.value)} style={inputStyle} />
-                <input placeholder="O seu telefone *" value={resPhone} onChange={(e) => setResPhone(e.target.value)} style={inputStyle} />
-                <button
-                  onClick={confirmReserve}
-                  disabled={saving}
-                  style={{
-                    padding: "14px", borderRadius: 999, background: "#1B3526", color: gold,
-                    border: `1px solid ${gold}`, fontFamily: "'Cormorant Garamond', serif",
-                    fontSize: 12, letterSpacing: 4, textTransform: "uppercase", cursor: "pointer",
-                  }}
-                >{saving ? "A reservar..." : "Confirmar Reserva"}</button>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </Section>
   );
 }

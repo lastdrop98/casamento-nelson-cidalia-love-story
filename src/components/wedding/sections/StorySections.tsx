@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Heart, Calendar, Church, MapPin, Gift, Users } from "lucide-react";
+import { Heart, Calendar, Church, MapPin, Users } from "lucide-react";
 import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
 import coupleHero from "@/assets/couple-hero.jpg.asset.json";
 import {
@@ -173,27 +173,6 @@ export function AmigosFamiliaSection() {
         </p>
       </motion.div>
       <div style={{ marginTop: 24 }}><ArchPhoto delay={0.1} /></div>
-    </Block>
-  );
-}
-
-/* ── PRESENTE DE CASAMENTO (intro) ──────────────────────────── */
-export function PresenteIntroSection() {
-  return (
-    <Block>
-      <div style={{ textAlign: "center" }}>
-        <motion.div variants={zoomFade} initial="hidden" whileInView="visible" viewport={inView} style={willChange}>
-          <Gift size={30} color={gold} strokeWidth={1.4} style={{ margin: "0 auto" }} />
-        </motion.div>
-        <motion.p variants={blurFade} initial="hidden" whileInView="visible" viewport={inView}
-          style={{ ...script, fontSize: 36, marginTop: 8, ...willChange }}>Presente de Casamento</motion.p>
-        <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={inViewNear}
-          style={{ ...serif, fontSize: 14, color: muted, lineHeight: 1.9, marginTop: 14, ...willChange }}>
-          A sua presença é o nosso maior presente. No entanto, caso queira nos
-          agraciar com um presente, veja logo abaixo o resumo das nossas
-          preferências.
-        </motion.p>
-      </div>
     </Block>
   );
 }
