@@ -60,22 +60,6 @@
         "outputSchema": null
       },
       {
-        "name": "list_gifts",
-        "title": "List gift registry",
-        "description": "List the wedding gift registry items and whether each one is still available or already reserved.",
-        "annotations": {
-          "readOnlyHint": true,
-          "idempotentHint": true,
-          "openWorldHint": false
-        },
-        "inputSchema": {
-          "$schema": "http://json-schema.org/draft-07/schema#",
-          "type": "object",
-          "properties": {}
-        },
-        "outputSchema": null
-      },
-      {
         "name": "list_messages",
         "title": "List guest messages",
         "description": "List the most recent public guestbook messages left for the couple.",

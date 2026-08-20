@@ -7,11 +7,11 @@ import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
 import coupleHero from "@/assets/couple-hero.jpg.asset.json";
 import {
   GoldOrnament, CountdownSection, ProgramaSection, LocalizacaoSection, RsvpSection,
-  PresentesSection, GaleriaSection, MensagemSection, ContactosSection, FooterSection,
+  GaleriaSection, MensagemSection, ContactosSection, FooterSection,
 } from "@/components/wedding/sections/HomeSections";
 import {
   LeiDivinaSection, OsNoivosSection, BencaoSection, AmigosFamiliaSection,
-  PresenteIntroSection, EncerramentoSection,
+  EncerramentoSection,
 } from "@/components/wedding/sections/StorySections";
 
 
@@ -219,9 +219,6 @@ function Home() {
         <RsvpSection />
         <GoldOrnament />
         <MensagemSection />
-        <GoldOrnament />
-        <PresenteIntroSection />
-        <PresentesSection />
         <GoldOrnament />
         <GaleriaSection />
         <GoldOrnament />

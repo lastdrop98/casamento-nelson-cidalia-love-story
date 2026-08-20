@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RsvpRouteImport } from './routes/rsvp'
 import { Route as ProgramaRouteImport } from './routes/programa'
-import { Route as PresentesRouteImport } from './routes/presentes'
 import { Route as MensagemRouteImport } from './routes/mensagem'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LocalizacaoRouteImport } from './routes/localizacao'
@@ -41,11 +40,6 @@ const RsvpRoute = RsvpRouteImport.update({
 const ProgramaRoute = ProgramaRouteImport.update({
   id: '/programa',
   path: '/programa',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PresentesRoute = PresentesRouteImport.update({
-  id: '/presentes',
-  path: '/presentes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MensagemRoute = MensagemRouteImport.update({
@@ -134,7 +128,6 @@ export interface FileRoutesByFullPath {
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
   '/mensagem': typeof MensagemRoute
-  '/presentes': typeof PresentesRoute
   '/programa': typeof ProgramaRoute
   '/rsvp': typeof RsvpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -154,7 +147,6 @@ export interface FileRoutesByTo {
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
   '/mensagem': typeof MensagemRoute
-  '/presentes': typeof PresentesRoute
   '/programa': typeof ProgramaRoute
   '/rsvp': typeof RsvpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -175,7 +167,6 @@ export interface FileRoutesById {
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
   '/mensagem': typeof MensagemRoute
-  '/presentes': typeof PresentesRoute
   '/programa': typeof ProgramaRoute
   '/rsvp': typeof RsvpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -197,7 +188,6 @@ export interface FileRouteTypes {
     | '/localizacao'
     | '/mcp'
     | '/mensagem'
-    | '/presentes'
     | '/programa'
     | '/rsvp'
     | '/sitemap.xml'
@@ -217,7 +207,6 @@ export interface FileRouteTypes {
     | '/localizacao'
     | '/mcp'
     | '/mensagem'
-    | '/presentes'
     | '/programa'
     | '/rsvp'
     | '/sitemap.xml'
@@ -237,7 +226,6 @@ export interface FileRouteTypes {
     | '/localizacao'
     | '/mcp'
     | '/mensagem'
-    | '/presentes'
     | '/programa'
     | '/rsvp'
     | '/sitemap.xml'
@@ -258,7 +246,6 @@ export interface RootRouteChildren {
   LocalizacaoRoute: typeof LocalizacaoRoute
   McpRoute: typeof McpRoute
   MensagemRoute: typeof MensagemRoute
-  PresentesRoute: typeof PresentesRoute
   ProgramaRoute: typeof ProgramaRoute
   RsvpRoute: typeof RsvpRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -288,13 +275,6 @@ declare module '@tanstack/react-router' {
       path: '/programa'
       fullPath: '/programa'
       preLoaderRoute: typeof ProgramaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/presentes': {
-      id: '/presentes'
-      path: '/presentes'
-      fullPath: '/presentes'
-      preLoaderRoute: typeof PresentesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mensagem': {
@@ -410,7 +390,6 @@ const rootRouteChildren: RootRouteChildren = {
   LocalizacaoRoute: LocalizacaoRoute,
   McpRoute: McpRoute,
   MensagemRoute: MensagemRoute,
-  PresentesRoute: PresentesRoute,
   ProgramaRoute: ProgramaRoute,
   RsvpRoute: RsvpRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

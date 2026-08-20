@@ -4,13 +4,13 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
   Church, Landmark, MapPin, Navigation, ClipboardCopy, Heart, Check, X as XIcon,
-  CircleDot, Minus, Plus, Gift, Lock, Camera, ChevronLeft, ChevronRight, Mail,
+  CircleDot, Minus, Plus, Camera, ChevronLeft, ChevronRight, Mail,
   Instagram, Facebook, Music2, Flower2, Wine, Music, Share2,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
 import {
-  fetchWedding, fetchGallery, fetchGifts, reserveGift, fetchMessages,
+  fetchWedding, fetchGallery, fetchMessages,
   submitMessage, signUrl, submitRsvp,
 } from "@/lib/wedding";
 import {
