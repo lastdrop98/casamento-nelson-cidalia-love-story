@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Heart, Calendar, Church, MapPin, Users } from "lucide-react";
 import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
-import coupleHero from "@/assets/couple-hero.jpg.asset.json";
+
 import noivos2 from "@/assets/noivos-2.jpg.asset.json";
 import noivos3 from "@/assets/noivos-3.jpg.asset.json";
 import {
