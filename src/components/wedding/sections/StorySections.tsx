@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Heart, Calendar, Church, MapPin, Users } from "lucide-react";
 import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
 import coupleHero from "@/assets/couple-hero.jpg.asset.json";
+import noivos2 from "@/assets/noivos-2.jpg.asset.json";
+import noivos3 from "@/assets/noivos-3.jpg.asset.json";
 import {
   slideFromLeft, slideFromRight, fadeUp, zoomFade, blurFade, blurFadeDown,
   staggerContainer, inView, inViewNear, willChange,
@@ -46,7 +48,7 @@ function ArchPhoto({ delay = 0 }: { delay?: number }) {
         borderRadius: "150px 150px 16px 16px",
         overflow: "hidden",
         border: `1px solid ${gold}`,
-        backgroundImage: `url(${coupleHero.url})`,
+        backgroundImage: `url(${noivos2.url})`,
         backgroundSize: "cover",
         backgroundPosition: "center 25%",
       }}
@@ -190,7 +192,7 @@ export function EncerramentoSection() {
       <div style={{
         position: "relative", overflow: "hidden", borderRadius: 24,
         border: "1px solid rgba(201,168,76,0.35)", minHeight: 420,
-        backgroundImage: `linear-gradient(180deg, rgba(14,32,20,0.15) 0%, rgba(14,32,20,0.75) 55%, rgba(14,32,20,0.96) 100%), url(${coupleHero.url})`,
+        backgroundImage: `linear-gradient(180deg, rgba(14,32,20,0.15) 0%, rgba(14,32,20,0.75) 55%, rgba(14,32,20,0.96) 100%), url(${noivos3.url})`,
         backgroundSize: "cover", backgroundPosition: "center 20%",
         display: "flex", flexDirection: "column", justifyContent: "flex-end",
         padding: "40px 24px", textAlign: "center",
