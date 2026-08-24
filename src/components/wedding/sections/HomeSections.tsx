@@ -76,7 +76,7 @@ function Section({
 
 /* ── SECTION 2 — CONTAGEM REGRESSIVA ───────────────────────── */
 
-const TARGET = new Date("2026-11-27T11:00:00").getTime();
+const TARGET = new Date("2026-11-27T09:00:00").getTime();
 function diff() {
   const ms = Math.max(0, TARGET - Date.now());
   return {
@@ -136,7 +136,8 @@ export function CountdownSection() {
 /* ── SECTION 3 — PROGRAMA ──────────────────────────────────── */
 
 const SCHEDULE: Array<{ time: string; Icon: LucideIcon; title: string; desc: string }> = [
-  { time: "11H00", Icon: Church, title: "Cerimónia Religiosa", desc: "Igreja Nossa Senhora de Fátima — Bairro Ferroviário" },
+  { time: "09H00", Icon: Church, title: "Cerimónia Religiosa", desc: "Igreja Nossa Senhora de Fátima — Bairro Ferroviário" },
+  { time: "12H30", Icon: Landmark, title: "Cerimónia Civil", desc: "Local a confirmar" },
   { time: "13H00", Icon: Flower2, title: "Recepção dos Convidados", desc: "Cajada Eventos e Serviços 2 — Av. Dom Alexandre" },
   { time: "14H00", Icon: Wine, title: "Cocktail", desc: "Momentos de convívio e celebração" },
   { time: "15H00", Icon: Wine, title: "Copo de Água", desc: "Celebração e brinde à nossa nova vida juntos" },
@@ -238,9 +239,21 @@ export function LocalizacaoSection() {
         eyebrow="Cerimónia Religiosa"
         name="Igreja Nossa Senhora de Fátima"
         address="Bairro Ferroviário, Maputo"
-        time="11H00"
+        time="09H00"
         mapsUrl="https://maps.google.com/?q=Igreja+Nossa+Senhora+Fatima+Bairro+Ferroviario+Maputo"
         wazeUrl="https://waze.com/ul?q=Igreja+Nossa+Senhora+Fatima+Maputo"
+      />
+      </motion.div>
+      <motion.div variants={zoomFade} initial="hidden" whileInView="visible" viewport={inViewNear}><GoldOrnament /></motion.div>
+      <motion.div variants={slideFromLeft} initial="hidden" whileInView="visible" viewport={inViewNear} style={willChange}>
+      <LocationCard
+        Icon={Landmark}
+        eyebrow="Cerimónia Civil"
+        name="Local a confirmar"
+        address="Detalhes brevemente"
+        time="12H30"
+        mapsUrl="https://maps.google.com/?q=Maputo"
+        wazeUrl="https://waze.com/ul?q=Maputo"
       />
       </motion.div>
       <motion.div variants={zoomFade} initial="hidden" whileInView="visible" viewport={inViewNear}><GoldOrnament /></motion.div>
