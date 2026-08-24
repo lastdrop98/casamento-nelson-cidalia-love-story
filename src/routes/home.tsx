@@ -118,10 +118,10 @@ function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px 16px", textAlign: "center" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
               <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>Ana Vilanculos</span>
-              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>João Gulube</span>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>João Toalha Gulube</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>Otília Massigue</span>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>Otília Florência Massinga</span>
               <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>Issufo Hassane Mussá</span>
             </div>
           </div>
