@@ -4,6 +4,7 @@ import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
 
 import noivos2 from "@/assets/noivos-2.jpg.asset.json";
 import noivos3 from "@/assets/noivos-3.jpg.asset.json";
+import familiaAmigos from "@/assets/familia-amigos.jpg";
 import {
   slideFromLeft, slideFromRight, fadeUp, zoomFade, blurFade, blurFadeDown,
   staggerContainer, inView, inViewNear, willChange,
@@ -32,7 +33,7 @@ function Block({ children, background }: { children: React.ReactNode; background
   );
 }
 
-function ArchPhoto({ delay = 0 }: { delay?: number }) {
+function ArchPhoto({ delay = 0, image }: { delay?: number; image?: string }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.94 }}
@@ -48,7 +49,7 @@ function ArchPhoto({ delay = 0 }: { delay?: number }) {
         borderRadius: "150px 150px 16px 16px",
         overflow: "hidden",
         border: `1px solid ${gold}`,
-        backgroundImage: `url(${noivos2.url})`,
+        backgroundImage: `url(${image ?? noivos2.url})`,
         backgroundSize: "cover",
         backgroundPosition: "center 25%",
       }}
@@ -174,7 +175,7 @@ export function AmigosFamiliaSection() {
           melhor nos organizarmos.
         </p>
       </motion.div>
-      <div style={{ marginTop: 24 }}><ArchPhoto delay={0.1} /></div>
+            <div style={{ marginTop: 24 }}><ArchPhoto delay={0.1} image={familiaAmigos} /></div>
     </Block>
   );
 }
