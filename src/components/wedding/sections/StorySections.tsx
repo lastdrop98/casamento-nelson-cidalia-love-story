@@ -118,9 +118,10 @@ export function OsNoivosSection() {
 
 /* ── COM A BÊNÇÃO DE DEUS ───────────────────────────────────── */
 export function BencaoSection() {
-  const cards = [
+    const cards = [
     { Icon: Calendar, title: "27 de Novembro de 2026", sub: "Sexta-feira · Maputo" },
-    { Icon: Church, title: "Cerimónia Religiosa · 11H00", sub: "Igreja Nossa Senhora de Fátima" },
+    { Icon: Church, title: "Cerimónia Religiosa · 09H00", sub: "Igreja Nossa Senhora de Fátima" },
+    { Icon: MapPin, title: "Cerimónia Civil · 12H30", sub: "Local a confirmar" },
     { Icon: MapPin, title: "Recepção · 13H00", sub: "Cajada Eventos e Serviços 2" },
   ];
   return (
