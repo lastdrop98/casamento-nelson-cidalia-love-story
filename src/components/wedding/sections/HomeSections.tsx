@@ -246,14 +246,14 @@ export function LocalizacaoSection() {
       </motion.div>
       <motion.div variants={zoomFade} initial="hidden" whileInView="visible" viewport={inViewNear}><GoldOrnament /></motion.div>
       <motion.div variants={slideFromLeft} initial="hidden" whileInView="visible" viewport={inViewNear} style={willChange}>
-      <LocationCard
+            <LocationCard
         Icon={Landmark}
         eyebrow="Cerimónia Civil"
-        name="Local a confirmar"
-        address="Detalhes brevemente"
+        name="Palácio dos Casamentos"
+        address="Av. Julius Nyerere, Maputo"
         time="12H30"
-        mapsUrl="https://maps.google.com/?q=Maputo"
-        wazeUrl="https://waze.com/ul?q=Maputo"
+        mapsUrl="https://maps.google.com/?q=Palacio+dos+Casamentos+Av+Julius+Nyerere+Maputo"
+        wazeUrl="https://waze.com/ul?q=Palacio+dos+Casamentos+Maputo"
       />
       </motion.div>
       <motion.div variants={zoomFade} initial="hidden" whileInView="visible" viewport={inViewNear}><GoldOrnament /></motion.div>
