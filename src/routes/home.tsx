@@ -160,7 +160,7 @@ function Home() {
           backdropFilter: "blur(2px)",
         }}>
           {[
-            { Icon: Church, top: "11H00", mid: "CERIMÓNIA", sub: "Igreja N.Sra Fátima" },
+            { Icon: Church, top: "09H00", mid: "CERIMÓNIA", sub: "Igreja N.Sra Fátima" },
             { Icon: MapPin, top: "CAJADA 2", mid: "RECEPÇÃO", sub: "Av. Dom Alexandre" },
             { Icon: CalendarIcon, top: "27 NOV", mid: "2026", sub: "Maputo" },
           ].map((c, idx) => (
