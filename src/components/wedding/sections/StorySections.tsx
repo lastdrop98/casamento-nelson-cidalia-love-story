@@ -98,7 +98,7 @@ export function OsNoivosSection() {
           <motion.p variants={fadeUp} style={{ ...serif, fontSize: 12, letterSpacing: 2, color: muted, marginTop: 6 }}>Filha de</motion.p>
           <motion.p variants={fadeUp} style={{ ...serif, fontStyle: "italic", fontSize: 14, color: ink, marginTop: 2 }}>Ana Vilanculos</motion.p>
           <motion.p variants={fadeUp} style={{ ...serif, fontSize: 12, color: muted }}>e</motion.p>
-          <motion.p variants={fadeUp} style={{ ...serif, fontStyle: "italic", fontSize: 14, color: ink }}>João Gulube</motion.p>
+          <motion.p variants={fadeUp} style={{ ...serif, fontStyle: "italic", fontSize: 14, color: ink }}>João Toalha Gulube</motion.p>
 
           <motion.div variants={zoomFade} style={{ margin: "20px 0" }}>
             <Heart size={22} color={gold} style={{ margin: "0 auto" }} />
@@ -106,7 +106,7 @@ export function OsNoivosSection() {
 
           <motion.p variants={slideFromRight} style={{ ...script, fontSize: 34, ...willChange }}>Nelson</motion.p>
           <motion.p variants={fadeUp} style={{ ...serif, fontSize: 12, letterSpacing: 2, color: muted, marginTop: 6 }}>Filho de</motion.p>
-          <motion.p variants={fadeUp} style={{ ...serif, fontStyle: "italic", fontSize: 14, color: ink, marginTop: 2 }}>Otília Massigue</motion.p>
+          <motion.p variants={fadeUp} style={{ ...serif, fontStyle: "italic", fontSize: 14, color: ink, marginTop: 2 }}>Otília Florência Massinga</motion.p>
           <motion.p variants={fadeUp} style={{ ...serif, fontSize: 12, color: muted }}>e</motion.p>
           <motion.p variants={fadeUp} style={{ ...serif, fontStyle: "italic", fontSize: 14, color: ink }}>Issufo Hassane Mussá</motion.p>
         </motion.div>
