@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Church, MapPin, Calendar as CalendarIcon, Heart } from "lucide-react";
 import { fetchWedding } from "@/lib/wedding";
 import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
+import { InviteBadge } from "@/components/wedding/InviteBadge";
 import coupleHero from "@/assets/couple-hero.jpg.asset.json";
 import {
   GoldOrnament, CountdownSection, ProgramaSection, LocalizacaoSection, RsvpSection,
@@ -145,6 +146,9 @@ function Home() {
           <div style={{ marginTop: 8, display: "flex", justifyContent: "center" }}>
             <Heart size={16} color="#C9A84C" fill="#C9A84C" />
           </div>
+        </motion.div>
+                <motion.div variants={item} style={{ marginTop: 14, display: "flex", justifyContent: "center" }}>
+          <InviteBadge />
         </motion.div>
 
         {/* Info grid */}
