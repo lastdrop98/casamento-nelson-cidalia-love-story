@@ -42,10 +42,11 @@ function Splash() {
     }
   }, [coverQ.data]);
 
-  const openInvite = async () => {
+    const openInvite = async () => {
     setOpening(true);
     await music.play();
-    setTimeout(() => navigate({ to: "/home" }), 450);
+    const tipo = new URLSearchParams(window.location.search).get("tipo");
+    setTimeout(() => navigate({ to: "/home", search: tipo ? { tipo } : undefined }), 450);
   };
 
   return (
