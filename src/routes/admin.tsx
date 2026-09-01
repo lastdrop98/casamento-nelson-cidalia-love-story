@@ -98,7 +98,7 @@ VALUES ('${userId}', 'admin');`}
         onChanged={() => qc.invalidateQueries({ queryKey: ["gallery", wedding.id] })}
       />
 
-      <RsvpList weddingId={wedding.id} />
+      <RsvpList weddingId={wedding.id} wedding={wedding} />
     </div>
   );
 }
@@ -281,7 +281,7 @@ const GOLD = "C9A84C";
 const CREAM = "F7F3E8";
 const RED = "B33A3A";
 
-function RsvpList({ weddingId }: { weddingId: string }) {
+function RsvpList({ weddingId, wedding }: { weddingId: string; wedding: any }) {
   const qc = useQueryClient();
   const q = useQuery({
     queryKey: ["rsvps", weddingId],
@@ -332,13 +332,17 @@ function RsvpList({ weddingId }: { weddingId: string }) {
 
     const ws: Record<string, unknown> = {};
 
+    const weddingDateStr = wedding?.wedding_date
+      ? dataFmt.format(new Date(wedding.wedding_date))
+      : "Data a definir";
+
     ws["A1"] = cell("Confirmações — Nelson & Cidália", {
       font: { bold: true, sz: 16, color: { rgb: GOLD } },
       fill: { patternType: "solid", fgColor: { rgb: GREEN_DARK } },
       alignment: { horizontal: "center", vertical: "center" },
     });
     ws["A2"] = cell(
-      `Casamento: 20 de Dezembro de 2026 · Exportado em ${dataFmt.format(new Date())}`,
+      `Casamento: ${weddingDateStr} · Exportado em ${dataFmt.format(new Date())}`,
       {
         font: { sz: 11, color: { rgb: CREAM }, italic: true },
         fill: { patternType: "solid", fgColor: { rgb: GREEN_MID } },
