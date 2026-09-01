@@ -281,7 +281,7 @@ const GOLD = "C9A84C";
 const CREAM = "F7F3E8";
 const RED = "B33A3A";
 
-function RsvpList({ weddingId }: { weddingId: string }) {
+function RsvpList({ weddingId, wedding }: { weddingId: string; wedding: any }) {
   const qc = useQueryClient();
   const q = useQuery({
     queryKey: ["rsvps", weddingId],
