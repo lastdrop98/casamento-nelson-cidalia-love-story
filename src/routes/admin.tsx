@@ -258,7 +258,30 @@ function GalleryManager({ weddingId, items, onChanged }: { weddingId: string; it
   );
 }
 
+function playBeep() {
+  try {
+    const Ctx = window.AudioContext || (window as any).webkitAudioContext;
+    const ctx = new Ctx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.value = 880;
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.4);
+    osc.onended = () => ctx.close();
+  } catch { /* sem áudio */ }
+}
+
+function csvCell(v: unknown): string {
+  const s = v == null ? "" : String(v);
+  return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
 function RsvpList({ weddingId }: { weddingId: string }) {
+  const qc = useQueryClient();
   const q = useQuery({
     queryKey: ["rsvps", weddingId],
     queryFn: async () => {
@@ -267,8 +290,73 @@ function RsvpList({ weddingId }: { weddingId: string }) {
       return data;
     },
   });
+
+  // Tempo real: novo RSVP → beep + toast + refresh da lista
+  useEffect(() => {
+    const channel = supabase
+      .channel(`rsvps-admin-${weddingId}`)
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "rsvps", filter: `wedding_id=eq.${weddingId}` },
+        (payload) => {
+          playBeep();
+          const name = (payload.new as any)?.guest_name ?? "Convidado";
+          toast.success(`Nova confirmação: ${name}`);
+          qc.invalidateQueries({ queryKey: ["rsvps", weddingId] });
+        },
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [weddingId, qc]);
+
+  const rsvps = useMemo(() => q.data ?? [], [q.data]);
+  const totalRespostas = rsvps.length;
+  const totalPessoas = useMemo(
+    () => rsvps.filter((r) => r.attending).reduce((sum, r) => sum + (r.guest_count ?? 1), 0),
+    [rsvps],
+  );
+
+  const exportCsv = () => {
+    if (!rsvps.length) return;
+    const fmt = new Intl.DateTimeFormat("pt-PT", { dateStyle: "short", timeStyle: "short" });
+    const header = ["Nome", "Confirmou (Sim/Não)", "Nº Convidados", "Mensagem", "Data"];
+    const rows = rsvps.map((r) => [
+      r.guest_name,
+      r.attending ? "Sim" : "Não",
+      String(r.guest_count ?? ""),
+      r.message ?? "",
+      r.created_at ? fmt.format(new Date(r.created_at)) : "",
+    ]);
+    const csv = "\uFEFF" + [header, ...rows].map((row) => row.map(csvCell).join(";")).join("\r\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `confirmacoes-nelson-cidalia-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <Section title="Confirmações">
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <p className="text-sm text-muted-foreground">
+          {totalRespostas} {totalRespostas === 1 ? "resposta" : "respostas"} · {totalPessoas}{" "}
+          {totalPessoas === 1 ? "pessoa confirmada" : "pessoas confirmadas"}
+        </p>
+        <Button
+          onClick={exportCsv}
+          disabled={!rsvps.length}
+          variant="outline"
+          className="border-[var(--gold)]/40 text-xs uppercase tracking-widest"
+        >
+          Exportar CSV
+        </Button>
+      </div>
       {q.isLoading && <p>A carregar…</p>}
       {q.data?.length === 0 && <p className="text-muted-foreground text-sm">Ainda sem respostas.</p>}
       <ul className="divide-y divide-[var(--gold)]/20">
