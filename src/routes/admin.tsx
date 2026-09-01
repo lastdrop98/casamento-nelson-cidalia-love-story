@@ -98,7 +98,7 @@ VALUES ('${userId}', 'admin');`}
         onChanged={() => qc.invalidateQueries({ queryKey: ["gallery", wedding.id] })}
       />
 
-      <RsvpList weddingId={wedding.id} />
+      <RsvpList weddingId={wedding.id} wedding={wedding} />
     </div>
   );
 }
