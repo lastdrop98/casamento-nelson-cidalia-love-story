@@ -415,7 +415,7 @@ function RsvpList({ weddingId }: { weddingId: string }) {
           variant="outline"
           className="border-[var(--gold)]/40 text-xs uppercase tracking-widest"
         >
-          Exportar CSV
+          Exportar Excel
         </Button>
       </div>
       {q.isLoading && <p>A carregar…</p>}
