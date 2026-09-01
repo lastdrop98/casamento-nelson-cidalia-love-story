@@ -236,14 +236,29 @@ export type Database = {
       }
       weddings: {
         Row: {
+          bank_account: string | null
+          bank_holder: string | null
+          bank_name: string | null
+          bank_nib: string | null
+          bride_father_name: string | null
+          bride_mother_name: string | null
           bride_name: string
           ceremony_address: string | null
           ceremony_time: string | null
           ceremony_venue: string | null
+          civil_ceremony_address: string | null
+          civil_ceremony_time: string | null
+          civil_ceremony_venue: string | null
+          contact_1_name: string | null
+          contact_1_phone: string | null
+          contact_2_name: string | null
+          contact_2_phone: string | null
           cover_image_path: string | null
           created_at: string
           display_names: string
           dress_code: string | null
+          groom_father_name: string | null
+          groom_mother_name: string | null
           groom_name: string
           hashtag: string | null
           id: string
@@ -251,21 +266,42 @@ export type Database = {
           reception_address: string | null
           reception_time: string | null
           reception_venue: string | null
+          rsvp_deadline: string | null
           slug: string
           story: string | null
+          template: string
           updated_at: string
+          verse_2_reference: string | null
+          verse_2_text: string | null
+          verse_reference: string | null
+          verse_text: string | null
           wedding_date: string
           welcome_message: string | null
         }
         Insert: {
+          bank_account?: string | null
+          bank_holder?: string | null
+          bank_name?: string | null
+          bank_nib?: string | null
+          bride_father_name?: string | null
+          bride_mother_name?: string | null
           bride_name: string
           ceremony_address?: string | null
           ceremony_time?: string | null
           ceremony_venue?: string | null
+          civil_ceremony_address?: string | null
+          civil_ceremony_time?: string | null
+          civil_ceremony_venue?: string | null
+          contact_1_name?: string | null
+          contact_1_phone?: string | null
+          contact_2_name?: string | null
+          contact_2_phone?: string | null
           cover_image_path?: string | null
           created_at?: string
           display_names: string
           dress_code?: string | null
+          groom_father_name?: string | null
+          groom_mother_name?: string | null
           groom_name: string
           hashtag?: string | null
           id?: string
@@ -273,21 +309,42 @@ export type Database = {
           reception_address?: string | null
           reception_time?: string | null
           reception_venue?: string | null
+          rsvp_deadline?: string | null
           slug: string
           story?: string | null
+          template?: string
           updated_at?: string
+          verse_2_reference?: string | null
+          verse_2_text?: string | null
+          verse_reference?: string | null
+          verse_text?: string | null
           wedding_date: string
           welcome_message?: string | null
         }
         Update: {
+          bank_account?: string | null
+          bank_holder?: string | null
+          bank_name?: string | null
+          bank_nib?: string | null
+          bride_father_name?: string | null
+          bride_mother_name?: string | null
           bride_name?: string
           ceremony_address?: string | null
           ceremony_time?: string | null
           ceremony_venue?: string | null
+          civil_ceremony_address?: string | null
+          civil_ceremony_time?: string | null
+          civil_ceremony_venue?: string | null
+          contact_1_name?: string | null
+          contact_1_phone?: string | null
+          contact_2_name?: string | null
+          contact_2_phone?: string | null
           cover_image_path?: string | null
           created_at?: string
           display_names?: string
           dress_code?: string | null
+          groom_father_name?: string | null
+          groom_mother_name?: string | null
           groom_name?: string
           hashtag?: string | null
           id?: string
@@ -295,9 +352,15 @@ export type Database = {
           reception_address?: string | null
           reception_time?: string | null
           reception_venue?: string | null
+          rsvp_deadline?: string | null
           slug?: string
           story?: string | null
+          template?: string
           updated_at?: string
+          verse_2_reference?: string | null
+          verse_2_text?: string | null
+          verse_reference?: string | null
+          verse_text?: string | null
           wedding_date?: string
           welcome_message?: string | null
         }
