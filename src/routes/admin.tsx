@@ -275,10 +275,11 @@ function playBeep() {
   } catch { /* sem áudio */ }
 }
 
-function csvCell(v: unknown): string {
-  const s = v == null ? "" : String(v);
-  return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-}
+const GREEN_DARK = "1B3526";
+const GREEN_MID = "2A4832";
+const GOLD = "C9A84C";
+const CREAM = "F7F3E8";
+const RED = "B33A3A";
 
 function RsvpList({ weddingId }: { weddingId: string }) {
   const qc = useQueryClient();
