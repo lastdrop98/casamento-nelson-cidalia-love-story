@@ -410,7 +410,7 @@ function RsvpList({ weddingId }: { weddingId: string }) {
           {totalPessoas === 1 ? "pessoa confirmada" : "pessoas confirmadas"}
         </p>
         <Button
-          onClick={exportCsv}
+          onClick={exportExcel}
           disabled={!rsvps.length}
           variant="outline"
           className="border-[var(--gold)]/40 text-xs uppercase tracking-widest"
