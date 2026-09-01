@@ -275,10 +275,11 @@ function playBeep() {
   } catch { /* sem áudio */ }
 }
 
-function csvCell(v: unknown): string {
-  const s = v == null ? "" : String(v);
-  return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
-}
+const GREEN_DARK = "1B3526";
+const GREEN_MID = "2A4832";
+const GOLD = "C9A84C";
+const CREAM = "F7F3E8";
+const RED = "B33A3A";
 
 function RsvpList({ weddingId }: { weddingId: string }) {
   const qc = useQueryClient();
@@ -318,27 +319,87 @@ function RsvpList({ weddingId }: { weddingId: string }) {
     [rsvps],
   );
 
-  const exportCsv = () => {
+  const exportExcel = async () => {
     if (!rsvps.length) return;
+    const XLSX = await import("xlsx-js-style");
     const fmt = new Intl.DateTimeFormat("pt-PT", { dateStyle: "short", timeStyle: "short" });
-    const header = ["Nome", "Confirmou (Sim/Não)", "Nº Convidados", "Mensagem", "Data"];
-    const rows = rsvps.map((r) => [
-      r.guest_name,
-      r.attending ? "Sim" : "Não",
-      String(r.guest_count ?? ""),
-      r.message ?? "",
-      r.created_at ? fmt.format(new Date(r.created_at)) : "",
-    ]);
-    const csv = "\uFEFF" + [header, ...rows].map((row) => row.map(csvCell).join(";")).join("\r\n");
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `confirmacoes-nelson-cidalia-${new Date().toISOString().slice(0, 10)}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
+    const dataFmt = new Intl.DateTimeFormat("pt-PT", { dateStyle: "long" });
+
+    const thin = { style: "thin", color: { rgb: GOLD } };
+    const border = { top: thin, bottom: thin, left: thin, right: thin };
+
+    const cell = (v: string | number, s: object) => ({ v, t: typeof v === "number" ? "n" : "s", s });
+
+    const ws: Record<string, unknown> = {};
+
+    ws["A1"] = cell("Confirmações — Nelson & Cidália", {
+      font: { bold: true, sz: 16, color: { rgb: GOLD } },
+      fill: { patternType: "solid", fgColor: { rgb: GREEN_DARK } },
+      alignment: { horizontal: "center", vertical: "center" },
+    });
+    ws["A2"] = cell(
+      `Casamento: 20 de Dezembro de 2026 · Exportado em ${dataFmt.format(new Date())}`,
+      {
+        font: { sz: 11, color: { rgb: CREAM }, italic: true },
+        fill: { patternType: "solid", fgColor: { rgb: GREEN_MID } },
+        alignment: { horizontal: "center", vertical: "center" },
+      },
+    );
+
+    const headers = ["Nome", "Confirmou", "Nº Convidados", "Mensagem", "Data"];
+    headers.forEach((h, i) => {
+      ws[XLSX.utils.encode_cell({ r: 2, c: i })] = cell(h, {
+        font: { bold: true, color: { rgb: GREEN_DARK } },
+        fill: { patternType: "solid", fgColor: { rgb: GOLD } },
+        alignment: { horizontal: "center", vertical: "center" },
+        border,
+      });
+    });
+
+    rsvps.forEach((r, idx) => {
+      const row = 3 + idx;
+      const zebra = idx % 2 === 0 ? "FFFFFF" : "F7F3E8";
+      const base = { fill: { patternType: "solid", fgColor: { rgb: zebra } }, border };
+      const values: (string | number)[] = [
+        r.guest_name,
+        r.attending ? "Sim" : "Não",
+        r.guest_count ?? "",
+        r.message ?? "",
+        r.created_at ? fmt.format(new Date(r.created_at)) : "",
+      ];
+      values.forEach((v, c) => {
+        const style: Record<string, unknown> = { ...base };
+        if (c === 1) {
+          style.font = { bold: true, color: { rgb: r.attending ? GREEN_DARK : RED } };
+          style.alignment = { horizontal: "center" };
+        }
+        if (c === 2) style.alignment = { horizontal: "center" };
+        ws[XLSX.utils.encode_cell({ r: row, c })] = cell(v, style);
+      });
+    });
+
+    const totalRow = 3 + rsvps.length;
+    ws[XLSX.utils.encode_cell({ r: totalRow, c: 0 })] = cell(
+      `TOTAL: ${totalPessoas} ${totalPessoas === 1 ? "pessoa confirmada" : "pessoas confirmadas"}`,
+      {
+        font: { bold: true, sz: 12, color: { rgb: GREEN_DARK } },
+        fill: { patternType: "solid", fgColor: { rgb: GOLD } },
+        alignment: { horizontal: "center", vertical: "center" },
+      },
+    );
+
+    ws["!merges"] = [
+      { s: { r: 0, c: 0 }, e: { r: 0, c: 4 } },
+      { s: { r: 1, c: 0 }, e: { r: 1, c: 4 } },
+      { s: { r: totalRow, c: 0 }, e: { r: totalRow, c: 4 } },
+    ];
+    ws["!cols"] = [{ wch: 28 }, { wch: 11 }, { wch: 14 }, { wch: 40 }, { wch: 18 }];
+    ws["!rows"] = [{ hpt: 28 }, { hpt: 18 }, { hpt: 20 }];
+    ws["!ref"] = XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: totalRow, c: 4 } });
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws as never, "Confirmações");
+    XLSX.writeFile(wb, `confirmacoes-nelson-cidalia-${new Date().toISOString().slice(0, 10)}.xlsx`);
   };
 
   return (
@@ -349,12 +410,12 @@ function RsvpList({ weddingId }: { weddingId: string }) {
           {totalPessoas === 1 ? "pessoa confirmada" : "pessoas confirmadas"}
         </p>
         <Button
-          onClick={exportCsv}
+          onClick={exportExcel}
           disabled={!rsvps.length}
           variant="outline"
           className="border-[var(--gold)]/40 text-xs uppercase tracking-widest"
         >
-          Exportar CSV
+          Exportar Excel
         </Button>
       </div>
       {q.isLoading && <p>A carregar…</p>}
