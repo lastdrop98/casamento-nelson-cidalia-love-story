@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
@@ -21,55 +21,15 @@ export const Route = createFileRoute("/admin")({
 });
 
 function AdminPage() {
-  const nav = useNavigate();
   const qc = useQueryClient();
-  const [ready, setReady] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await supabase.auth.getUser();
-      if (!data.user) { nav({ to: "/auth" }); return; }
-      setUserId(data.user.id);
-      const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", data.user.id);
-      setIsAdmin(!!roles?.some((r) => r.role === "admin"));
-      setReady(true);
-    })();
-  }, [nav]);
-
-  const weddingQ = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding, enabled: ready && isAdmin });
+  const weddingQ = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
   const wedding = weddingQ.data;
   const galleryQ = useQuery({
     queryKey: ["gallery", wedding?.id],
     queryFn: () => fetchGallery(wedding!.id),
     enabled: !!wedding?.id,
   });
-
-  if (!ready) return <div className="min-h-screen flex items-center justify-center">A carregar…</div>;
-
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-6">
-        <div className="max-w-md text-center border border-[var(--gold)]/30 p-8 bg-card/50">
-          <p className="font-script text-3xl text-[var(--gold)]">Sem permissões</p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            A sua conta está autenticada mas não tem o papel <code>admin</code>. Peça a um administrador para atribuir permissões executando no backend:
-          </p>
-          <pre className="text-left mt-4 bg-muted p-3 text-xs overflow-auto">
-{`INSERT INTO public.user_roles (user_id, role)
-VALUES ('${userId}', 'admin');`}
-          </pre>
-          <div className="mt-6 flex gap-3 justify-center">
-            <Button variant="outline" onClick={async () => { await supabase.auth.signOut(); nav({ to: "/auth" }); }}>
-              Terminar sessão
-            </Button>
-            <Link to="/" className="text-xs uppercase tracking-widest self-center text-muted-foreground hover:text-[var(--gold)]">Voltar</Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (!wedding) return <div className="min-h-screen flex items-center justify-center">A carregar…</div>;
 
