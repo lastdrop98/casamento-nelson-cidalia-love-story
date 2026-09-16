@@ -30,6 +30,7 @@ export function BottomNav() {
 
   const nav = (
     <div
+      className="no-print"
       style={{
         position: "fixed",
         bottom: 0,
