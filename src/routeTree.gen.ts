@@ -15,6 +15,7 @@ import { Route as ProgramaRouteImport } from './routes/programa'
 import { Route as MensagemRouteImport } from './routes/mensagem'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LocalizacaoRouteImport } from './routes/localizacao'
+import { Route as ImprimirRouteImport } from './routes/imprimir'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as HistoriaRouteImport } from './routes/historia'
 import { Route as GaleriaRouteImport } from './routes/galeria'
@@ -55,6 +56,11 @@ const McpRoute = McpRouteImport.update({
 const LocalizacaoRoute = LocalizacaoRouteImport.update({
   id: '/localizacao',
   path: '/localizacao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImprimirRoute = ImprimirRouteImport.update({
+  id: '/imprimir',
+  path: '/imprimir',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HomeRoute = HomeRouteImport.update({
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/galeria': typeof GaleriaRoute
   '/historia': typeof HistoriaRoute
   '/home': typeof HomeRoute
+  '/imprimir': typeof ImprimirRoute
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
   '/mensagem': typeof MensagemRoute
@@ -144,6 +151,7 @@ export interface FileRoutesByTo {
   '/galeria': typeof GaleriaRoute
   '/historia': typeof HistoriaRoute
   '/home': typeof HomeRoute
+  '/imprimir': typeof ImprimirRoute
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
   '/mensagem': typeof MensagemRoute
@@ -164,6 +172,7 @@ export interface FileRoutesById {
   '/galeria': typeof GaleriaRoute
   '/historia': typeof HistoriaRoute
   '/home': typeof HomeRoute
+  '/imprimir': typeof ImprimirRoute
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
   '/mensagem': typeof MensagemRoute
@@ -185,6 +194,7 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/historia'
     | '/home'
+    | '/imprimir'
     | '/localizacao'
     | '/mcp'
     | '/mensagem'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/historia'
     | '/home'
+    | '/imprimir'
     | '/localizacao'
     | '/mcp'
     | '/mensagem'
@@ -223,6 +234,7 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/historia'
     | '/home'
+    | '/imprimir'
     | '/localizacao'
     | '/mcp'
     | '/mensagem'
@@ -243,6 +255,7 @@ export interface RootRouteChildren {
   GaleriaRoute: typeof GaleriaRoute
   HistoriaRoute: typeof HistoriaRoute
   HomeRoute: typeof HomeRoute
+  ImprimirRoute: typeof ImprimirRoute
   LocalizacaoRoute: typeof LocalizacaoRoute
   McpRoute: typeof McpRoute
   MensagemRoute: typeof MensagemRoute
@@ -296,6 +309,13 @@ declare module '@tanstack/react-router' {
       path: '/localizacao'
       fullPath: '/localizacao'
       preLoaderRoute: typeof LocalizacaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/imprimir': {
+      id: '/imprimir'
+      path: '/imprimir'
+      fullPath: '/imprimir'
+      preLoaderRoute: typeof ImprimirRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home': {
@@ -387,6 +407,7 @@ const rootRouteChildren: RootRouteChildren = {
   GaleriaRoute: GaleriaRoute,
   HistoriaRoute: HistoriaRoute,
   HomeRoute: HomeRoute,
+  ImprimirRoute: ImprimirRoute,
   LocalizacaoRoute: LocalizacaoRoute,
   McpRoute: McpRoute,
   MensagemRoute: MensagemRoute,
