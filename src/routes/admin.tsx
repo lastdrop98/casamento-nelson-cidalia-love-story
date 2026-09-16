@@ -42,7 +42,6 @@ function AdminPage() {
         </div>
         <div className="flex gap-2">
           <Link to="/" className="text-xs uppercase tracking-widest self-center text-muted-foreground hover:text-[var(--gold)]">Ver convite</Link>
-          <Button variant="outline" onClick={async () => { await supabase.auth.signOut(); nav({ to: "/auth" }); }}>Sair</Button>
         </div>
       </header>
 
