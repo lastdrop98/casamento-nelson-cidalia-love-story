@@ -756,7 +756,7 @@ export function FooterSection() {
       <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={inViewNear} style={{ textAlign: "center" }}>
         <motion.p variants={blurFade} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, letterSpacing: 10, color: gold, ...willChange }}>N | C</motion.p>
         <motion.p variants={blurFade} style={{ fontFamily: "'Great Vibes', cursive", fontSize: 48, color: gold, lineHeight: 1.1, marginTop: 6, ...willChange }}>Nelson &amp; Cidália</motion.p>
-        <motion.p variants={blurFade} style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 16, color: gold, marginTop: 4, ...willChange }}>27 · 11 · 2026</motion.p>
+        <motion.p variants={blurFade} style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 16, color: gold, marginTop: 4, ...willChange }}>28 · 11 · 2026</motion.p>
         <motion.div variants={blurFade}><GoldOrnament dark /></motion.div>
         <motion.p variants={blurFade} style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 18, color: "rgba(201,168,76,0.8)", ...willChange }}>
           Obrigado por fazer parte da nossa história.
