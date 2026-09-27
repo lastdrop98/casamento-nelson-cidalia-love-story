@@ -9,9 +9,9 @@ export const Route = createFileRoute("/programa")({
   head: () => ({
     meta: [
       { title: "Programa do Dia — Nelson & Cidália" },
-      { name: "description", content: "O programa completo do casamento de 28 de Novembro de 2026: cerimónia religiosa, sessão de fotos, cocktail, jantar e festa." },
+      { name: "description", content: "Copo de água de Nelson & Cidália em Xiguiane, a 28 de Novembro de 2026." },
       { property: "og:title", content: "Programa do Dia — Nelson & Cidália" },
-      { property: "og:description", content: "Cerimónia, sessão de fotos, cocktail, jantar e festa — hora a hora, a 28 de Novembro de 2026." },
+      { property: "og:description", content: "Copo de água às 13H00 em Xiguiane, a 28 de Novembro de 2026." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/programa" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/programa")({
           eventStatus: "https://schema.org/EventScheduled",
           eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
           description:
-            "Cerimónia religiosa e recepção do casamento de Nelson & Cidália, a 28 de Novembro de 2026 em Maputo.",
+            "Copo de água de Nelson & Cidália, a 28 de Novembro de 2026 em Xiguiane.",
           url: "https://nelson-cidalia-convite-digital.lovable.app/programa",
           location: {
             "@type": "Place",
@@ -49,12 +49,7 @@ export const Route = createFileRoute("/programa")({
 function Programa() {
   const wQ = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
   const w = wQ.data;
-  const sQ = useQuery({
-    queryKey: ["schedule", w?.id],
-    queryFn: () => fetchSchedule(w!.id),
-    enabled: !!w,
-  });
-  const items = sQ.data ?? [];
+  const items = [{ id: "xiguiane-13h", time_label: "13H00", icon: "🥂", title: "COPO DE ÁGUA", description: "Xiguiane" }];
 
   return (
     <PageShell title="Programa do Dia">
