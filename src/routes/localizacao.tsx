@@ -95,29 +95,14 @@ function Localizacao() {
         }}>Como Chegar até Nós</p>
 
         <LocationCard
-          Icon={Church}
-          eyebrow="Cerimónia Religiosa"
-          name="Igreja Nossa Senhora de Fátima"
-          address="Bairro Ferroviário, Maputo"
-          time="11H00"
-          mapsUrl="https://maps.google.com/?q=Igreja+Nossa+Senhora+Fatima+Maputo"
-          wazeUrl="https://waze.com/ul?q=Igreja+Nossa+Senhora+Fatima+Maputo"
-        />
-
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, margin: "22px 0" }}>
-          <div style={{ width: 40, height: 1, background: "#C9A84C" }} />
-          <span style={{ color: "#C9A84C" }}>✦</span>
-          <div style={{ width: 40, height: 1, background: "#C9A84C" }} />
-        </div>
-
-        <LocationCard
           Icon={Landmark}
-          eyebrow="Recepção"
-          name="Cajada Eventos e Serviços 2"
-          address="Av. Dom Alexandre, Maputo - Cidade"
-          mapsUrl="https://maps.google.com/?q=Cajada+Eventos+Servicos+Maputo"
-          wazeUrl="https://waze.com/ul?q=Cajada+Eventos+Servicos+Maputo"
-          copyText="Cajada Eventos e Serviços 2, Av. Dom Alexandre, Maputo - Cidade"
+          eyebrow="Copo d'Água"
+          name="Xiguiane"
+          address="Xiguiane"
+          time="13H00 · 28 DE NOVEMBRO DE 2026"
+          mapsUrl="https://maps.google.com/?q=-25.911264,32.605160"
+          wazeUrl="https://waze.com/ul?ll=-25.911264,32.605160&navigate=yes"
+          copyText="-25.911264, 32.605160"
         />
 
         <p style={{
