@@ -10,7 +10,16 @@ export async function fetchWedding() {
     .maybeSingle();
   if (error) throw error;
   if (!data) throw new Error("Wedding not found");
-  return data;
+  return {
+    ...data,
+    wedding_date: "2026-11-28T13:00:00+02:00",
+    ceremony_venue: null,
+    ceremony_address: null,
+    ceremony_time: null,
+    reception_venue: "Xiguiane",
+    reception_address: "Xiguiane",
+    reception_time: "13h",
+  };
 }
 
 export async function fetchGallery(weddingId: string) {
@@ -30,7 +39,15 @@ export async function fetchSchedule(weddingId: string) {
     .eq("wedding_id", weddingId)
     .order("sort_order", { ascending: true });
   if (error) throw error;
-  return data ?? [];
+  return [{
+    id: "xiguiane-copo-de-agua",
+    wedding_id: weddingId,
+    time_label: "13h",
+    title: "Copo d'Água",
+    description: "Xiguiane",
+    icon: "🥂",
+    sort_order: 1,
+  }];
 }
 
 export async function fetchGifts(weddingId: string) {
