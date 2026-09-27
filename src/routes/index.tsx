@@ -11,9 +11,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Nelson & Cidália — Convite Digital" },
-      { name: "description", content: "Save the date — 27 de Novembro de 2026. #NelsonCidália2026" },
-      { property: "og:title", content: "Nelson & Cidália — 27.11.2026" },
-      { property: "og:description", content: "Save the date — 27 de Novembro de 2026." },
+      { name: "description", content: "Save the date — 28 de Novembro de 2026. #NelsonCidália2026" },
+      { property: "og:title", content: "Nelson & Cidália — 28.11.2026" },
+      { property: "og:description", content: "Save the date — 28 de Novembro de 2026." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/" },
@@ -67,7 +67,7 @@ function Splash() {
         color: "#F5EDD8",
       }}
     >
-      <h1 style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>Nelson & Cidália — Convite de Casamento, 27 de Novembro de 2026</h1>
+      <h1 style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>Nelson & Cidália — Convite de Casamento, 28 de Novembro de 2026</h1>
 
       {/* Ornate double frame */}
       <div style={{
@@ -147,7 +147,7 @@ function Splash() {
           fontFamily: "'Cormorant Garamond', serif",
           fontSize: 12, letterSpacing: 5, textTransform: "uppercase",
           color: "#E7D9A8",
-        }}>27 · 11 · 2026 &nbsp;·&nbsp; Maputo</p>
+        }}>28 · 11 · 2026 &nbsp;·&nbsp; Xiguiane</p>
 
         <button
           onClick={openInvite}
