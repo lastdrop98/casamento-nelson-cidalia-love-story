@@ -16,8 +16,8 @@ export async function fetchWedding() {
     ceremony_venue: null,
     ceremony_address: null,
     ceremony_time: null,
-    reception_venue: "Xiguiane",
-    reception_address: "Xiguiane",
+    reception_venue: "Salão próximo a FIPAG do bairro ferroviário",
+    reception_address: "Salão próximo a FIPAG do bairro ferroviário",
     reception_time: "13h",
   };
 }
