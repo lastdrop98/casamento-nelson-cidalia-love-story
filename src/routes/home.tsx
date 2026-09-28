@@ -111,7 +111,7 @@ function XiguianeInvite() {
             <div style={{ margin: "26px auto 0", display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
               <span style={{ width: 42, height: 1, background: gold }} /><Navigation size={19} color={gold} strokeWidth={1.3} /><span style={{ width: 42, height: 1, background: gold }} />
             </div>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 600, marginTop: 18 }}>Xiguiane</p>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 600, marginTop: 18 }}>Salão próximo a FIPAG do bairro ferroviário</p>
             <a href="https://maps.google.com/?q=-25.911264,32.605160" target="_blank" rel="noreferrer"
               style={{ marginTop: 18, display: "inline-flex", alignItems: "center", gap: 7, padding: "11px 20px", borderRadius: 999, background: "#1B3526", color: gold, border: "1px solid " + gold, textDecoration: "none", fontFamily: "'Cormorant Garamond', serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase" }}>
               <MapPin size={14} /> Ver localização
