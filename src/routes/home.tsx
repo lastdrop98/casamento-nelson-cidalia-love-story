@@ -1,237 +1,190 @@
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { Church, MapPin, Calendar as CalendarIcon, Heart } from "lucide-react";
-import { fetchWedding } from "@/lib/wedding";
-import { BotanicalCorner } from "@/components/wedding/BotanicalCorner";
+import { CalendarDays, Check, Heart, MapPin, Navigation, X as XIcon } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchWedding, submitRsvp } from "@/lib/wedding";
+import { music } from "@/lib/music";
 import { InviteBadge } from "@/components/wedding/InviteBadge";
 import coupleHero from "@/assets/couple-hero.jpg.asset.json";
-import {
-  GoldOrnament, CountdownSection, ProgramaSection, LocalizacaoSection, RsvpSection,
-  GaleriaSection, MensagemSection, ContactosSection, FooterSection,
-} from "@/components/wedding/sections/HomeSections";
-import {
-  LeiDivinaSection, OsNoivosSection, BencaoSection, AmigosFamiliaSection,
-  EncerramentoSection,
-} from "@/components/wedding/sections/StorySections";
+import noivos2 from "@/assets/noivos-2.jpg.asset.json";
 
-
+const gold = "#C9A84C";
+const ink = "#1E1A10";
+const muted = "#7A6848";
 
 export const Route = createFileRoute("/home")({
   head: () => ({
     meta: [
-      { title: "Convite — Nelson & Cidália | 28 de Novembro de 2026" },
-      { name: "description", content: "Convite oficial do casamento de Nelson & Cidália, a 28 de Novembro de 2026 em Xiguiane. Veja o programa, local, dress code e confirme a sua presença." },
-      { property: "og:title", content: "Convite de Casamento — Nelson & Cidália" },
-      { property: "og:description", content: "Celebre connosco a 28 de Novembro de 2026 em Xiguiane. Programa, localização e confirmação de presença num só lugar." },
+      { title: "Nelson & Cidália — Xiguiane | 28 de Novembro de 2026" },
+      { name: "description", content: "Convite de Nelson & Cidália para o Copo de Água em Xiguiane, a 28 de Novembro de 2026, às 13H00." },
+      { property: "og:title", content: "Nelson & Cidália — Xiguiane" },
+      { property: "og:description", content: "28 de Novembro de 2026 · 13H00 · Xiguiane" },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/home" },
+      { property: "og:image", content: coupleHero.url },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Convite de Casamento — Nelson & Cidália" },
-      { name: "twitter:description", content: "Celebre connosco a 28 de Novembro de 2026 em Xiguiane. Programa, localização e confirmação de presença num só lugar." },
+      { name: "twitter:image", content: coupleHero.url },
     ],
-    links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/home" }],
   }),
-  component: Home,
+  component: XiguianeInvite,
 });
 
-const stagger = { animate: { transition: { staggerChildren: 0.12 } } };
-const item = { initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
+function XiguianeInvite() {
+  const tipo = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "").get("tipo");
+  const isCouple = tipo === "casal";
+  const guestCount = isCouple ? 2 : 1;
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [attending, setAttending] = useState<boolean | null>(null);
+  const [message, setMessage] = useState("");
+  const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const wQ = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
 
-function Home() {
-  const q = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
-  const w = q.data;
-  if (!w) return null;
+  useEffect(() => {
+    const start = () => { void music.play(); };
+    const timer = window.setTimeout(start, 500);
+    window.addEventListener("pointerdown", start, { once: true });
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("pointerdown", start);
+    };
+  }, []);
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!wQ.data || !name.trim() || !phone.trim() || attending === null) return;
+    setLoading(true);
+    try {
+      await submitRsvp({
+        wedding_id: wQ.data.id,
+        guest_name: name.trim() + " · " + phone.trim(),
+        attending,
+        guest_count: guestCount,
+        message: message.trim() || undefined,
+      });
+      setSent(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "radial-gradient(ellipse 80% 40% at 50% 0%, rgba(201,168,76,0.09) 0%, transparent 60%), linear-gradient(180deg,#FDFAF2 0%,#F5EDD8 100%)",
-      position: "relative",
-      paddingBottom: 130,
-    }}>
-      <h1 style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>Convite de Casamento de Nelson & Cidália — 28 de Novembro de 2026, Xiguiane</h1>
-
-      {/* Hero photo — subtle background at the top only */}
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: 0, left: 0, right: 0,
-          height: 520,
-          backgroundImage: `linear-gradient(180deg, rgba(253,250,242,0.18) 0%, rgba(253,250,242,0.28) 40%, rgba(253,250,242,0.8) 72%, rgba(253,250,242,1) 100%), url(${coupleHero.url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center 22%",
-          opacity: 0.95,
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      />
-
-      <div style={{ position: "absolute", inset: 14, border: "1px solid rgba(201,168,76,0.4)", pointerEvents: "none", zIndex: 2 }} />
-      <div style={{ position: "absolute", inset: 22, border: "1px solid rgba(201,168,76,0.2)", pointerEvents: "none", zIndex: 2 }} />
-      <BotanicalCorner position="top-left" size={90} opacity={0.9} inset={30} />
-      <BotanicalCorner position="top-right" size={90} opacity={0.9} inset={30} />
-      <BotanicalCorner position="bottom-left" size={84} opacity={0.8} inset={30} />
-      <BotanicalCorner position="bottom-right" size={84} opacity={0.8} inset={30} />
-
-      <motion.div
-        variants={stagger}
-        initial="initial"
-        animate="animate"
-        style={{
-          padding: "280px 34px 120px",
-          textAlign: "center",
-          position: "relative",
-          zIndex: 1,
-          color: "#1E1A10",
-          textShadow: "0 1px 3px rgba(253,250,242,0.95), 0 0 12px rgba(253,250,242,0.7)",
-        }}
-      >
-        {/* Laurel */}
-        <motion.svg variants={item} viewBox="0 0 120 80" width={120} height={80} style={{ margin: "0 auto" }}>
-          <g fill="none" stroke="#C9A84C" strokeWidth="1" strokeLinecap="round">
-            <path d="M60 70 C 30 60, 20 40, 22 18" />
-            <path d="M60 70 C 90 60, 100 40, 98 18" />
-            {[0, 1, 2, 3, 4].map((i) => (
-              <g key={`l${i}`}>
-                <ellipse cx={30 - i * 2} cy={55 - i * 8} rx="6" ry="2.5" transform={`rotate(${-40 - i * 5} ${30 - i * 2} ${55 - i * 8})`} />
-                <ellipse cx={90 + i * 2} cy={55 - i * 8} rx="6" ry="2.5" transform={`rotate(${40 + i * 5} ${90 + i * 2} ${55 - i * 8})`} />
-              </g>
-            ))}
-            <circle cx="60" cy="72" r="2.5" fill="#C9A84C" />
-          </g>
-        </motion.svg>
-
-        <motion.p variants={item} style={{
-          marginTop: 12,
-          fontFamily: "'Cormorant Garamond', serif",
-          fontSize: 24, letterSpacing: 8, color: "#C9A84C",
-        }}>N | C</motion.p>
-
-        <motion.p variants={item} style={{
-          marginTop: 22,
-          fontFamily: "'Cormorant Garamond', serif",
-          fontSize: 9, letterSpacing: 3, color: "#7A6848", textTransform: "uppercase",
-        }}>Com a bênção de Deus e de seus pais</motion.p>
-        <motion.div variants={item} style={{ width: "100%", maxWidth: 340, margin: "10px auto 18px" }}>
-          <div style={{ height: 1, background: "rgba(201,168,76,0.3)", marginBottom: 10 }} />
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2px 16px", textAlign: "center" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>Ana Vilanculos</span>
-              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>João Toalha Gulube</span>
-            </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>Otília Florência Massinga</span>
-              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 12, fontStyle: "italic", color: "#7A6848", lineHeight: 1.7 }}>Issufo Hassane Mussá</span>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(180deg,#FDFAF2 0%,#F5EDD8 100%)", color: ink }}>
+      <main style={{ width: "100%", maxWidth: 430, margin: "0 auto", overflow: "hidden", paddingBottom: 100 }}>
+        <section style={{ position: "relative", height: "100svh", minHeight: 650, overflow: "hidden" }}>
+          <img src={coupleHero.url} alt="Nelson & Cidália" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(14,32,20,.78) 0%,rgba(14,32,20,.18) 42%,rgba(14,32,20,.88) 100%)" }} />
+          <div style={{ position: "relative", zIndex: 1, height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between", padding: "42px 28px 54px", textAlign: "center" }}>
+            <div style={{ width: 62, height: 62, borderRadius: "50%", border: "1px solid " + gold, display: "flex", alignItems: "center", justifyContent: "center", color: gold, fontFamily: "'Cormorant Garamond', serif", fontSize: 19 }}>N · C</div>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .8 }} style={{ marginTop: "12vh" }}>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 10, letterSpacing: 4, color: "#F5EDD8", textTransform: "uppercase" }}>Xiguiane · Convite de Família</p>
+              <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 70, lineHeight: .95, color: "#F5EDD8", marginTop: 18 }}>Nelson</p>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, color: gold, margin: "3px 0" }}>&amp;</p>
+              <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 70, lineHeight: .95, color: "#F5EDD8" }}>Cidália</p>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 11, letterSpacing: 4, color: "#E7D9A8", marginTop: 22, textTransform: "uppercase" }}>28 · 11 · 2026</p>
+              <div style={{ marginTop: 15, display: "flex", justifyContent: "center" }}><InviteBadge /></div>
+            </motion.div>
+            <div style={{ color: "#F5EDD8", fontFamily: "'Cormorant Garamond', serif", fontSize: 10, letterSpacing: 3, textTransform: "uppercase" }}>
+              Deslize para ver o convite
+              <div style={{ marginTop: 12, color: gold }}>⌄</div>
             </div>
           </div>
-          <div style={{ height: 1, background: "rgba(201,168,76,0.3)", marginTop: 10 }} />
-        </motion.div>
+        </section>
 
-        <motion.p variants={item} style={{
-          fontFamily: "'Cormorant Garamond', serif",
-          fontSize: 9, letterSpacing: 2, color: "#C9A84C", textTransform: "uppercase",
-        }}>Convidamos para o nosso casamento</motion.p>
-
-
-        <motion.div variants={item} style={{ marginTop: 22 }}>
-          <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 68, color: "#1E1A10", lineHeight: 1 }}>Nelson</p>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, margin: "6px 0" }}>
-            <div style={{ width: 30, height: 1, background: "#C9A84C" }} />
-            <span style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 26, color: "#C9A84C" }}>&</span>
-            <div style={{ width: 30, height: 1, background: "#C9A84C" }} />
+        <section style={{ padding: "50px 24px 34px", textAlign: "center" }}>
+          <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 40, color: gold }}>Com a bênção de Deus</p>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 16, color: muted, lineHeight: 1.8, marginTop: 15 }}>
+            Temos a alegria de convidá-lo(a) para celebrar connosco este momento especial.
+          </p>
+          <div style={{ margin: "28px auto 0", width: "100%", maxWidth: 290, aspectRatio: "3 / 4", borderRadius: "150px 150px 18px 18px", overflow: "hidden", border: "1px solid " + gold }}>
+            <img src={noivos2.url} alt="Nelson e Cidália" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 25%" }} loading="lazy" />
           </div>
-          <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 68, color: "#1E1A10", lineHeight: 1 }}>Cidália</p>
-          <div style={{ marginTop: 8, display: "flex", justifyContent: "center" }}>
-            <Heart size={16} color="#C9A84C" fill="#C9A84C" />
-          </div>
-        </motion.div>
-                <motion.div variants={item} style={{ marginTop: 14, display: "flex", justifyContent: "center" }}>
-          <InviteBadge />
-        </motion.div>
+        </section>
 
-        {/* Info grid */}
-        <motion.div variants={item} style={{
-          marginTop: 30,
-          display: "grid", gridTemplateColumns: "1fr 1fr 1fr",
-          border: "1px solid rgba(201,168,76,0.4)",
-          background: "rgba(255,252,245,0.75)",
-          backdropFilter: "blur(2px)",
-        }}>
-          {[
-            { Icon: Church, top: "13H00", mid: "COPO D'ÁGUA", sub: "Xiguiane" },
-            { Icon: MapPin, top: "XIGUIANE", mid: "LOCAL", sub: "Xiguiane" },
-            { Icon: CalendarIcon, top: "28 NOV", mid: "2026", sub: "Xiguiane" },
-          ].map((c, idx) => (
-            <div key={idx} style={{
-              padding: "14px 8px",
-              borderRight: idx < 2 ? "1px solid rgba(201,168,76,0.25)" : undefined,
-              fontFamily: "'Cormorant Garamond', serif",
-              display: "flex", flexDirection: "column", alignItems: "center",
-            }}>
-              <c.Icon size={16} color="#C9A84C" />
-              <p style={{ fontSize: 10, letterSpacing: 1, color: "#C9A84C", marginTop: 6 }}>{c.top}</p>
-              <p style={{ fontSize: 10, letterSpacing: 2, color: "#1E1A10", marginTop: 4 }}>{c.mid}</p>
-              <p style={{ fontSize: 10, color: "#7A6848", marginTop: 2, fontStyle: "italic" }}>{c.sub}</p>
+        <section style={{ padding: "18px 24px 42px", textAlign: "center" }}>
+          <div style={{ border: "1px solid rgba(201,168,76,.5)", borderRadius: 22, background: "rgba(255,252,245,.82)", padding: "30px 20px" }}>
+            <CalendarDays size={30} color={gold} style={{ margin: "0 auto" }} />
+            <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 38, color: gold, marginTop: 8 }}>Xiguiane</p>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 17, color: ink, marginTop: 12 }}>28 de Novembro de 2026</p>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 15, color: muted, marginTop: 5 }}>13H00 · Copo de Água</p>
+            <div style={{ margin: "26px auto 0", display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
+              <span style={{ width: 42, height: 1, background: gold }} /><Navigation size={19} color={gold} strokeWidth={1.3} /><span style={{ width: 42, height: 1, background: gold }} />
             </div>
-          ))}
-        </motion.div>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 600, marginTop: 18 }}>Xiguiane</p>
+            <a href="https://maps.google.com/?q=-25.911264,32.605160" target="_blank" rel="noreferrer"
+              style={{ marginTop: 18, display: "inline-flex", alignItems: "center", gap: 7, padding: "11px 20px", borderRadius: 999, background: "#1B3526", color: gold, border: "1px solid " + gold, textDecoration: "none", fontFamily: "'Cormorant Garamond', serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase" }}>
+              <MapPin size={14} /> Ver localização
+            </a>
+          </div>
+        </section>
 
-        <motion.div variants={item} style={{ margin: "30px auto", display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
-          <div style={{ width: 40, height: 1, background: "#C9A84C" }} />
-          <span style={{ color: "#C9A84C" }}>✦</span>
-          <div style={{ width: 40, height: 1, background: "#C9A84C" }} />
-        </motion.div>
+        <section style={{ padding: "0 24px 42px", textAlign: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 22 }}>
+            <span style={{ width: 48, height: 1, background: gold }} /><Heart size={15} color={gold} fill={gold} /><span style={{ width: 48, height: 1, background: gold }} />
+          </div>
+          <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 37, color: ink }}>Confirme a sua presença</p>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 14, color: muted, marginTop: 8 }}>
+            {isCouple ? "Convite válido para 2 pessoas" : "Convite válido para 1 pessoa"}
+          </p>
+          {sent ? (
+            <div style={{ marginTop: 24, padding: 25, border: "1px solid " + gold, borderRadius: 18, background: "rgba(255,252,245,.82)" }}>
+              <Heart size={42} color={gold} fill={gold} style={{ margin: "0 auto" }} />
+              <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 38, color: gold, marginTop: 10 }}>Obrigado!</p>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", color: muted, marginTop: 6 }}>A sua confirmação foi recebida.</p>
+            </div>
+          ) : (
+            <form onSubmit={submit} style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 11, textAlign: "left" }}>
+              <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nome completo" required style={inputStyle} />
+              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Telefone" required style={inputStyle} />
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                <button type="button" onClick={() => setAttending(true)} style={{ ...choiceStyle, background: attending === true ? "#1B3526" : "transparent", color: attending === true ? gold : ink }}><Check size={15} /> Sim</button>
+                <button type="button" onClick={() => setAttending(false)} style={{ ...choiceStyle, background: attending === false ? "#1B3526" : "transparent", color: attending === false ? gold : ink }}><XIcon size={15} /> Não</button>
+              </div>
+              <textarea value={message} onChange={(e) => setMessage(e.target.value.slice(0, 200))} placeholder="Mensagem (opcional)" rows={3} style={{ ...inputStyle, resize: "vertical" }} />
+              <button type="submit" disabled={loading || attending === null}
+                style={{ width: "100%", border: "1px solid " + gold, borderRadius: 999, padding: "14px 18px", background: "#1B3526", color: gold, fontFamily: "'Cormorant Garamond', serif", fontSize: 11, letterSpacing: 3, textTransform: "uppercase", opacity: loading || attending === null ? .55 : 1 }}>
+                {loading ? "A confirmar..." : "Confirmar presença"}
+              </button>
+            </form>
+          )}
+        </section>
 
-        <motion.p variants={item} style={{
-          fontFamily: "'Cormorant Garamond', serif",
-          fontStyle: "italic", fontSize: 15, color: "#7A6848", lineHeight: 1.7,
-        }}>
-          "O amor tudo sofre, tudo crê,<br />tudo espera, tudo suporta.<br />O amor nunca falha."
-        </motion.p>
-        <motion.p variants={item} style={{
-          fontFamily: "'Cormorant Garamond', serif",
-          fontSize: 9, letterSpacing: 2, color: "#C9A84C", marginTop: 8, textTransform: "uppercase",
-        }}>1 Coríntios 13:7-8</motion.p>
-
-        <motion.p variants={item} style={{
-          fontFamily: "'Cormorant Garamond', serif",
-          fontStyle: "italic", fontSize: 14, color: "#1E1A10", marginTop: 30,
-          lineHeight: 1.6,
-        }}>
-          Mal podemos esperar para celebrar<br />este dia com você!
-        </motion.p>
-      </motion.div>
-
-      <div style={{ position: "relative", zIndex: 1 }}>
-        <GoldOrnament />
-        <LeiDivinaSection />
-        <GoldOrnament />
-        <OsNoivosSection />
-        <GoldOrnament />
-        <BencaoSection />
-        <GoldOrnament />
-        <ProgramaSection />
-        <GoldOrnament />
-        <LocalizacaoSection />
-        <GoldOrnament />
-        <AmigosFamiliaSection />
-        <GoldOrnament />
-        <CountdownSection />
-        <GoldOrnament />
-        <RsvpSection />
-        <GoldOrnament />
-        <MensagemSection />
-        <GoldOrnament />
-        <GaleriaSection />
-        <GoldOrnament />
-        <ContactosSection />
-        <EncerramentoSection />
-        <FooterSection />
-      </div>
-
+        <section style={{ margin: "0 24px", minHeight: 380, borderRadius: 24, overflow: "hidden", border: "1px solid rgba(201,168,76,.35)", backgroundImage: "linear-gradient(180deg,rgba(14,32,20,.12) 0%,rgba(14,32,20,.78) 60%,rgba(14,32,20,.97) 100%),url(" + coupleHero.url + ")", backgroundSize: "cover", backgroundPosition: "center", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "38px 24px", textAlign: "center" }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 21, color: "#FDFAF2", lineHeight: 1.6 }}>Esperamos celebrar este dia consigo.</p>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 10, marginTop: 15 }}><span style={{ width: 38, height: 1, background: gold }} /><Heart size={13} color={gold} fill={gold} /><span style={{ width: 38, height: 1, background: gold }} /></div>
+          <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 32, color: gold, marginTop: 9 }}>Nelson &amp; Cidália</p>
+        </section>
+        <footer style={{ textAlign: "center", padding: "34px 24px 0", color: muted }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 13 }}>28 · 11 · 2026 · Xiguiane</p>
+        </footer>
+      </main>
     </div>
-
   );
 }
+
+const inputStyle: React.CSSProperties = {
+  width: "100%",
+  border: "1px solid rgba(201,168,76,.45)",
+  borderRadius: 12,
+  background: "rgba(255,252,245,.9)",
+  color: ink,
+  padding: "12px 13px",
+  outline: "none",
+  fontFamily: "'Cormorant Garamond', serif",
+  fontSize: 15,
+  boxSizing: "border-box",
+};
+
+const choiceStyle: React.CSSProperties = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 6,
+  border: "1px solid " + gold,
+  borderRadius: 999,
+  padding: "11px",
+  fontFamily: "'Cormorant Garamond', serif",
+  fontSize: 14,
+  cursor: "pointer",
+};
