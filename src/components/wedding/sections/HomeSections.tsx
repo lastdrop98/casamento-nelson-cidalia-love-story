@@ -333,7 +333,8 @@ function Counter({ value, onChange, label }: { value: number; onChange: (v: numb
   );
 }
 
-export function RsvpSection() {
+export function RsvpSection({ tipoConvite = "individual" }: { tipoConvite?: "individual" | "casal" }) {
+  const conviteCasal = tipoConvite === "casal";
   const wQ = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
   const w = wQ.data;
 
@@ -362,7 +363,7 @@ export function RsvpSection() {
         wedding_id: w.id,
         guest_name: `${name.trim()} · ${phone.trim()}`,
         attending: attend === "yes",
-        guest_count: 1 + (attend === "yes" && withPartner ? partners : 0) + children,
+        guest_count: attend === "yes" ? (conviteCasal && withPartner ? 2 : 1) : 0,
         message: [
           attend === "maybe" ? "[TALVEZ]" : "",
           diet.trim() ? `Restrições: ${diet.trim()}` : "",
@@ -444,20 +445,15 @@ export function RsvpSection() {
 
           {attend === "yes" && (
             <>
-              <Field label="Vai acompanhado?">
+              {conviteCasal && <Field label="Vai acompanhado?">
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                   <Pill active={withPartner === true} onClick={() => setWithPartner(true)}>SIM</Pill>
                   <Pill active={withPartner === false} onClick={() => { setWithPartner(false); setPartners(0); }}>NÃO</Pill>
                 </div>
-              </Field>
-              {withPartner && (
-                <Field label="Acompanhantes">
-                  <Counter value={partners} onChange={setPartners} label="acompanhantes" />
-                </Field>
+              </Field>}
+              {conviteCasal && withPartner && (
+                <p style={{ fontFamily: "'Cormorant Garamond', serif", color: gold, fontStyle: "italic" }}>Este convite é válido para duas pessoas.</p>
               )}
-              <Field label="Crianças">
-                <Counter value={children} onChange={setChildren} label="crianças" />
-              </Field>
               <Field label="Restrições Alimentares">
                 <input value={diet} onChange={(e) => setDiet(e.target.value)} style={inputStyle} />
               </Field>
