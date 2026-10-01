@@ -64,7 +64,7 @@ BEGIN
       (wid,'11H00','⛪','CERIMÓNIA RELIGIOSA','Igreja Nossa Senhora de Fátima — Bairro Ferroviário',1),
       (wid,'13H00','🌸','RECEPÇÃO DOS CONVIDADOS','Cajada Eventos e Serviços 2 — Av. Dom Alexandre',2),
       (wid,'14H00','🥂','COCKTAIL','Momentos de convívio e celebração',3),
-      (wid,'15H00','🍽️','JANTAR','Uma refeição preparada com muito amor',4),
+      (wid,'15H00','🥂','COPO DE ÁGUA','Celebração e brinde à nossa nova vida juntos',4),
       (wid,'17H00','🎵','FESTA E DANÇA','Que a música nos una até de madrugada',5);
 
     INSERT INTO public.gifts (wedding_id,name,description,price_label,sort_order) VALUES
