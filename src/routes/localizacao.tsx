@@ -112,6 +112,22 @@ function Localizacao() {
 
         <LocationCard
           Icon={Landmark}
+          eyebrow="Cerimónia Civil"
+          name="Palácio dos Casamentos"
+          address="Av. Julius Nyerere, Maputo"
+          time="12H30"
+          mapsUrl="https://maps.google.com/?q=Palacio+dos+Casamentos+Av+Julius+Nyerere+Maputo"
+          wazeUrl="https://waze.com/ul?q=Palacio+dos+Casamentos+Maputo"
+        />
+
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, margin: "22px 0" }}>
+          <div style={{ width: 40, height: 1, background: "#C9A84C" }} />
+          <span style={{ color: "#C9A84C" }}>✦</span>
+          <div style={{ width: 40, height: 1, background: "#C9A84C" }} />
+        </div>
+
+        <LocationCard
+          Icon={Landmark}
           eyebrow="Recepção"
           name="Cajada Eventos e Serviços 2"
           address="Av. Dom Alexandre, Maputo - Cidade"
