@@ -45,8 +45,11 @@ function Splash() {
     const openInvite = async () => {
     setOpening(true);
     await music.play();
-    const tipo = new URLSearchParams(window.location.search).get("tipo");
-    setTimeout(() => navigate({ to: "/home", search: tipo ? { tipo } : undefined }), 450);
+    const params = new URLSearchParams(window.location.search);
+    const tipo = params.get("tipo");
+    const evento = params.get("evento");
+    const destino = evento === "xiguiane" ? "/xiguiane" : "/home";
+    setTimeout(() => navigate({ to: destino, search: tipo ? { tipo } : undefined }), 450);
   };
 
   return (
