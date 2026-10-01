@@ -12,13 +12,13 @@ export async function fetchWedding() {
   if (!data) throw new Error("Wedding not found");
   return {
     ...data,
-    wedding_date: "2026-11-28T13:00:00+02:00",
-    ceremony_venue: null,
-    ceremony_address: null,
-    ceremony_time: null,
-    reception_venue: "Salão próximo a FIPAG do bairro ferroviário",
-    reception_address: "Salão próximo a FIPAG do bairro ferroviário",
-    reception_time: "13h",
+    wedding_date: "2026-11-27T09:00:00+02:00",
+    ceremony_venue: "Igreja Nossa Senhora de Fátima",
+    ceremony_address: "Bairro Ferroviário, Maputo",
+    ceremony_time: "09H00",
+    reception_venue: "Cajada Eventos e Serviços 2",
+    reception_address: "Av. Dom Alexandre, Maputo - Cidade",
+    reception_time: "13H00",
   };
 }
 
@@ -39,15 +39,7 @@ export async function fetchSchedule(weddingId: string) {
     .eq("wedding_id", weddingId)
     .order("sort_order", { ascending: true });
   if (error) throw error;
-  return [{
-    id: "xiguiane-copo-de-agua",
-    wedding_id: weddingId,
-    time_label: "13h",
-    title: "Copo d'Água",
-    description: "Xiguiane",
-    icon: "🥂",
-    sort_order: 1,
-  }];
+  return data ?? [];
 }
 
 export async function fetchGifts(weddingId: string) {
