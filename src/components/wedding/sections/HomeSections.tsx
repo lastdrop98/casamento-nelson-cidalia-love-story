@@ -341,9 +341,6 @@ export function RsvpSection({ tipoConvite = "individual" }: { tipoConvite?: "ind
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [attend, setAttend] = useState<Attend | null>(null);
-  const [withPartner, setWithPartner] = useState<boolean | null>(null);
-  const [partners, setPartners] = useState(0);
-  const [children, setChildren] = useState(0);
   const [diet, setDiet] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -363,7 +360,7 @@ export function RsvpSection({ tipoConvite = "individual" }: { tipoConvite?: "ind
         wedding_id: w.id,
         guest_name: `${name.trim()} · ${phone.trim()}`,
         attending: attend === "yes",
-        guest_count: attend === "yes" ? (conviteCasal && withPartner ? 2 : 1) : 0,
+        guest_count: attend === "yes" ? (conviteCasal ? 2 : 1) : 0,
         message: [
           attend === "maybe" ? "[TALVEZ]" : "",
           diet.trim() ? `Restrições: ${diet.trim()}` : "",
@@ -445,15 +442,9 @@ export function RsvpSection({ tipoConvite = "individual" }: { tipoConvite?: "ind
 
           {attend === "yes" && (
             <>
-              {conviteCasal && <Field label="Vai acompanhado?">
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-                  <Pill active={withPartner === true} onClick={() => setWithPartner(true)}>SIM</Pill>
-                  <Pill active={withPartner === false} onClick={() => { setWithPartner(false); setPartners(0); }}>NÃO</Pill>
-                </div>
-              </Field>}
-              {conviteCasal && withPartner && (
-                <p style={{ fontFamily: "'Cormorant Garamond', serif", color: gold, fontStyle: "italic" }}>Este convite é válido para duas pessoas.</p>
-              )}
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", color: gold, fontStyle: "italic", textAlign: "center" }}>
+                Convite válido para {conviteCasal ? "2 pessoas" : "1 pessoa"}.
+              </p>
               <Field label="Restrições Alimentares">
                 <input value={diet} onChange={(e) => setDiet(e.target.value)} style={inputStyle} />
               </Field>
