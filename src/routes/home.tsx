@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { CalendarDays, Check, Heart, MapPin, Navigation, X as XIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchWedding, submitRsvp } from "@/lib/wedding";
+import { fetchWedding, submitXiguiane } from "@/lib/wedding";
 import { music } from "@/lib/music";
 import { InviteBadge } from "@/components/wedding/InviteBadge";
 import coupleHero from "@/assets/couple-hero.jpg.asset.json";
