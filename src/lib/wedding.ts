@@ -97,6 +97,7 @@ export async function submitRsvp(input: {
   attending: boolean;
   guest_count: number;
   message?: string;
+  gift?: string;
 }) {
   const { error } = await supabase.from("rsvps").insert(input);
   if (error) throw error;

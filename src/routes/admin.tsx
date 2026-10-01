@@ -325,7 +325,7 @@ function RsvpList({ weddingId, wedding }: { weddingId: string; wedding: any }) {
       const base = { fill: { patternType: "solid", fgColor: { rgb: zebra } }, border };
       const values: (string | number)[] = [
         r.guest_name,
-        r.attending ? "Sim" : "Não",
+        r.attending === true ? "Sim" : r.attending === false ? "Não" : "Pendente",
         r.guest_count ?? "",
         r.message ?? "",
         r.created_at ? fmt.format(new Date(r.created_at)) : "",
