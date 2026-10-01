@@ -136,8 +136,10 @@ export type Database = {
       }
       rsvps: {
         Row: {
-          attending: boolean
+          attending: boolean | null
           created_at: string
+          event: string
+          gift: string | null
           guest_count: number
           guest_name: string
           id: string
@@ -145,8 +147,10 @@ export type Database = {
           wedding_id: string
         }
         Insert: {
-          attending: boolean
+          attending?: boolean | null
           created_at?: string
+          event?: string
+          gift?: string | null
           guest_count?: number
           guest_name: string
           id?: string
@@ -154,8 +158,10 @@ export type Database = {
           wedding_id: string
         }
         Update: {
-          attending?: boolean
+          attending?: boolean | null
           created_at?: string
+          event?: string
+          gift?: string | null
           guest_count?: number
           guest_name?: string
           id?: string
