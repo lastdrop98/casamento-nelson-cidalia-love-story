@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { CalendarDays, Check, Heart, MapPin, Navigation, X as XIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchWedding, submitRsvp } from "@/lib/wedding";
+import { fetchWedding, submitXiguiane } from "@/lib/wedding";
 import { music } from "@/lib/music";
 import { InviteBadge } from "@/components/wedding/InviteBadge";
 import coupleHero from "@/assets/couple-hero.jpg.asset.json";
@@ -56,12 +56,14 @@ function XiguianeInvite() {
     if (!wQ.data || !name.trim() || !phone.trim() || attending === null) return;
     setLoading(true);
     try {
-      await submitRsvp({
+      await submitXiguiane({
         wedding_id: wQ.data.id,
-        guest_name: name.trim() + " · " + phone.trim(),
-        attending,
-        guest_count: guestCount,
-        message: message.trim() || undefined,
+        nome: name.trim(),
+        telefone: phone.trim(),
+        tipo_convite: isCouple ? "casal" : "individual",
+        acompanhantes: guestCount - 1,
+        presenca: attending,
+        mensagem: message.trim() || null,
       });
       setSent(true);
     } finally {

@@ -102,3 +102,17 @@ export async function submitRsvp(input: {
   const { error } = await supabase.from("rsvps").insert(input);
   if (error) throw error;
 }
+
+export async function submitXiguiane(input: {
+  wedding_id: string;
+  nome: string;
+  telefone?: string;
+  tipo_convite: "individual" | "casal";
+  acompanhantes: number;
+  presenca: boolean | null;
+  mensagem?: string | null;
+  presente?: string | null;
+}) {
+  const { error } = await (supabase as any).from("confirmacoes_xiguiane").insert(input);
+  if (error) throw error;
+}

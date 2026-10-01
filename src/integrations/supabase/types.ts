@@ -14,6 +14,53 @@ export type Database = {
   }
   public: {
     Tables: {
+      confirmacoes_xiguiane: {
+        Row: {
+          acompanhantes: number
+          created_at: string
+          id: string
+          mensagem: string | null
+          nome: string
+          presenca: boolean | null
+          presente: string | null
+          telefone: string | null
+          tipo_convite: string
+          wedding_id: string
+        }
+        Insert: {
+          acompanhantes?: number
+          created_at?: string
+          id?: string
+          mensagem?: string | null
+          nome: string
+          presenca?: boolean | null
+          presente?: string | null
+          telefone?: string | null
+          tipo_convite?: string
+          wedding_id: string
+        }
+        Update: {
+          acompanhantes?: number
+          created_at?: string
+          id?: string
+          mensagem?: string | null
+          nome?: string
+          presenca?: boolean | null
+          presente?: string | null
+          telefone?: string | null
+          tipo_convite?: string
+          wedding_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "confirmacoes_xiguiane_wedding_id_fkey"
+            columns: ["wedding_id"]
+            isOneToOne: false
+            referencedRelation: "weddings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       gallery: {
         Row: {
           caption: string | null

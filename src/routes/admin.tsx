@@ -58,6 +58,8 @@ function AdminPage() {
       />
 
       <RsvpList weddingId={wedding.id} wedding={wedding} />
+
+      <XiguianeDashboard weddingId={wedding.id} />
     </div>
   );
 }
@@ -365,54 +367,8 @@ function RsvpList({ weddingId, wedding }: { weddingId: string; wedding: any }) {
     XLSX.writeFile(wb, `confirmacoes-nelson-cidalia-${new Date().toISOString().slice(0, 10)}.xlsx`);
   };
 
-  const confirmados = rsvps.filter((r) => r.attending === true).length;
-  const recusados = rsvps.filter((r) => r.attending === false).length;
-  const pendentes = rsvps.filter((r) => r.attending === null).length;
-  const pct = (n: number) => (totalRespostas ? Math.round((n / totalRespostas) * 100) : 0);
-  const ultimas = rsvps.slice(0, 5);
-
   return (
     <>
-    <Section title="Dashboard Xiguiane">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {[
-          ["Confirmados", confirmados],
-          ["Total de pessoas", totalPessoas],
-          ["Pendentes", pendentes],
-          ["Recusados", recusados],
-        ].map(([l, v]) => (
-          <div key={l as string} className="border border-[var(--gold)]/30 p-4 text-center">
-            <p className="font-script text-3xl text-[var(--gold)]">{v}</p>
-            <p className="uppercase tracking-widest text-[10px] text-muted-foreground mt-1">{l}</p>
-          </div>
-        ))}
-      </div>
-      <div>
-        <div className="flex h-3 w-full overflow-hidden bg-muted">
-          <div className="bg-[var(--gold)]" style={{ width: `${pct(confirmados)}%` }} />
-          <div className="bg-muted-foreground/40" style={{ width: `${pct(pendentes)}%` }} />
-          <div className="bg-destructive" style={{ width: `${pct(recusados)}%` }} />
-        </div>
-        <p className="text-xs text-muted-foreground mt-2">
-          {pct(confirmados)}% confirmados · {pct(pendentes)}% pendentes · {pct(recusados)}% recusados
-        </p>
-      </div>
-      <div>
-        <p className="uppercase tracking-widest text-xs text-[var(--gold)] mb-2">Últimas confirmações</p>
-        {ultimas.length === 0 && <p className="text-sm text-muted-foreground">Ainda sem respostas.</p>}
-        <ul className="space-y-1 text-sm">
-          {ultimas.map((r) => (
-            <li key={r.id} className="flex justify-between">
-              <span>{r.guest_name}</span>
-              <span className="text-muted-foreground">
-                {r.attending === true ? `Sim · ${r.guest_count}` : r.attending === false ? "Não" : "Pendente"} ·{" "}
-                {new Intl.DateTimeFormat("pt-PT", { dateStyle: "short", timeStyle: "short" }).format(new Date(r.created_at))}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </Section>
     <Section title="Confirmações">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <p className="text-sm text-muted-foreground">
@@ -449,5 +405,84 @@ function RsvpList({ weddingId, wedding }: { weddingId: string; wedding: any }) {
       </ul>
     </Section>
     </>
+  );
+}
+
+function XiguianeDashboard({ weddingId }: { weddingId: string }) {
+  const qc = useQueryClient();
+  const q = useQuery({
+    queryKey: ["xiguiane", weddingId],
+    queryFn: async () => {
+      const { data, error } = await (supabase as any)
+        .from("confirmacoes_xiguiane").select("*").eq("wedding_id", weddingId)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return (data ?? []) as any[];
+    },
+  });
+
+  useEffect(() => {
+    const ch = supabase
+      .channel(`xiguiane-admin-${weddingId}`)
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "confirmacoes_xiguiane", filter: `wedding_id=eq.${weddingId}` },
+        (p) => {
+          playBeep();
+          toast.success(`Nova confirmação Xiguiane: ${(p.new as any)?.nome ?? "Convidado"}`);
+          qc.invalidateQueries({ queryKey: ["xiguiane", weddingId] });
+        })
+      .subscribe();
+    return () => { supabase.removeChannel(ch); };
+  }, [weddingId, qc]);
+
+  const rows = q.data ?? [];
+  const confirmados = rows.filter((r) => r.presenca === true);
+  const recusados = rows.filter((r) => r.presenca === false).length;
+  const pendentes = rows.filter((r) => r.presenca === null).length;
+  const totalPessoas = confirmados.reduce((s, r) => s + 1 + (r.acompanhantes ?? 0), 0);
+  const pct = (n: number) => (rows.length ? Math.round((n / rows.length) * 100) : 0);
+  const fmt = new Intl.DateTimeFormat("pt-PT", { dateStyle: "short", timeStyle: "short" });
+  const estado = (r: any) => (r.presenca === true ? "Sim" : r.presenca === false ? "Não" : "Pendente");
+
+  return (
+    <Section title="Dashboard Xiguiane">
+      <p className="text-xs uppercase tracking-widest text-muted-foreground">Domingo · {rows.length} {rows.length === 1 ? "resposta" : "respostas"}</p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {([["Confirmados", confirmados.length], ["Total de pessoas", totalPessoas], ["Pendentes", pendentes], ["Recusados", recusados]] as const).map(([l, v]) => (
+          <div key={l} className="border border-[var(--gold)]/30 p-4 text-center">
+            <p className="font-script text-3xl text-[var(--gold)]">{v}</p>
+            <p className="uppercase tracking-widest text-[10px] text-muted-foreground mt-1">{l}</p>
+          </div>
+        ))}
+      </div>
+      <div>
+        <div className="flex h-3 w-full overflow-hidden bg-muted">
+          <div className="bg-[var(--gold)]" style={{ width: `${pct(confirmados.length)}%` }} />
+          <div className="bg-muted-foreground/40" style={{ width: `${pct(pendentes)}%` }} />
+          <div className="bg-destructive" style={{ width: `${pct(recusados)}%` }} />
+        </div>
+        <p className="text-xs text-muted-foreground mt-2">
+          {pct(confirmados.length)}% confirmados · {pct(pendentes)}% pendentes · {pct(recusados)}% recusados
+        </p>
+      </div>
+      <p className="uppercase tracking-widest text-xs text-[var(--gold)]">Últimas confirmações</p>
+      {q.isLoading && <p>A carregar…</p>}
+      {!q.isLoading && rows.length === 0 && <p className="text-sm text-muted-foreground">Ainda sem respostas.</p>}
+      <ul className="divide-y divide-[var(--gold)]/20">
+        {rows.slice(0, 10).map((r) => (
+          <li key={r.id} className="py-3 flex justify-between gap-4">
+            <div>
+              <p className="font-medium">{r.nome}{r.telefone ? ` · ${r.telefone}` : ""}</p>
+              <p className="text-xs text-muted-foreground">Convite {r.tipo_convite} · {fmt.format(new Date(r.created_at))}</p>
+              {r.mensagem && <p className="text-sm text-muted-foreground italic">"{r.mensagem}"</p>}
+              {r.presente && <p className="text-xs text-[var(--gold)]">Presente: {r.presente}</p>}
+            </div>
+            <div className="text-right text-sm">
+              <p className={r.presenca === false ? "text-destructive" : "text-[var(--gold)]"}>{estado(r)}</p>
+              {r.presenca && <p className="text-muted-foreground">{1 + (r.acompanhantes ?? 0)} pessoa(s)</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Section>
   );
 }
