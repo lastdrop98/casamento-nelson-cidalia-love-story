@@ -54,7 +54,14 @@ function Programa() {
     queryFn: () => fetchSchedule(w!.id),
     enabled: !!w,
   });
-  const items = sQ.data ?? [];
+  const items = [
+    { id: "religiosa-09h", time_label: "09H00", icon: "⛪", title: "CERIMÓNIA RELIGIOSA", description: "Igreja Nossa Senhora de Fátima — Bairro Ferroviário" },
+    { id: "civil-12h30", time_label: "12H30", icon: "🏛️", title: "CERIMÓNIA CIVIL", description: "Palácio dos Casamentos — Av. Julius Nyerere, Maputo" },
+    { id: "recepcao-13h", time_label: "13H00", icon: "🌸", title: "RECEPÇÃO DOS CONVIDADOS", description: "Cajada Eventos e Serviços 2 — Av. Dom Alexandre" },
+    { id: "cocktail-14h", time_label: "14H00", icon: "🥂", title: "COCKTAIL", description: "Momentos de convívio e celebração" },
+    { id: "copo-15h", time_label: "15H00", icon: "🍷", title: "COPO DE ÁGUA", description: "Celebração e brinde à nossa nova vida juntos" },
+    { id: "festa-17h", time_label: "17H00", icon: "🎶", title: "FESTA E DANÇA", description: "Que a música nos una até de madrugada" },
+  ];
 
   return (
     <PageShell title="Programa do Dia">
