@@ -1,1 +1,1 @@
-UPDATE public.schedule SET title = 'COPO DE ÁGUA', icon = '🥂', description = 'Celebração e brinde à nossa nova vida juntos' WHERE title ILIKE '%jantar%';
+UPDATE public.schedule SET title = 'COPO DE ÁGUA', icon = '🥂', description = 'Celebração e brinde à nossa nova vida juntos' WHERE title ILIKE '%copo de água%';
