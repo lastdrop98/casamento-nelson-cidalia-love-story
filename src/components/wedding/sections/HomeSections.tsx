@@ -76,7 +76,7 @@ function Section({
 
 /* ── SECTION 2 — CONTAGEM REGRESSIVA ───────────────────────── */
 
-const TARGET = new Date("2026-11-28T13:00:00+02:00").getTime();
+const TARGET = new Date("2026-11-27T09:00:00").getTime();
 function diff() {
   const ms = Math.max(0, TARGET - Date.now());
   return {
@@ -136,7 +136,12 @@ export function CountdownSection() {
 /* ── SECTION 3 — PROGRAMA ──────────────────────────────────── */
 
 const SCHEDULE: Array<{ time: string; Icon: LucideIcon; title: string; desc: string }> = [
-  { time: "13H00", Icon: Wine, title: "Copo de Água", desc: "Xiguiane" },
+  { time: "09H00", Icon: Church, title: "Cerimónia Religiosa", desc: "Igreja Nossa Senhora de Fátima — Bairro Ferroviário" },
+  { time: "12H30", Icon: Landmark, title: "Cerimónia Civil", desc: "Palácio dos Casamentos — Av. Julius Nyerere, Maputo" },
+  { time: "13H00", Icon: Flower2, title: "Recepção dos Convidados", desc: "Cajada Eventos e Serviços 2 — Av. Dom Alexandre" },
+  { time: "14H00", Icon: Wine, title: "Cocktail", desc: "Momentos de convívio e celebração" },
+  { time: "15H00", Icon: Wine, title: "Copo de Água", desc: "Celebração e brinde à nossa nova vida juntos" },
+  { time: "17H00", Icon: Music, title: "Festa e Dança", desc: "Que a música nos una até de madrugada" },
 ];
 
 export function ProgramaSection() {
@@ -228,16 +233,40 @@ export function LocalizacaoSection() {
         style={{ textAlign: "center", fontFamily: "'Great Vibes', cursive", fontSize: 36, color: ink, marginBottom: 20, ...willChange }}>
         Como Chegar até Nós
       </motion.p>
+      <motion.div variants={slideFromLeft} initial="hidden" whileInView="visible" viewport={inViewNear} style={willChange}>
+      <LocationCard
+        Icon={Church}
+        eyebrow="Cerimónia Religiosa"
+        name="Igreja Nossa Senhora de Fátima"
+        address="Bairro Ferroviário, Maputo"
+        time="09H00"
+        mapsUrl="https://maps.google.com/?q=Igreja+Nossa+Senhora+Fatima+Bairro+Ferroviario+Maputo"
+        wazeUrl="https://waze.com/ul?q=Igreja+Nossa+Senhora+Fatima+Maputo"
+      />
+      </motion.div>
+      <motion.div variants={zoomFade} initial="hidden" whileInView="visible" viewport={inViewNear}><GoldOrnament /></motion.div>
+      <motion.div variants={slideFromLeft} initial="hidden" whileInView="visible" viewport={inViewNear} style={willChange}>
+      <LocationCard
+        Icon={Landmark}
+        eyebrow="Cerimónia Civil"
+        name="Palácio dos Casamentos"
+        address="Av. Julius Nyerere, Maputo"
+        time="12H30"
+        mapsUrl="https://maps.google.com/?q=Palacio+dos+Casamentos+Av+Julius+Nyerere+Maputo"
+        wazeUrl="https://waze.com/ul?q=Palacio+dos+Casamentos+Maputo"
+      />
+      </motion.div>
+      <motion.div variants={zoomFade} initial="hidden" whileInView="visible" viewport={inViewNear}><GoldOrnament /></motion.div>
       <motion.div variants={slideFromRight} initial="hidden" whileInView="visible" viewport={inViewNear} style={willChange}>
-        <LocationCard
-          Icon={Landmark}
-          eyebrow="Copo de Água"
-          name="Xiguiane"
-          address="28 de Novembro de 2026 · 13H00"
-          time="Local da celebração"
-          mapsUrl="https://maps.google.com/?q=-25.911264,32.605160"
-          wazeUrl="https://www.waze.com/ul?ll=-25.911264%2C32.605160&navigate=yes"
-        />
+      <LocationCard
+        Icon={Landmark}
+        eyebrow="Recepção"
+        name="Cajada Eventos e Serviços 2"
+        address="Av. Dom Alexandre, Maputo - Cidade"
+        mapsUrl="https://maps.google.com/?q=Cajada+Eventos+Servicos+Maputo"
+        wazeUrl="https://waze.com/ul?q=Cajada+Eventos+Servicos+Maputo"
+        copyText="Cajada Eventos e Serviços 2, Av. Dom Alexandre, Maputo"
+      />
       </motion.div>
     </Section>
   );
@@ -756,7 +785,7 @@ export function FooterSection() {
       <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={inViewNear} style={{ textAlign: "center" }}>
         <motion.p variants={blurFade} style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, letterSpacing: 10, color: gold, ...willChange }}>N | C</motion.p>
         <motion.p variants={blurFade} style={{ fontFamily: "'Great Vibes', cursive", fontSize: 48, color: gold, lineHeight: 1.1, marginTop: 6, ...willChange }}>Nelson &amp; Cidália</motion.p>
-        <motion.p variants={blurFade} style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 16, color: gold, marginTop: 4, ...willChange }}>28 · 11 · 2026</motion.p>
+        <motion.p variants={blurFade} style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 16, color: gold, marginTop: 4, ...willChange }}>27 · 11 · 2026</motion.p>
         <motion.div variants={blurFade}><GoldOrnament dark /></motion.div>
         <motion.p variants={blurFade} style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: 18, color: "rgba(201,168,76,0.8)", ...willChange }}>
           Obrigado por fazer parte da nossa história.
