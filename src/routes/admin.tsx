@@ -58,6 +58,8 @@ function AdminPage() {
       />
 
       <RsvpList weddingId={wedding.id} wedding={wedding} />
+
+      <XiguianeDashboard weddingId={wedding.id} />
     </div>
   );
 }
@@ -365,54 +367,8 @@ function RsvpList({ weddingId, wedding }: { weddingId: string; wedding: any }) {
     XLSX.writeFile(wb, `confirmacoes-nelson-cidalia-${new Date().toISOString().slice(0, 10)}.xlsx`);
   };
 
-  const confirmados = rsvps.filter((r) => r.attending === true).length;
-  const recusados = rsvps.filter((r) => r.attending === false).length;
-  const pendentes = rsvps.filter((r) => r.attending === null).length;
-  const pct = (n: number) => (totalRespostas ? Math.round((n / totalRespostas) * 100) : 0);
-  const ultimas = rsvps.slice(0, 5);
-
   return (
     <>
-    <Section title="Dashboard Xiguiane">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        {[
-          ["Confirmados", confirmados],
-          ["Total de pessoas", totalPessoas],
-          ["Pendentes", pendentes],
-          ["Recusados", recusados],
-        ].map(([l, v]) => (
-          <div key={l as string} className="border border-[var(--gold)]/30 p-4 text-center">
-            <p className="font-script text-3xl text-[var(--gold)]">{v}</p>
-            <p className="uppercase tracking-widest text-[10px] text-muted-foreground mt-1">{l}</p>
-          </div>
-        ))}
-      </div>
-      <div>
-        <div className="flex h-3 w-full overflow-hidden bg-muted">
-          <div className="bg-[var(--gold)]" style={{ width: `${pct(confirmados)}%` }} />
-          <div className="bg-muted-foreground/40" style={{ width: `${pct(pendentes)}%` }} />
-          <div className="bg-destructive" style={{ width: `${pct(recusados)}%` }} />
-        </div>
-        <p className="text-xs text-muted-foreground mt-2">
-          {pct(confirmados)}% confirmados · {pct(pendentes)}% pendentes · {pct(recusados)}% recusados
-        </p>
-      </div>
-      <div>
-        <p className="uppercase tracking-widest text-xs text-[var(--gold)] mb-2">Últimas confirmações</p>
-        {ultimas.length === 0 && <p className="text-sm text-muted-foreground">Ainda sem respostas.</p>}
-        <ul className="space-y-1 text-sm">
-          {ultimas.map((r) => (
-            <li key={r.id} className="flex justify-between">
-              <span>{r.guest_name}</span>
-              <span className="text-muted-foreground">
-                {r.attending === true ? `Sim · ${r.guest_count}` : r.attending === false ? "Não" : "Pendente"} ·{" "}
-                {new Intl.DateTimeFormat("pt-PT", { dateStyle: "short", timeStyle: "short" }).format(new Date(r.created_at))}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </Section>
     <Section title="Confirmações">
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <p className="text-sm text-muted-foreground">
