@@ -12,7 +12,7 @@ export const Route = createFileRoute("/imprimir")({
       {
         name: "description",
         content:
-          "Versão imprimível do convite de casamento de Nelson & Cidália — 28 de Novembro de 2026, Maputo. Descarregue em PDF ou imprima directamente.",
+          "Versão imprimível do convite de casamento de Nelson & Cidália — 27 de Novembro de 2026, Maputo. Descarregue em PDF ou imprima directamente.",
       },
       { property: "og:title", content: "Convite para Imprimir — Nelson & Cidália" },
       {
