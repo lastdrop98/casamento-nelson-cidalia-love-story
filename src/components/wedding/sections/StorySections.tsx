@@ -119,8 +119,8 @@ export function OsNoivosSection() {
 /* ── COM A BÊNÇÃO DE DEUS ───────────────────────────────────── */
 export function BencaoSection() {
     const cards = [
-    { Icon: Calendar, title: "28 de Novembro de 2026", sub: "13H00 · Xiguiane" },
-    { Icon: MapPin, title: "Copo de Água · 13H00", sub: "Xiguiane" },
+    { Icon: Calendar, title: "27 de Novembro de 2026", sub: "09H00 · Maputo" },
+    { Icon: MapPin, title: "Igreja Nossa Senhora de Fátima", sub: "Bairro Ferroviário, Maputo" },
   ];
   return (
     <Block>
