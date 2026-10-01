@@ -56,12 +56,14 @@ function XiguianeInvite() {
     if (!wQ.data || !name.trim() || !phone.trim() || attending === null) return;
     setLoading(true);
     try {
-      await submitRsvp({
+      await submitXiguiane({
         wedding_id: wQ.data.id,
-        guest_name: name.trim() + " · " + phone.trim(),
-        attending,
-        guest_count: guestCount,
-        message: message.trim() || undefined,
+        nome: name.trim(),
+        telefone: phone.trim(),
+        tipo_convite: isCouple ? "casal" : "individual",
+        acompanhantes: guestCount - 1,
+        presenca: attending,
+        mensagem: message.trim() || null,
       });
       setSent(true);
     } finally {
