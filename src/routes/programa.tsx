@@ -9,14 +9,14 @@ export const Route = createFileRoute("/programa")({
   head: () => ({
     meta: [
       { title: "Programa do Dia — Nelson & Cidália" },
-      { name: "description", content: "Copo de água de Nelson & Cidália em Xiguiane, a 28 de Novembro de 2026." },
+      { name: "description", content: "O programa completo do casamento de 27 de Novembro de 2026: cerimónia religiosa, sessão de fotos, cocktail, jantar e festa." },
       { property: "og:title", content: "Programa do Dia — Nelson & Cidália" },
-      { property: "og:description", content: "Copo de água às 13H00 em Xiguiane, a 28 de Novembro de 2026." },
+      { property: "og:description", content: "Cerimónia, sessão de fotos, cocktail, jantar e festa — hora a hora, a 27 de Novembro de 2026." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/programa" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Programa do Dia — Nelson & Cidália" },
-      { name: "twitter:description", content: "Cerimónia, sessão de fotos, cocktail, jantar e festa — hora a hora, a 28 de Novembro de 2026." },
+      { name: "twitter:description", content: "Cerimónia, sessão de fotos, cocktail, jantar e festa — hora a hora, a 27 de Novembro de 2026." },
     ],
     links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/programa" }],
     scripts: [
@@ -26,17 +26,17 @@ export const Route = createFileRoute("/programa")({
           "@context": "https://schema.org",
           "@type": "Event",
           name: "Casamento de Nelson & Cidália",
-          startDate: "2026-11-28T13:00:00+02:00",
-          endDate: "2026-11-28T16:00:00+02:00",
+          startDate: "2026-11-27T11:00:00+02:00",
+          endDate: "2026-11-28T00:00:00+02:00",
           eventStatus: "https://schema.org/EventScheduled",
           eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
           description:
-            "Copo de água de Nelson & Cidália, a 28 de Novembro de 2026 em Xiguiane.",
+            "Cerimónia religiosa e recepção do casamento de Nelson & Cidália, a 27 de Novembro de 2026 em Maputo.",
           url: "https://nelson-cidalia-convite-digital.lovable.app/programa",
           location: {
             "@type": "Place",
-            name: "Xiguiane",
-            address: { "@type": "PostalAddress", addressLocality: "Xiguiane", addressCountry: "MZ" },
+            name: "Igreja Nossa Senhora de Fátima",
+            address: { "@type": "PostalAddress", addressLocality: "Maputo", addressCountry: "MZ" },
           },
           organizer: { "@type": "Person", name: "Nelson & Cidália" },
         }),
@@ -49,7 +49,12 @@ export const Route = createFileRoute("/programa")({
 function Programa() {
   const wQ = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
   const w = wQ.data;
-  const items = [{ id: "xiguiane-13h", time_label: "13H00", icon: "🥂", title: "COPO DE ÁGUA", description: "Xiguiane" }];
+  const sQ = useQuery({
+    queryKey: ["schedule", w?.id],
+    queryFn: () => fetchSchedule(w!.id),
+    enabled: !!w,
+  });
+  const items = sQ.data ?? [];
 
   return (
     <PageShell title="Programa do Dia">
