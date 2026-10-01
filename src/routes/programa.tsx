@@ -9,14 +9,14 @@ export const Route = createFileRoute("/programa")({
   head: () => ({
     meta: [
       { title: "Programa do Dia — Nelson & Cidália" },
-      { name: "description", content: "O programa completo do casamento de 27 de Novembro de 2026: cerimónia religiosa, sessão de fotos, cocktail, jantar e festa." },
+      { name: "description", content: "O programa completo do casamento de 27 de Novembro de 2026: cerimónia religiosa, cerimónia civil, recepção, cocktail, copo de água e festa." },
       { property: "og:title", content: "Programa do Dia — Nelson & Cidália" },
-      { property: "og:description", content: "Cerimónia, sessão de fotos, cocktail, jantar e festa — hora a hora, a 27 de Novembro de 2026." },
+      { property: "og:description", content: "Cerimónia, cerimónia civil, recepção, cocktail, copo de água e festa — hora a hora, a 27 de Novembro de 2026." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://nelson-cidalia-convite-digital.lovable.app/programa" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Programa do Dia — Nelson & Cidália" },
-      { name: "twitter:description", content: "Cerimónia, sessão de fotos, cocktail, jantar e festa — hora a hora, a 27 de Novembro de 2026." },
+      { name: "twitter:description", content: "Cerimónia, cerimónia civil, recepção, cocktail, copo de água e festa — hora a hora, a 27 de Novembro de 2026." },
     ],
     links: [{ rel: "canonical", href: "https://nelson-cidalia-convite-digital.lovable.app/programa" }],
     scripts: [
@@ -59,7 +59,7 @@ function Programa() {
     { id: "civil-12h30", time_label: "12H30", icon: "🏛️", title: "CERIMÓNIA CIVIL", description: "Palácio dos Casamentos — Av. Julius Nyerere, Maputo" },
     { id: "recepcao-13h", time_label: "13H00", icon: "🌸", title: "RECEPÇÃO DOS CONVIDADOS", description: "Cajada Eventos e Serviços 2 — Av. Dom Alexandre" },
     { id: "cocktail-14h", time_label: "14H00", icon: "🥂", title: "COCKTAIL", description: "Momentos de convívio e celebração" },
-    { id: "copo-15h", time_label: "15H00", icon: "🍷", title: "COPO DE ÁGUA", description: "Celebração e brinde à nossa nova vida juntos" },
+    { id: "copo-15h", time_label: "15H00", icon: "🥂", title: "COPO DE ÁGUA", description: "Celebração e brinde à nossa nova vida juntos" },
     { id: "festa-17h", time_label: "17H00", icon: "🎶", title: "FESTA E DANÇA", description: "Que a música nos una até de madrugada" },
   ];
 
