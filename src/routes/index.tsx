@@ -48,7 +48,7 @@ function Splash() {
     const params = new URLSearchParams(window.location.search);
     const tipo = params.get("tipo");
     const evento = params.get("evento");
-    const destino = evento === "xiguiane" ? ("/xiguiane" as const) : ("/home" as const);
+    const destino = evento === "xiguiane" ? (tipo === "casal" ? ("/xiguiane-casal" as const) : ("/xiguiane-individual" as const)) : ("/home" as const);
     setTimeout(() => navigate({ to: destino, search: tipo ? { tipo } : undefined }), 450);
   };
 
