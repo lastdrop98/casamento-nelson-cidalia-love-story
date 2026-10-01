@@ -39,6 +39,7 @@ const stagger = { animate: { transition: { staggerChildren: 0.12 } } };
 const item = { initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0, transition: { duration: 0.6 } } };
 
 function Home() {
+  const tipoConvite = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "").get("tipo") === "casal" ? "casal" : "individual";
   const q = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
   const w = q.data;
   if (!w) return null;
@@ -220,7 +221,7 @@ function Home() {
         <GoldOrnament />
         <CountdownSection />
         <GoldOrnament />
-        <RsvpSection />
+        <RsvpSection tipoConvite={tipoConvite} />
         <GoldOrnament />
         <MensagemSection />
         <GoldOrnament />
