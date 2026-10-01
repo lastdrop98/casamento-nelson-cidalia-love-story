@@ -18,6 +18,8 @@ import { Route as LocalizacaoRouteImport } from './routes/localizacao'
 import { Route as ImprimirRouteImport } from './routes/imprimir'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as XiguianeRouteImport } from './routes/xiguiane'
+import { Route as XiguianeIndividualRouteImport } from './routes/xiguiane-individual'
+import { Route as XiguianeCasalRouteImport } from './routes/xiguiane-casal'
 import { Route as HistoriaRouteImport } from './routes/historia'
 import { Route as GaleriaRouteImport } from './routes/galeria'
 import { Route as DresscodeRouteImport } from './routes/dresscode'
@@ -72,6 +74,16 @@ const HomeRoute = HomeRouteImport.update({
 const XiguianeRoute = XiguianeRouteImport.update({
   id: '/xiguiane',
   path: '/xiguiane',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiguianeIndividualRoute = XiguianeIndividualRouteImport.update({
+  id: '/xiguiane-individual',
+  path: '/xiguiane-individual',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiguianeCasalRoute = XiguianeCasalRouteImport.update({
+  id: '/xiguiane-casal',
+  path: '/xiguiane-casal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HistoriaRoute = HistoriaRouteImport.update({
@@ -138,6 +150,8 @@ export interface FileRoutesByFullPath {
   '/historia': typeof HistoriaRoute
   '/home': typeof HomeRoute
   '/xiguiane': typeof XiguianeRoute
+  '/xiguiane-individual': typeof XiguianeIndividualRoute
+  '/xiguiane-casal': typeof XiguianeCasalRoute
   '/imprimir': typeof ImprimirRoute
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
@@ -158,6 +172,8 @@ export interface FileRoutesByTo {
   '/galeria': typeof GaleriaRoute
   '/historia': typeof HistoriaRoute
   '/home': typeof HomeRoute
+  '/xiguiane-individual': typeof XiguianeIndividualRoute
+  '/xiguiane-casal': typeof XiguianeCasalRoute
   '/imprimir': typeof ImprimirRoute
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
@@ -179,6 +195,8 @@ export interface FileRoutesById {
   '/galeria': typeof GaleriaRoute
   '/historia': typeof HistoriaRoute
   '/home': typeof HomeRoute
+  '/xiguiane-individual': typeof XiguianeIndividualRoute
+  '/xiguiane-casal': typeof XiguianeCasalRoute
   '/imprimir': typeof ImprimirRoute
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
@@ -202,6 +220,8 @@ export interface FileRouteTypes {
     | '/historia'
     | '/home'
     | '/xiguiane'
+    | '/xiguiane-individual'
+    | '/xiguiane-casal'
     | '/imprimir'
     | '/localizacao'
     | '/mcp'
@@ -222,6 +242,8 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/historia'
     | '/home'
+    | '/xiguiane-individual'
+    | '/xiguiane-casal'
     | '/imprimir'
     | '/localizacao'
     | '/mcp'
@@ -264,6 +286,8 @@ export interface RootRouteChildren {
   HistoriaRoute: typeof HistoriaRoute
   HomeRoute: typeof HomeRoute
   XiguianeRoute: typeof XiguianeRoute
+  XiguianeIndividualRoute: typeof XiguianeIndividualRoute
+  XiguianeCasalRoute: typeof XiguianeCasalRoute
   ImprimirRoute: typeof ImprimirRoute
   LocalizacaoRoute: typeof LocalizacaoRoute
   McpRoute: typeof McpRoute
@@ -339,6 +363,20 @@ declare module '@tanstack/react-router' {
       path: '/xiguiane'
       fullPath: '/xiguiane'
       preLoaderRoute: typeof XiguianeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xiguiane-individual': {
+      id: '/xiguiane-individual'
+      path: '/xiguiane-individual'
+      fullPath: '/xiguiane-individual'
+      preLoaderRoute: typeof XiguianeIndividualRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xiguiane-casal': {
+      id: '/xiguiane-casal'
+      path: '/xiguiane-casal'
+      fullPath: '/xiguiane-casal'
+      preLoaderRoute: typeof XiguianeCasalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/historia': {
@@ -424,6 +462,8 @@ const rootRouteChildren: RootRouteChildren = {
   HistoriaRoute: HistoriaRoute,
   HomeRoute: HomeRoute,
   XiguianeRoute: XiguianeRoute,
+  XiguianeIndividualRoute: XiguianeIndividualRoute,
+  XiguianeCasalRoute: XiguianeCasalRoute,
   ImprimirRoute: ImprimirRoute,
   LocalizacaoRoute: LocalizacaoRoute,
   McpRoute: McpRoute,
