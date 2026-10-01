@@ -29,9 +29,9 @@ export const Route = createFileRoute("/xiguiane")({
   component: XiguianeInvite,
 });
 
-function XiguianeInvite() {
-  const tipo = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "").get("tipo");
-  const isCouple = tipo === "casal";
+export function XiguianeInvite({ forcedType }: { forcedType?: "individual" | "casal" } = {}) {
+  const queryTipo = new URLSearchParams(typeof window !== "undefined" ? window.location.search : "").get("tipo");
+  const isCouple = forcedType ? forcedType === "casal" : queryTipo === "casal";
   const guestCount = isCouple ? 2 : 1;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
