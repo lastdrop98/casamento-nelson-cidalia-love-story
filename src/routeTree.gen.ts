@@ -17,6 +17,7 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LocalizacaoRouteImport } from './routes/localizacao'
 import { Route as ImprimirRouteImport } from './routes/imprimir'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as XiguianeRouteImport } from './routes/xiguiane'
 import { Route as HistoriaRouteImport } from './routes/historia'
 import { Route as GaleriaRouteImport } from './routes/galeria'
 import { Route as DresscodeRouteImport } from './routes/dresscode'
@@ -66,6 +67,11 @@ const ImprimirRoute = ImprimirRouteImport.update({
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiguianeRoute = XiguianeRouteImport.update({
+  id: '/xiguiane',
+  path: '/xiguiane',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HistoriaRoute = HistoriaRouteImport.update({
@@ -131,6 +137,7 @@ export interface FileRoutesByFullPath {
   '/galeria': typeof GaleriaRoute
   '/historia': typeof HistoriaRoute
   '/home': typeof HomeRoute
+  '/xiguiane': typeof XiguianeRoute
   '/imprimir': typeof ImprimirRoute
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
@@ -194,6 +201,7 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/historia'
     | '/home'
+    | '/xiguiane'
     | '/imprimir'
     | '/localizacao'
     | '/mcp'
@@ -255,6 +263,7 @@ export interface RootRouteChildren {
   GaleriaRoute: typeof GaleriaRoute
   HistoriaRoute: typeof HistoriaRoute
   HomeRoute: typeof HomeRoute
+  XiguianeRoute: typeof XiguianeRoute
   ImprimirRoute: typeof ImprimirRoute
   LocalizacaoRoute: typeof LocalizacaoRoute
   McpRoute: typeof McpRoute
@@ -323,6 +332,13 @@ declare module '@tanstack/react-router' {
       path: '/home'
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xiguiane': {
+      id: '/xiguiane'
+      path: '/xiguiane'
+      fullPath: '/xiguiane'
+      preLoaderRoute: typeof XiguianeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/historia': {
@@ -407,6 +423,7 @@ const rootRouteChildren: RootRouteChildren = {
   GaleriaRoute: GaleriaRoute,
   HistoriaRoute: HistoriaRoute,
   HomeRoute: HomeRoute,
+  XiguianeRoute: XiguianeRoute,
   ImprimirRoute: ImprimirRoute,
   LocalizacaoRoute: LocalizacaoRoute,
   McpRoute: McpRoute,
