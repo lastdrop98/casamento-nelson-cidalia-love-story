@@ -9,6 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as XiguianeIndividualRouteImport } from './routes/xiguiane-individual'
+import { Route as XiguianeCasalRouteImport } from './routes/xiguiane-casal'
+import { Route as XiguianeRouteImport } from './routes/xiguiane'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RsvpRouteImport } from './routes/rsvp'
 import { Route as ProgramaRouteImport } from './routes/programa'
@@ -17,9 +20,6 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LocalizacaoRouteImport } from './routes/localizacao'
 import { Route as ImprimirRouteImport } from './routes/imprimir'
 import { Route as HomeRouteImport } from './routes/home'
-import { Route as XiguianeRouteImport } from './routes/xiguiane'
-import { Route as XiguianeIndividualRouteImport } from './routes/xiguiane-individual'
-import { Route as XiguianeCasalRouteImport } from './routes/xiguiane-casal'
 import { Route as HistoriaRouteImport } from './routes/historia'
 import { Route as GaleriaRouteImport } from './routes/galeria'
 import { Route as DresscodeRouteImport } from './routes/dresscode'
@@ -31,6 +31,21 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
+const XiguianeIndividualRoute = XiguianeIndividualRouteImport.update({
+  id: '/xiguiane-individual',
+  path: '/xiguiane-individual',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiguianeCasalRoute = XiguianeCasalRouteImport.update({
+  id: '/xiguiane-casal',
+  path: '/xiguiane-casal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiguianeRoute = XiguianeRouteImport.update({
+  id: '/xiguiane',
+  path: '/xiguiane',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -69,21 +84,6 @@ const ImprimirRoute = ImprimirRouteImport.update({
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiguianeRoute = XiguianeRouteImport.update({
-  id: '/xiguiane',
-  path: '/xiguiane',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiguianeIndividualRoute = XiguianeIndividualRouteImport.update({
-  id: '/xiguiane-individual',
-  path: '/xiguiane-individual',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiguianeCasalRoute = XiguianeCasalRouteImport.update({
-  id: '/xiguiane-casal',
-  path: '/xiguiane-casal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HistoriaRoute = HistoriaRouteImport.update({
@@ -149,9 +149,6 @@ export interface FileRoutesByFullPath {
   '/galeria': typeof GaleriaRoute
   '/historia': typeof HistoriaRoute
   '/home': typeof HomeRoute
-  '/xiguiane': typeof XiguianeRoute
-  '/xiguiane-individual': typeof XiguianeIndividualRoute
-  '/xiguiane-casal': typeof XiguianeCasalRoute
   '/imprimir': typeof ImprimirRoute
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
@@ -159,6 +156,9 @@ export interface FileRoutesByFullPath {
   '/programa': typeof ProgramaRoute
   '/rsvp': typeof RsvpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/xiguiane': typeof XiguianeRoute
+  '/xiguiane-casal': typeof XiguianeCasalRoute
+  '/xiguiane-individual': typeof XiguianeIndividualRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -172,8 +172,6 @@ export interface FileRoutesByTo {
   '/galeria': typeof GaleriaRoute
   '/historia': typeof HistoriaRoute
   '/home': typeof HomeRoute
-  '/xiguiane-individual': typeof XiguianeIndividualRoute
-  '/xiguiane-casal': typeof XiguianeCasalRoute
   '/imprimir': typeof ImprimirRoute
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
@@ -181,6 +179,9 @@ export interface FileRoutesByTo {
   '/programa': typeof ProgramaRoute
   '/rsvp': typeof RsvpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/xiguiane': typeof XiguianeRoute
+  '/xiguiane-casal': typeof XiguianeCasalRoute
+  '/xiguiane-individual': typeof XiguianeIndividualRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -195,8 +196,6 @@ export interface FileRoutesById {
   '/galeria': typeof GaleriaRoute
   '/historia': typeof HistoriaRoute
   '/home': typeof HomeRoute
-  '/xiguiane-individual': typeof XiguianeIndividualRoute
-  '/xiguiane-casal': typeof XiguianeCasalRoute
   '/imprimir': typeof ImprimirRoute
   '/localizacao': typeof LocalizacaoRoute
   '/mcp': typeof McpRoute
@@ -204,6 +203,9 @@ export interface FileRoutesById {
   '/programa': typeof ProgramaRoute
   '/rsvp': typeof RsvpRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/xiguiane': typeof XiguianeRoute
+  '/xiguiane-casal': typeof XiguianeCasalRoute
+  '/xiguiane-individual': typeof XiguianeIndividualRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -219,9 +221,6 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/historia'
     | '/home'
-    | '/xiguiane'
-    | '/xiguiane-individual'
-    | '/xiguiane-casal'
     | '/imprimir'
     | '/localizacao'
     | '/mcp'
@@ -229,6 +228,9 @@ export interface FileRouteTypes {
     | '/programa'
     | '/rsvp'
     | '/sitemap.xml'
+    | '/xiguiane'
+    | '/xiguiane-casal'
+    | '/xiguiane-individual'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/.mcp/invoke-tool/$tool'
@@ -242,8 +244,6 @@ export interface FileRouteTypes {
     | '/galeria'
     | '/historia'
     | '/home'
-    | '/xiguiane-individual'
-    | '/xiguiane-casal'
     | '/imprimir'
     | '/localizacao'
     | '/mcp'
@@ -251,6 +251,9 @@ export interface FileRouteTypes {
     | '/programa'
     | '/rsvp'
     | '/sitemap.xml'
+    | '/xiguiane'
+    | '/xiguiane-casal'
+    | '/xiguiane-individual'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/.mcp/invoke-tool/$tool'
@@ -271,6 +274,9 @@ export interface FileRouteTypes {
     | '/programa'
     | '/rsvp'
     | '/sitemap.xml'
+    | '/xiguiane'
+    | '/xiguiane-casal'
+    | '/xiguiane-individual'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/.mcp/invoke-tool/$tool'
@@ -285,9 +291,6 @@ export interface RootRouteChildren {
   GaleriaRoute: typeof GaleriaRoute
   HistoriaRoute: typeof HistoriaRoute
   HomeRoute: typeof HomeRoute
-  XiguianeRoute: typeof XiguianeRoute
-  XiguianeIndividualRoute: typeof XiguianeIndividualRoute
-  XiguianeCasalRoute: typeof XiguianeCasalRoute
   ImprimirRoute: typeof ImprimirRoute
   LocalizacaoRoute: typeof LocalizacaoRoute
   McpRoute: typeof McpRoute
@@ -295,6 +298,9 @@ export interface RootRouteChildren {
   ProgramaRoute: typeof ProgramaRoute
   RsvpRoute: typeof RsvpRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  XiguianeRoute: typeof XiguianeRoute
+  XiguianeCasalRoute: typeof XiguianeCasalRoute
+  XiguianeIndividualRoute: typeof XiguianeIndividualRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -302,6 +308,27 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/xiguiane-individual': {
+      id: '/xiguiane-individual'
+      path: '/xiguiane-individual'
+      fullPath: '/xiguiane-individual'
+      preLoaderRoute: typeof XiguianeIndividualRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xiguiane-casal': {
+      id: '/xiguiane-casal'
+      path: '/xiguiane-casal'
+      fullPath: '/xiguiane-casal'
+      preLoaderRoute: typeof XiguianeCasalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xiguiane': {
+      id: '/xiguiane'
+      path: '/xiguiane'
+      fullPath: '/xiguiane'
+      preLoaderRoute: typeof XiguianeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -356,27 +383,6 @@ declare module '@tanstack/react-router' {
       path: '/home'
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xiguiane': {
-      id: '/xiguiane'
-      path: '/xiguiane'
-      fullPath: '/xiguiane'
-      preLoaderRoute: typeof XiguianeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xiguiane-individual': {
-      id: '/xiguiane-individual'
-      path: '/xiguiane-individual'
-      fullPath: '/xiguiane-individual'
-      preLoaderRoute: typeof XiguianeIndividualRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xiguiane-casal': {
-      id: '/xiguiane-casal'
-      path: '/xiguiane-casal'
-      fullPath: '/xiguiane-casal'
-      preLoaderRoute: typeof XiguianeCasalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/historia': {
@@ -461,9 +467,6 @@ const rootRouteChildren: RootRouteChildren = {
   GaleriaRoute: GaleriaRoute,
   HistoriaRoute: HistoriaRoute,
   HomeRoute: HomeRoute,
-  XiguianeRoute: XiguianeRoute,
-  XiguianeIndividualRoute: XiguianeIndividualRoute,
-  XiguianeCasalRoute: XiguianeCasalRoute,
   ImprimirRoute: ImprimirRoute,
   LocalizacaoRoute: LocalizacaoRoute,
   McpRoute: McpRoute,
@@ -471,6 +474,9 @@ const rootRouteChildren: RootRouteChildren = {
   ProgramaRoute: ProgramaRoute,
   RsvpRoute: RsvpRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  XiguianeRoute: XiguianeRoute,
+  XiguianeCasalRoute: XiguianeCasalRoute,
+  XiguianeIndividualRoute: XiguianeIndividualRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
