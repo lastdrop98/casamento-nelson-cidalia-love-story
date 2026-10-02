@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 
 const gold = "#C9A84C";
 
-export function InviteBadge() {
-  const [tipo, setTipo] = useState<string | null>(null);
+export function InviteBadge({ tipo: tipoConvite }: { tipo?: "individual" | "casal" }) {
+  const [tipoDaUrl, setTipoDaUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setTipo(params.get("tipo"));
+    setTipoDaUrl(params.get("tipo"));
   }, []);
 
+  const tipo = tipoConvite ?? tipoDaUrl;
   if (tipo !== "individual" && tipo !== "casal") return null;
 
   const label =
@@ -32,7 +33,7 @@ export function InviteBadge() {
         fontSize: 10,
         letterSpacing: 2,
         textTransform: "uppercase",
-        color: gold,
+        color: "#1B3526",
       }}
     >
       {label}

@@ -42,12 +42,25 @@ export function XiguianeInvite({ forcedType }: { forcedType?: "individual" | "ca
   const wQ = useQuery({ queryKey: ["wedding"], queryFn: fetchWedding });
 
   useEffect(() => {
-    const start = () => { void music.play(); };
-    const timer = window.setTimeout(start, 500);
-    window.addEventListener("pointerdown", start, { once: true });
+    const events = ["wheel", "touchstart", "touchmove", "scroll", "pointerdown", "keydown"] as const;
+    let attempting = false;
+    const cleanup = () => events.forEach((event) => window.removeEventListener(event, start));
+    const start = () => {
+      if (music.playing) {
+        cleanup();
+        return;
+      }
+      if (attempting || !music.hasSrc) return;
+      attempting = true;
+      // Keep the listeners when playback is blocked, so a later permitted gesture can retry.
+      void music.play().then(() => {
+        attempting = false;
+        if (music.playing) cleanup();
+      });
+    };
+    events.forEach((event) => window.addEventListener(event, start, { passive: true }));
     return () => {
-      window.clearTimeout(timer);
-      window.removeEventListener("pointerdown", start);
+      cleanup();
     };
   }, []);
 
@@ -85,7 +98,7 @@ export function XiguianeInvite({ forcedType }: { forcedType?: "individual" | "ca
               <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 24, color: gold, margin: "3px 0" }}>&amp;</p>
               <p style={{ fontFamily: "'Great Vibes', cursive", fontSize: 70, lineHeight: .95, color: "#F5EDD8" }}>Cidália</p>
               <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 11, letterSpacing: 4, color: "#E7D9A8", marginTop: 22, textTransform: "uppercase" }}>28 · 11 · 2026</p>
-              <div style={{ marginTop: 15, display: "flex", justifyContent: "center" }}><InviteBadge /></div>
+              <div style={{ marginTop: 15, display: "flex", justifyContent: "center" }}><InviteBadge tipo={isCouple ? "casal" : "individual"} /></div>
             </motion.div>
             <div style={{ color: "#F5EDD8", fontFamily: "'Cormorant Garamond', serif", fontSize: 10, letterSpacing: 3, textTransform: "uppercase" }}>
               Deslize para ver o convite

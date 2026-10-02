@@ -6,6 +6,10 @@ export const Route = createFileRoute("/xiguiane-individual")({
     meta: [
       { title: "Nelson & Cidália — Xiguiane | Convite Individual" },
       { name: "description", content: "Convite individual para o Copo de Água em Xiguiane, a 28 de Novembro de 2026, às 13H00." },
+      { property: "og:title", content: "Nelson & Cidália — Xiguiane | Convite Individual" },
+      { property: "og:description", content: "Convite válido para 1 pessoa. Xiguiane, 28 de Novembro de 2026, às 13H00." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => <XiguianeInvite forcedType="individual" />,
