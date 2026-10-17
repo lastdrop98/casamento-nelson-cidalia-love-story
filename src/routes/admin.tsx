@@ -445,7 +445,7 @@ function XiguianeDashboard({ weddingId }: { weddingId: string }) {
 
   return (
     <Section title="Dashboard Xiguiane">
-      <p className="text-xs uppercase tracking-widest text-muted-foreground">Domingo · {rows.length} {rows.length === 1 ? "resposta" : "respostas"}</p>
+      <p className="text-xs uppercase tracking-widest text-muted-foreground">Sábado · {rows.length} {rows.length === 1 ? "resposta" : "respostas"}</p>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {([["Confirmados", confirmados.length], ["Total de pessoas", totalPessoas], ["Pendentes", pendentes], ["Recusados", recusados]] as const).map(([l, v]) => (
           <div key={l} className="border border-[var(--gold)]/30 p-4 text-center">
